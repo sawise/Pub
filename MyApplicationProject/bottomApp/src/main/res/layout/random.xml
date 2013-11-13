@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:text="Random Cocktail"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:freezesText="true"
+        android:layout_weight="1"
+        android:textColor="#fff"/>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Random" />
+        android:gravity="center|bottom"
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/addBtn"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:text="No Thanks, I Want Another"
+            android:textColor="#fff" />
+
+    </LinearLayout>
+
+</LinearLayout>
