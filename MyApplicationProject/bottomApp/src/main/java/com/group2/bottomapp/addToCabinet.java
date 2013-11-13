@@ -25,9 +25,11 @@ public class addToCabinet extends Fragment implements View.OnClickListener {
         liquorList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                final String selected = (String) liquorListAdapter.getChild(
+                final String childString = (String) liquorListAdapter.getChild(
                         groupPosition, childPosition);
-                CabinetManager.AddIngredient(selected);
+                final String parentString = (String) liquorListAdapter.getGroup(groupPosition);
+
+                CabinetManager.AddIngredient(parentString + ", " + childString);
                 return true;
             }
         });
