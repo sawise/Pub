@@ -27,16 +27,29 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
         this.context = context;
 
         categories = new ArrayList<String>();
+        categories.add("Cognac/Brandy");
+        categories.add("Licor");
+        categories.add("Rum");
+        categories.add("Tequila");
         categories.add("Vodka");
+        categories.add("Whiskey");
         categories.add("Other");
 
 
         ingredients = new LinkedHashMap<String, ArrayList<String>>();
 
         ArrayList<String> children = new ArrayList<String>();
+
         children.add("Blueberry");
-        children.add("Raspberry");
+        children.add("Currant");
+        children.add("Lime");
+        children.add("Lemon");
+        children.add("Mango");
+        children.add("Neutral");
+        children.add("Peach");
         children.add("Pear");
+        children.add("Raspberry");
+        children.add("Vanilla");
 
         ingredients.put("Vodka", children);
 
@@ -46,6 +59,43 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
         children.add("Ice");
 
         ingredients.put("Other", children);
+
+        children = new ArrayList<String>();
+        children.add("Apple");
+        children.add("Captain Morgan");
+        children.add("Dark");
+        children.add("Lemon");
+        children.add("Malibu (Coconut)");
+        children.add("Melon");
+        children.add("Raspberry");
+        children.add("Silver");
+
+        ingredients.put("Rum", children);
+
+        children = new ArrayList<String>();
+        children.add("Cognac");
+        children.add("Pear Cognac");
+        children.add("Brandy");
+
+        ingredients.put("Cognac/Brandy", children);
+
+        children = new ArrayList<String>();
+        children.add("Gold");
+        children.add("Silver");
+
+        ingredients.put("Tequila", children);
+
+        children = new ArrayList<String>();
+        children.add("Whiskey");
+
+        ingredients.put("Whiskey", children);
+
+        children = new ArrayList<String>();
+        children.add("Midori");
+        children.add("Pisang Ambong");
+
+        ingredients.put("Licor", children);
+
     }
 
     public Object getChild(int groupPosition, int childPosition) {
