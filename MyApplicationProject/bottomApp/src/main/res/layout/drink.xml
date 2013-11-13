@@ -2,7 +2,8 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,7 +25,8 @@
             android:id="@+id/tvDrinkName"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/ivDrinkImage"
-            android:padding="25dp"/>
+            android:padding="25dp"
+            android:textColor="#fff"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -34,7 +36,8 @@
             android:id="@+id/tvDrinkIngredients"
             android:layout_below="@+id/tvDrinkName"
             android:layout_centerHorizontal="true"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:textColor="#fff"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -44,6 +47,7 @@
             android:id="@+id/tvDrinkInstructions"
             android:layout_below="@+id/tvDrinkIngredients"
             android:layout_centerHorizontal="true"
-            android:padding="10dp"/>
+            android:padding="10dp"
+            android:textColor="#fff"/>
     </RelativeLayout>
 </ScrollView>
