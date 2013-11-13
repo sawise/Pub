@@ -16,8 +16,8 @@ public class MainActivity extends FragmentActivity {
     public static final String POSITION = "POSITION";
     final String[] menuTitle = {"Drinks cabinet", "Drinks"};
     final String[] fragments = {
-            "com.group2.DrinksCabinet",
-            "com.group2.Drinks"
+            "com.group2.bottomapp.DrinksCabinet",
+            "com.group2.bottomapp.Drinks"
     };
     private int currentPos;
 
