@@ -15,6 +15,7 @@
         android:gravity="center_horizontal"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:textColor="#FFF"
 
         />
 
@@ -22,14 +23,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_launcher"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center" />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Creators:"
         android:layout_marginTop="100dp"
         android:layout_gravity="center_horizontal"
+        android:textColor="#FFF"
 
 
         />
@@ -41,6 +45,7 @@
         android:gravity="center_horizontal"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:textColor="#FFF"
 
         />
 
@@ -50,6 +55,7 @@
         android:layout_height="wrap_content"
         android:text="2013"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:textColor="#FFF"/>
 
 </LinearLayout>
