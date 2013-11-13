@@ -14,12 +14,14 @@ import android.widget.ListView;
 
 public class MainActivity extends FragmentActivity {
     public static final String POSITION = "POSITION";
-    final String[] menuTitle = {"Drinks cabinet", "Drinks", "Random", "About"};
+    final String[] menuTitle = {"Drinks cabinet", "Drinks", "Random", "About","Add","Drink"};
     final String[] fragments = {
             "com.group2.bottomapp.DrinksCabinet",
             "com.group2.bottomapp.Drinks",
             "com.group2.bottomapp.Random",
-            "com.group2.bottomapp.About"
+            "com.group2.bottomapp.About",
+            "com.group2.bottomapp.AddToCabinet",
+            "com.group2.bottomapp.Drink"
     };
     private int currentPos;
 
