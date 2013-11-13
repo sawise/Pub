@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -27,24 +28,24 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
 
         categories = new ArrayList<String>();
         categories.add("Vodka");
-        categories.add("Övrigt");
+        categories.add("Other");
 
 
         ingredients = new LinkedHashMap<String, ArrayList<String>>();
 
         ArrayList<String> children = new ArrayList<String>();
-        children.add("Blåbär");
-        children.add("Hallon");
-        children.add("Päron");
+        children.add("Blueberry");
+        children.add("Raspberry");
+        children.add("Pear");
 
         ingredients.put("Vodka", children);
 
         children = new ArrayList<String>();
         children.add("Lime");
-        children.add("Citron");
-        children.add("Is");
+        children.add("Lemon");
+        children.add("Ice");
 
-        ingredients.put("Övrigt", children);
+        ingredients.put("Other", children);
     }
 
     public Object getChild(int groupPosition, int childPosition) {
@@ -65,8 +66,16 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView item = (TextView) convertView.findViewById(R.id.textView);
-
         item.setText(ingredientName);
+
+        Button btnAdd = (Button) convertView.findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CabinetManager.AddIngredient(getGroup(groupPosition) + ", " + ingredientName);
+            }
+        });
+
         return convertView;
     }
 
