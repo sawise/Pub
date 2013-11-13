@@ -14,7 +14,7 @@ import android.widget.ListView;
 
 public class MainActivity extends FragmentActivity {
     public static final String POSITION = "POSITION";
-    final String[] menuTitle = {"Drinks cabinet", "Drinks", "Random", "About","Add(tillfällig)","Drink(tillfällig)"};
+    final String[] menuTitle = {"Drinks cabinet", "Drinks", "Random", "About","Add(temp)","Drink(temp)"};
     final String[] fragments = {
             "com.group2.bottomapp.DrinksCabinet",
             "com.group2.bottomapp.Drinks",
