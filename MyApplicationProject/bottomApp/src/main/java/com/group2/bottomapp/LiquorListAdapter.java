@@ -93,6 +93,8 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
         children = new ArrayList<String>();
         children.add("Midori");
         children.add("Pisang Ambong");
+        children.add("Sourz Apple");
+        children.add("Sourz Pineapple");
 
         ingredients.put("Licor", children);
 
