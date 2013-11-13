@@ -62,9 +62,6 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
+        CabinetManager.Initiate(getApplication());
     }
-
-
-
-
 }

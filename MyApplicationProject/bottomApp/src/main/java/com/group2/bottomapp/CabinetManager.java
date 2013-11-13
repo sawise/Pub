@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class CabinetManager {
 
-    private static ArrayList<String> ingredients;
+    private static ArrayList<String> ingredients = new ArrayList<String>();
 
     private static Application callBack;
 
