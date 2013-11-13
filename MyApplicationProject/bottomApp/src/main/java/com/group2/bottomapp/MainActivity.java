@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -64,4 +66,5 @@ public class MainActivity extends FragmentActivity {
 
         CabinetManager.Initiate(getApplication());
     }
+
 }
