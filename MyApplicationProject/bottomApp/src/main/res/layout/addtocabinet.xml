@@ -7,32 +7,23 @@
     android:background="@drawable/background">
 
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/addToCabinet"
         android:textSize="25dp"
         android:gravity="center"
         android:freezesText="true"
-        android:layout_weight="1"
         android:textColor="#fff"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
-        <ListView
+
+        <ExpandableListView
             android:id="@+id/liquorList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="#fff"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:gravity="center"
-        android:orientation="vertical">
-        <ListView
-            android:id="@+id/flavourList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="#fff"/>
@@ -46,7 +37,7 @@
 
         <Button
             android:id="@+id/addBtn"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_alignParentBottom="true"
             android:text="Add to Cabinet"
