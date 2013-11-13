@@ -1,8 +1,6 @@
 package com.group2.bottomapp;
 
-/**
- * Created by FilipFransson on 2013-11-12.
- */  import android.os.Bundle;
+ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
