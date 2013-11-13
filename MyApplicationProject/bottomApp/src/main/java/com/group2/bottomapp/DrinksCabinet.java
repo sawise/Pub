@@ -16,8 +16,6 @@ package com.group2.bottomapp;
 public class DrinksCabinet extends Fragment implements View.OnClickListener {
 
     private List<Integer> drinkList;
-    private Integer[] drinkArray;
-    private CustomListViewAdapter adapter;
     private GridView drinkGridView;
 
 
@@ -34,9 +32,8 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener {
                 drinkList.add(R.drawable.bottle_three);
             }
 
-            //adapter = new CustomListViewAdapter(this.getActivity(), R.layout.drink_list, drinkList);
             drinkGridView.setAdapter(new ImageAdapter(this.getActivity(), drinkList));
-            //drinkGridView.setAdapter(adapter);
+
 
             return rootView;
         }
