@@ -20,7 +20,7 @@ public class MainActivity extends FragmentActivity {
             "com.group2.bottomapp.Drinks",
             "com.group2.bottomapp.Random",
             "com.group2.bottomapp.About",
-            "com.group2.bottomapp.AddToCabinet",
+            "com.group2.bottomapp.addToCabinet",
             "com.group2.bottomapp.Drink"
     };
     private int currentPos;
