@@ -7,6 +7,17 @@ package com.group2.bottomapp;
 
 public class Cocktail {
     private int id;
+
+    private int imageId;
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
+    }
+
     private String name;
     private String description;
     private  int ratingUp;

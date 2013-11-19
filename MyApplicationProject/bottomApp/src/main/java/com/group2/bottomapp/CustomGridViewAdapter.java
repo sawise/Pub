@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 
-import android.content.ClipData.Item;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +13,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CustomGridViewAdapter extends ArrayAdapter<Item> {
+public class CustomGridViewAdapter extends ArrayAdapter<Cocktail> {
     Context context;
 
     int layoutResourceId;
 
-    ArrayList<Item> data = new ArrayList<Item>();
+    ArrayList<Cocktail> data = new ArrayList<Cocktail>();
 
 
-    public CustomGridViewAdapter(Context context, int layoutResourceId, ArrayList<Item> data) {
+    public CustomGridViewAdapter(Context context, int layoutResourceId, ArrayList<Cocktail> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -52,9 +51,9 @@ public class CustomGridViewAdapter extends ArrayAdapter<Item> {
     } else {
         holder = (RecordHolder) row.getTag();
     }
-        Item item = data.get(position);
-        //holder.txtTitle.setText(item.getTitle());
-        //holder.imageItem.setImageBitmap(item.getImage());
+        Cocktail item = data.get(position);
+        holder.txtTitle.setText(item.getName());
+        holder.imageItem.setImageBitmap(item.getImageId());
         return row;
 
     } static class RecordHolder {
