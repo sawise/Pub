@@ -3,6 +3,7 @@ package com.group2.bottomapp;
     import android.content.Intent;
     import android.os.Bundle;
     import android.support.v4.app.Fragment;
+    import android.support.v4.app.FragmentTransaction;
     import android.util.Log;
     import android.view.LayoutInflater;
     import android.view.Menu;
@@ -14,6 +15,7 @@ package com.group2.bottomapp;
     import android.widget.AdapterView;
     import android.widget.ArrayAdapter;
     import android.widget.GridView;
+    import android.widget.Toast;
 
     import java.util.ArrayList;
     import java.util.List;
@@ -57,13 +59,11 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(parent == drinkGridView){
-            Log.i("gridview", "item:"+position);
+            Toast.makeText(this.getActivity(), "Item "+position, Toast.LENGTH_LONG);
         }
     }
-    /*    @Override
+       @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-            // TODO Add your menu entries here
-            Log.i("menu", "yees");
             inflater.inflate(R.menu.drinkscabinetmenu, menu);
             super.onCreateOptionsMenu(menu, inflater);
         }
@@ -71,14 +71,15 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.addToCabinet:
-
-                Intent intent = new Intent(this.getActivity(), addToCabinet.class);
-                startActivity(intent);
+                Fragment newFragment = new addToCabinet();
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.main, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
                 return true;
             default:
                 break;
         }
-
         return false;
-    }*/
+    }
 }
