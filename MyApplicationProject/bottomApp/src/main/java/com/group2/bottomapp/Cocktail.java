@@ -12,6 +12,14 @@ public class Cocktail {
     private  int ratingUp;
     private int ratingDown;
 
+    public Cocktail(int id, String name, String description, int ratingUp, int ratingDown){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.ratingUp = ratingUp;
+        this.ratingDown = ratingDown;
+    }
+
 //Getters and setters
     public int getRatingUp() {
         return ratingUp;
