@@ -1,6 +1,9 @@
 package com.group2.bottomapp;
 
+    import android.content.ClipData;
     import android.content.Intent;
+    import android.graphics.Bitmap;
+    import android.graphics.BitmapFactory;
     import android.os.Bundle;
     import android.support.v4.app.Fragment;
     import android.support.v4.app.FragmentTransaction;
@@ -17,14 +20,19 @@ package com.group2.bottomapp;
     import android.widget.GridView;
     import android.widget.Toast;
 
+
     import java.util.ArrayList;
+    import java.util.HashMap;
     import java.util.List;
 
 
 public class DrinksCabinet extends Fragment implements View.OnClickListener, GridView.OnItemClickListener {
 
     private List<Integer> drinkList;
+    public ArrayList<HashMap<Integer, String>> drinkListt = new ArrayList<HashMap<Integer, String>>();
     private GridView drinkGridView;
+     ArrayList<ClipData.Item> gridArray = new ArrayList<ClipData.Item>();
+    CustomGridViewAdapter customGridAdapter;
 
 
         @Override
@@ -35,7 +43,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
             drinkGridView = (GridView) rootView.findViewById(R.id.drinkGridView);
             drinkList = new ArrayList<Integer>();
-            for(int i = 0; i<=6; i++){
+             for(int i = 0; i<=6; i++){
                 drinkList.add(R.drawable.bottle_one);
                 drinkList.add(R.drawable.bottle_two);
                 drinkList.add(R.drawable.bottle_three);
