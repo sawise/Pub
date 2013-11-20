@@ -28,7 +28,8 @@ public class RandomDrink extends Fragment implements View.OnClickListener {
         Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
         ivDrinkImage.setImageDrawable(image);
 
-        tvDrinkName.setText(cocktail.getName());
+        String name = cocktail.getName();
+        tvDrinkName.setText(name);
 
         return rootView;
     }
