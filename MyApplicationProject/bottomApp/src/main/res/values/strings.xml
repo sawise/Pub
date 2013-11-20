@@ -17,6 +17,9 @@
     <string name="title_Drink">Drink</string>
     <string name="title_Random">Random</string>
     <string name="title_CabinetManager">CabinetManager</string>
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">Closed Drawer</string>
+
 
 
 </resources>

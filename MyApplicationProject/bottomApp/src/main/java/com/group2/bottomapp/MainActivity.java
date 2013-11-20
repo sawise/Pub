@@ -1,16 +1,20 @@
 package com.group2.bottomapp;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends FragmentActivity {
+    private ActionBarDrawerToggle menuToggle;
     public static final String POSITION = "POSITION";
     final String[] menuTitle = {"Drinks cabinet", "Drinks", "Random", "About","Add(temp)","Drink(temp)"};
     final String[] fragments = {
@@ -33,6 +37,12 @@ public class MainActivity extends FragmentActivity {
 
         final DrawerLayout drawer = (DrawerLayout) findViewById((R.id.drawerLayout));
         final ListView navList = (ListView) findViewById(R.id.drawer);
+        menuToggle = new ActionBarDrawerToggle(this, drawer,
+                R.drawable.menu, R.string.drawer_open, R.string.drawer_close);
+        drawer.setDrawerListener(menuToggle);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[0]));
@@ -61,6 +71,28 @@ public class MainActivity extends FragmentActivity {
         });
 
         CabinetManager.Initiate(getApplication());
+    }
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        menuToggle.syncState();
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        menuToggle.onConfigurationChanged(newConfig);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (menuToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
