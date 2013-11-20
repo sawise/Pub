@@ -36,6 +36,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
     private CustomGridViewAdapter customGridAdapter;
     private CabinetManager cabinetManager;
     private Application app;
+    private String[] testStr = {"Vodka",  "Beer", "Mulled wine"};
     private Integer[] testInt = {R.drawable.bottle_one, R.drawable.bottle_two, R.drawable.bottle_three};
 
 
@@ -54,9 +55,11 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
             for(int i = 0; i<=20; i++){
                 Cocktail listItem = new Cocktail();
-                listItem.setName("Vodka");
+
                 int rand = (int) (Math.random()*3);
+                listItem.setName(testStr[rand]);
                 listItem.setImageId(testInt[rand]);
+                Log.i("gridlistitems", testInt[rand]+"-"+testStr[rand]);
                 gridArray.add(listItem);
             }
 
@@ -72,16 +75,17 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //if(parent == drinkGridView){
-            Log.i("Gridlist", "Item: "+position);
-            //Toast.makeText(getActivity(), "Item "+position, Toast.LENGTH_LONG);
-        //}
+        if(parent == drinkGridView){
+            //Log.i("Gridlist", "Item: "+position);
+            Toast.makeText(getActivity(), "Item: "+position, Toast.LENGTH_LONG).show();
+        }
     }
        @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             inflater.inflate(R.menu.drinkscabinetmenu, menu);
             super.onCreateOptionsMenu(menu, inflater);
         }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

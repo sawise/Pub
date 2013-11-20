@@ -25,16 +25,13 @@ public class CustomGridViewAdapter extends ArrayAdapter<Cocktail> {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
-
         this.data = data;
-
-
     }
-    @Override
-      public View getView(int position, View convertView, ViewGroup parent) {
-        View row = convertView;
 
-        RecordHolder holder = null;
+    @Override
+  public View getView(int position, View convertView, ViewGroup parent) {
+    View row = convertView;
+    RecordHolder holder = null;
 
 
     if (row == null) {
@@ -54,10 +51,11 @@ public class CustomGridViewAdapter extends ArrayAdapter<Cocktail> {
         holder.imageItem.setImageResource(item.getImageId());
         return row;
 
-    }
-    static class RecordHolder {
-        TextView txtTitle;
-        ImageView imageItem;
-    }
+  }
+
+  static class RecordHolder {
+    TextView txtTitle;
+    ImageView imageItem;
+  }
 
 }
