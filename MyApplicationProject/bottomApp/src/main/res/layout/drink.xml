@@ -9,71 +9,73 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:id="@+id/ivDrinkImage"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:padding="25dp"/>
-
-        <TextView
+        <RelativeLayout
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/ivDrinkImage"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:padding="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Drink name"
+                android:id="@+id/tvDrinkName"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/ivDrinkImage"
+                android:padding="25dp"
+                android:textColor="#fff"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Ingredients"
+                android:id="@+id/tvDrinkIngredients"
+                android:layout_below="@+id/tvDrinkName"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:textColor="#fff"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Instructions"
+                android:id="@+id/tvDrinkInstructions"
+                android:layout_below="@+id/tvDrinkIngredients"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:textColor="#fff"/>
+        </RelativeLayout>
+
+        <LinearLayout
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Drink name"
-            android:id="@+id/tvDrinkName"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/ivDrinkImage"
-            android:padding="25dp"
-            android:textColor="#fff"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Ingredients"
-            android:id="@+id/tvDrinkIngredients"
-            android:layout_below="@+id/tvDrinkName"
-            android:layout_centerHorizontal="true"
-            android:padding="10dp"
-            android:textColor="#fff"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Instructions"
-            android:id="@+id/tvDrinkInstructions"
-            android:layout_below="@+id/tvDrinkIngredients"
-            android:layout_centerHorizontal="true"
-            android:padding="10dp"
-            android:textColor="#fff"/>
-
-
-    <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
-
-
-        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/like"
-            />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingLeft="10dp"
-            android:src="@drawable/dislike"/>
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal">
 
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/like"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:src="@drawable/dislike"/>
+
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
