@@ -54,13 +54,8 @@
                 android:textColor="#fff"/>
         </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/like_dislike"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
         <LinearLayout
+            android:id="@+id/like_dislike"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
