@@ -76,8 +76,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if(parent == drinkGridView){
-            //Log.i("Gridlist", "Item: "+position);
-            Toast.makeText(getActivity(), "Item: "+position, Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), gridArray.get(position).getName(), Toast.LENGTH_LONG).show();
         }
     }
        @Override
