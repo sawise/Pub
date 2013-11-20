@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Hugo on 2013-11-19.
@@ -57,5 +58,14 @@ public class APIManager {
         }
 
         return null;
+    }
+
+    public static Cocktail getRandomDrink(){
+        List<Cocktail> list = getAllAvailableCocktails();
+        Random rnd = new Random();
+
+        int rndNo = rnd.nextInt(list.size());
+
+        return list.get(rndNo);
     }
 }

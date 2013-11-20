@@ -1,15 +1,18 @@
 package com.group2.bottomapp;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
-public class Random extends Fragment implements View.OnClickListener {
+public class RandomDrink extends Fragment implements View.OnClickListener {
     private ImageView ivDrinkImage;
+    private TextView tvDrinkName;
 
 
     @Override
@@ -17,9 +20,15 @@ public class Random extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.random, container, false);
 
+        Cocktail cocktail = APIManager.getRandomDrink();
 
         ivDrinkImage = (ImageView) rootView.findViewById(R.id.ivDrinkImage);
+        tvDrinkName = (TextView) rootView.findViewById(R.id.tvDrinkName);
 
+        Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
+        ivDrinkImage.setImageDrawable(image);
+
+        tvDrinkName.setText(cocktail.getName());
 
         return rootView;
     }
