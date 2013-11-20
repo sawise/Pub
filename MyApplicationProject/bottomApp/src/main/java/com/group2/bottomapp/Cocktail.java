@@ -30,6 +30,9 @@ public class Cocktail {
         this.ratingUp = ratingUp;
         this.ratingDown = ratingDown;
     }
+    public Cocktail(){
+
+    }
 
 //Getters and setters
     public int getRatingUp() {

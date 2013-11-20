@@ -13,15 +13,16 @@
         android:textSize="14pt"
         android:id="@+id/textView" />
 
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+    <GridView
         android:id="@+id/drinkGridView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:columnWidth="80dp"
+        android:gravity="center"
         android:numColumns="auto_fit"
-        android:fastScrollEnabled="true"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
         android:stretchMode="columnWidth"
+        android:clickable="true"
         />
 
 </LinearLayout>
