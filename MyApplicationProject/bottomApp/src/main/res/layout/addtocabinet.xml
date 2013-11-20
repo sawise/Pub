@@ -35,13 +35,13 @@
         android:gravity="center|bottom"
         android:orientation="vertical">
 
-        <Button
+        <!--<Button
             android:id="@+id/addBtn"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_alignParentBottom="true"
             android:text="Add to Cabinet"
-            android:textColor="#fff" />
+            android:textColor="#fff" />-->
 
     </LinearLayout>
 </LinearLayout>

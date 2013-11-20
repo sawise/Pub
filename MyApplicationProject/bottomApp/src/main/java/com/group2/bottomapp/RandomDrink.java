@@ -6,30 +6,39 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 
 public class RandomDrink extends Fragment implements View.OnClickListener {
-    private ImageView ivDrinkImage;
-    private TextView tvDrinkName;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.random, container, false);
 
-        Cocktail cocktail = APIManager.getRandomDrink();
+        final Cocktail cocktail = APIManager.getRandomDrink();
 
-        ivDrinkImage = (ImageView) rootView.findViewById(R.id.ivDrinkImage);
-        tvDrinkName = (TextView) rootView.findViewById(R.id.tvDrinkName);
+        final ImageView ivDrinkImage = (ImageView) rootView.findViewById(R.id.ivDrinkImage);
+        final TextView tvDrinkName = (TextView) rootView.findViewById(R.id.tvDrinkName);
+        final Button btnNewRandom = (Button) rootView.findViewById(R.id.btnNewRandom);
 
         Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
         ivDrinkImage.setImageDrawable(image);
 
-        String name = cocktail.getName();
-        tvDrinkName.setText(name);
+        tvDrinkName.setText(cocktail.getName());
+
+        btnNewRandom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cocktail newCocktail = APIManager.getRandomDrink();
+                while(newCocktail.equals(cocktail)){
+                    newCocktail = APIManager.getRandomDrink();
+                }
+                tvDrinkName.setText(newCocktail.getName());
+            }
+        });
 
         return rootView;
     }
