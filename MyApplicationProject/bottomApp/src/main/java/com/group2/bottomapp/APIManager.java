@@ -1,25 +1,24 @@
 package com.group2.bottomapp;
 
+import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Hugo on 2013-11-19.
  */
-public class JsonParser {
-    //private static String json = "{\"id\": 1,\"name\": \"redbull-vodka\",\"description\": \"Good\",\"ingredients\": [{\"id\": 1,\"name\": \"Vodka\",\"measurement\": \"6 cl\"},{\"id\": 1,\"name\": \"RedBull\",\"measurement\": \"1\"},{\"id\": 1,\"name\": \"Ice\",\"measurement\": \"3 pieces\"}],\"ratingUp\": 1,\"ratingDown\": 0,\"ingredientsSize\": 3}";
-    private static String json = "\"{cocktails\": [{\"id\": 1,\"name\": \"redbull-vodka\",\"description\": \"Good\",\"ingredients\": [{\"id\": 1,\"name\": \"Vodka\",\"measurement\": \"6 cl\"},{\"id\": 1,\"name\": \"RedBull\",\"measurement\": \"1\"},{\"id\": 1,\"name\": \"Ice\",\"measurement\": \"3 pieces\"}],\"ratingUp\": 1,\"ratingDown\": 0,\"ingredientsSize\": 3},{\"id\": 2,\"name\": \"Screwdriver\",\"description\": \"Served in a highball glass.\nMix 50ml Vodka (1 part) with 100ml Orange Juice (2 parts)\n\nThe most common variation of the Screwdriver is one part vodka, one part orange juice and one part orange soda\",\"ingredients\": [{\"id\": 1,\"name\": \"Orange Juice\",\"measurement\": \"100 ml\"},{\"id\": 1,\"name\": \"Vodka\",\"measurement\": \"50 ml\"}],\"ratingUp\": 1,\"ratingDown\": 0,\"ingredientsSize\": 2}]}";
+public class APIManager {
 
-    public static List<Cocktail> getCocktails(){
+    public static List<Cocktail> getAllAvailableCocktails(){
+        String json = "{\"cocktails\": [{\"id\": 1,\"name\": \"redbull-vodka\",\"description\": \"Good\",\"ingredients\": [{\"id\": 1,\"name\": \"Vodka\",\"measurement\": \"6 cl\"},{\"id\": 1,\"name\": \"RedBull\",\"measurement\": \"1\"},{\"id\": 1,\"name\": \"Ice\",\"measurement\": \"3 pieces\"}],\"ratingUp\": 1,\"ratingDown\": 0,\"ingredientsSize\": 3},{\"id\": 2,\"name\": \"Screwdriver\",\"description\": \"Served in a highball glass.\\nMix 50ml Vodka (1 part) with 100ml Orange Juice (2 parts)\\n\\nThe most common variation of the Screwdriver is one part vodka, one part orange juice and one part orange soda\",\"ingredients\": [{\"id\": 1,\"name\": \"Orange Juice\",\"measurement\": \"100 ml\"},{\"id\": 1,\"name\": \"Vodka\",\"measurement\": \"50 ml\"}],\"ratingUp\": 1,\"ratingDown\": 0,\"ingredientsSize\": 2}]}";
 
         //Parsar ett objekt
-        //TODO: När JSON-filen innehåller en lista av cocktails måste denna parsern ändras
         try {
 
             JSONObject obj = new JSONObject(json);
+
             JSONArray cocktailArr = obj.getJSONArray("cocktails");
 
             ArrayList<Cocktail> listToReturn = new ArrayList<Cocktail>();

@@ -3,6 +3,7 @@ package com.group2.bottomapp;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,23 +48,8 @@ public class Drink extends Fragment implements View.OnClickListener {
 
 
     public void initDrink(){
-        Cocktail cocktail = JsonParser.getCocktails().get(0);
-        //TODO: Kraschar här... vene varför
-       /*ArrayList<String> ingredientsFromAPI = new ArrayList<String>();
-        ingredientsFromAPI.add("Orange Juice");
-        ingredientsFromAPI.add("Vodka");
 
-        drinkIngredients = "";
-
-        for(String s : ingredientsFromAPI){
-            drinkIngredients += s + "\n";
-        }
-
-        drinkName = "Screwdriver";
-        drinkInstructions = "Served in a highball glass.\n";
-        drinkInstructions += "Mix 50ml Vodka (1 part) with 100ml Orange Juice (2 parts)\n\n";
-        drinkInstructions += "The most common variation of the Screwdriver is one part vodka, one part orange juice and one part orange soda";
-        */
+        Cocktail cocktail = APIManager.getAllAvailableCocktails().get(1);
 
         Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
         ivDrinkImage.setImageDrawable(image);
