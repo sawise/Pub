@@ -1,6 +1,8 @@
 package com.group2.bottomapp;
 
 
+import java.util.List;
+
 /**
  * Created by FilipFransson on 2013-11-19.
  */
@@ -22,6 +24,7 @@ public class Cocktail {
     private String description;
     private  int ratingUp;
     private int ratingDown;
+    private List<Ingredient> ingredients;
 
     public Cocktail(int id, String name, String description, int ratingUp, int ratingDown){
         this.id = id;
@@ -72,5 +75,21 @@ public class Cocktail {
         this.ratingDown = ratingDown;
     }
 
+    public List<Ingredient> getIngredients(){
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients){
+        this.ingredients = ingredients;
+    }
+
+    public String getIngredientString() {
+        String result = "";
+        for(Ingredient i : getIngredients()){
+            result += i.getName() + ", " + i.getMeasurement() + "\n";
+        }
+
+        return result;
+    }
 }
 

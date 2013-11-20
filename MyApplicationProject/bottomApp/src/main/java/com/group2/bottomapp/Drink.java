@@ -47,7 +47,9 @@ public class Drink extends Fragment implements View.OnClickListener {
 
 
     public void initDrink(){
-        ArrayList<String> ingredientsFromAPI = new ArrayList<String>();
+        Cocktail cocktail = JsonParser.getCocktails().get(0);
+        //TODO: Kraschar här... vene varför
+       /*ArrayList<String> ingredientsFromAPI = new ArrayList<String>();
         ingredientsFromAPI.add("Orange Juice");
         ingredientsFromAPI.add("Vodka");
 
@@ -61,12 +63,13 @@ public class Drink extends Fragment implements View.OnClickListener {
         drinkInstructions = "Served in a highball glass.\n";
         drinkInstructions += "Mix 50ml Vodka (1 part) with 100ml Orange Juice (2 parts)\n\n";
         drinkInstructions += "The most common variation of the Screwdriver is one part vodka, one part orange juice and one part orange soda";
+        */
 
-        Drawable loadingSpinner = getResources().getDrawable(R.drawable.ic_launcher);
-        ivDrinkImage.setImageDrawable(loadingSpinner);
+        Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
+        ivDrinkImage.setImageDrawable(image);
 
-        tvDrinkName.setText(drinkName);
-        tvDrinkInstructions.setText(drinkInstructions);
-        tvDrinkIngredients.setText(drinkIngredients);
+        tvDrinkName.setText(cocktail.getName());
+        tvDrinkInstructions.setText(cocktail.getDescription());
+        tvDrinkIngredients.setText(cocktail.getIngredientString());
     }
 }
