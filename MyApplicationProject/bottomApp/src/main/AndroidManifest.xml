@@ -15,69 +15,15 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.group2.bottomapp.MainActivity"
-            android:label="@string/appname" >
+            android:label="@string/appname"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
 
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.group2.bottomapp.DrinksCabinet"
-            android:label="@string/title_DrinksCabinet"
-            android:parentActivityName="com.group2.bottomapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.group2.bottomapp.main" />
-        </activity>
-        <activity
-            android:name="com.group2.bottomapp.Drinks"
-            android:label="@string/title_Drinks"
-            android:parentActivityName="com.group2.bottomapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.group2.bottomapp.main" />
-        </activity>
-        <activity
-            android:name="com.group2.bottomapp.Drink"
-            android:label="@string/title_Drink"
-            android:parentActivityName="com.group2.bottomapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.group2.bottomapp.main" />
-        </activity>
-        <activity
-            android:name="com.group2.bottomapp.About"
-            android:label="@string/title_About"
-            android:parentActivityName="com.group2.bottomapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.group2.bottomapp.main" />
-        </activity>
-        <activity
-            android:name="com.group2.bottomapp.addToCabinet"
-            android:label="@string/title_addToCabinet"
-            android:parentActivityName="com.group2.bottomapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.group2.bottomapp.main" />
-        </activity>
-        <activity
-            android:name="com.group2.bottomapp.Random"
-            android:label="@string/title_Random"
-            android:parentActivityName="com.group2.bottomapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.group2.bottomapp.main" />
-        </activity>
-        <activity
-            android:name="com.group2.bottomapp.CabinetManager"
-            android:label="@string/title_CabinetManager"
-            android:parentActivityName="com.group2.bottomapp.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.group2.bottomapp.main" />
         </activity>
     </application>
 
