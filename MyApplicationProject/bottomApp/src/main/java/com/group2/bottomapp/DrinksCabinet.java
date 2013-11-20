@@ -1,5 +1,6 @@
 package com.group2.bottomapp;
 
+    import android.app.Application;
     import android.content.ClipData;
     import android.content.Intent;
     import android.graphics.Bitmap;
@@ -28,11 +29,14 @@ package com.group2.bottomapp;
 
 public class DrinksCabinet extends Fragment implements View.OnClickListener, GridView.OnItemClickListener {
 
-    private List<Integer> drinkList;
-    public ArrayList<HashMap<Integer, String>> drinkListt = new ArrayList<HashMap<Integer, String>>();
+
+    //public ArrayList<HashMap<Integer, String>> drinkListt = new ArrayList<HashMap<Integer, String>>();
     private GridView drinkGridView;
-     ArrayList<ClipData.Item> gridArray = new ArrayList<ClipData.Item>();
-    CustomGridViewAdapter customGridAdapter;
+    private  ArrayList<Cocktail> gridArray = new ArrayList<Cocktail>();
+    private CustomGridViewAdapter customGridAdapter;
+    private CabinetManager cabinetManager;
+    private Application app;
+    private Integer[] testInt = {R.drawable.bottle_one, R.drawable.bottle_two, R.drawable.bottle_three};
 
 
         @Override
@@ -42,17 +46,19 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             setHasOptionsMenu(true);
 
             drinkGridView = (GridView) rootView.findViewById(R.id.drinkGridView);
-            drinkList = new ArrayList<Integer>();
-             for(int i = 0; i<=6; i++){
-                drinkList.add(R.drawable.bottle_one);
-                drinkList.add(R.drawable.bottle_two);
-                drinkList.add(R.drawable.bottle_three);
-            }
 
-            drinkGridView.setAdapter(new ImageAdapter(this.getActivity(), drinkList));
-
+            customGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
+            drinkGridView.setAdapter(customGridAdapter);
             drinkGridView.setOnItemClickListener(this);
 
+
+            for(int i = 0; i<=20; i++){
+                Cocktail listItem = new Cocktail();
+                listItem.setName("Vodka");
+                int rand = (int) (Math.random()*3);
+                listItem.setImageId(testInt[rand]);
+                gridArray.add(listItem);
+            }
 
             return rootView;
         }
@@ -66,9 +72,10 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(parent == drinkGridView){
-            Toast.makeText(this.getActivity(), "Item "+position, Toast.LENGTH_LONG);
-        }
+        //if(parent == drinkGridView){
+            Log.i("Gridlist", "Item: "+position);
+            //Toast.makeText(getActivity(), "Item "+position, Toast.LENGTH_LONG);
+        //}
     }
        @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

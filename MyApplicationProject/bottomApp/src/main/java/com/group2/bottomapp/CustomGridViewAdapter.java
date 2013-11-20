@@ -29,7 +29,9 @@ public class CustomGridViewAdapter extends ArrayAdapter<Cocktail> {
         this.data = data;
 
 
-    } @Override public View getView(int position, View convertView, ViewGroup parent) {
+    }
+    @Override
+      public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
 
         RecordHolder holder = null;
@@ -39,13 +41,9 @@ public class CustomGridViewAdapter extends ArrayAdapter<Cocktail> {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
 
         row = inflater.inflate(layoutResourceId, parent, false);
-
         holder = new RecordHolder();
-
         holder.txtTitle = (TextView) row.findViewById(R.id.item_text);
-
         holder.imageItem = (ImageView) row.findViewById(R.id.item_image);
-
         row.setTag(holder);
 
     } else {
@@ -53,13 +51,13 @@ public class CustomGridViewAdapter extends ArrayAdapter<Cocktail> {
     }
         Cocktail item = data.get(position);
         holder.txtTitle.setText(item.getName());
-       // holder.imageItem.setImageBitmap(item.getImageId());
+        holder.imageItem.setImageResource(item.getImageId());
         return row;
 
-    } static class RecordHolder {
+    }
+    static class RecordHolder {
         TextView txtTitle;
         ImageView imageItem;
-
     }
 
 }

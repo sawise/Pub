@@ -3,6 +3,7 @@ package com.group2.bottomapp;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,26 +48,14 @@ public class Drink extends Fragment implements View.OnClickListener {
 
 
     public void initDrink(){
-        ArrayList<String> ingredientsFromAPI = new ArrayList<String>();
-        ingredientsFromAPI.add("Orange Juice");
-        ingredientsFromAPI.add("Vodka");
 
-        drinkIngredients = "";
+        Cocktail cocktail = APIManager.getAllAvailableCocktails().get(1);
 
-        for(String s : ingredientsFromAPI){
-            drinkIngredients += s + "\n";
-        }
+        Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
+        ivDrinkImage.setImageDrawable(image);
 
-        drinkName = "Screwdriver";
-        drinkInstructions = "Served in a highball glass.\n";
-        drinkInstructions += "Mix 50ml Vodka (1 part) with 100ml Orange Juice (2 parts)\n\n";
-        drinkInstructions += "The most common variation of the Screwdriver is one part vodka, one part orange juice and one part orange soda";
-
-        Drawable loadingSpinner = getResources().getDrawable(R.drawable.ic_launcher);
-        ivDrinkImage.setImageDrawable(loadingSpinner);
-
-        tvDrinkName.setText(drinkName);
-        tvDrinkInstructions.setText(drinkInstructions);
-        tvDrinkIngredients.setText(drinkIngredients);
+        tvDrinkName.setText(cocktail.getName());
+        tvDrinkInstructions.setText(cocktail.getDescription());
+        tvDrinkIngredients.setText(cocktail.getIngredientString());
     }
 }
