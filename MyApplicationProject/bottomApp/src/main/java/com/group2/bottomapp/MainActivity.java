@@ -1,14 +1,10 @@
 package com.group2.bottomapp;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.app.Activity;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,7 +16,7 @@ public class MainActivity extends FragmentActivity {
     final String[] fragments = {
             "com.group2.bottomapp.DrinksCabinet",
             "com.group2.bottomapp.Drinks",
-            "com.group2.bottomapp.Random",
+            "com.group2.bottomapp.RandomDrink",
             "com.group2.bottomapp.About",
             "com.group2.bottomapp.addToCabinet",
             "com.group2.bottomapp.Drink"
