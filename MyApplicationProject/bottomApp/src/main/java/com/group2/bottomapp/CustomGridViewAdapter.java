@@ -53,7 +53,7 @@ public class CustomGridViewAdapter extends ArrayAdapter<Cocktail> {
     }
         Cocktail item = data.get(position);
         holder.txtTitle.setText(item.getName());
-        holder.imageItem.setImageBitmap(item.getImageId());
+       // holder.imageItem.setImageBitmap(item.getImageId());
         return row;
 
     } static class RecordHolder {

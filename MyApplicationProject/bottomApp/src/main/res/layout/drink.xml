@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="200dp"
@@ -49,5 +50,30 @@
             android:layout_centerHorizontal="true"
             android:padding="10dp"
             android:textColor="#fff"/>
-    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/like"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:src="@drawable/dislike"/>
+
+
+    </LinearLayout>
+    </LinearLayout>
 </ScrollView>
