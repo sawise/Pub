@@ -16,7 +16,7 @@ import android.widget.ListView;
 public class MainActivity extends FragmentActivity {
     private ActionBarDrawerToggle menuToggle;
     public static final String POSITION = "POSITION";
-    final String[] menuTitle = {"Drinks cabinet", "Drinks", "Random", "About","Add(temp)","Drink(temp)"};
+    final String[] menuTitle = {"Liquor Cabinet", "Drinks", "Random", "About","Add(temp)","Drink(temp)"};
     final String[] fragments = {
             "com.group2.bottomapp.DrinksCabinet",
             "com.group2.bottomapp.Drinks",

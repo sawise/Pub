@@ -28,7 +28,7 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
 
         categories = new ArrayList<String>();
         categories.add("Cognac/Brandy");
-        categories.add("Licor");
+        categories.add("Liqueur");
         categories.add("Rum");
         categories.add("Tequila");
         categories.add("Vodka");
@@ -57,6 +57,11 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
         children.add("Lime");
         children.add("Lemon");
         children.add("Ice");
+        children.add("Orange Soda");
+        children.add("Cola");
+        children.add("Soda Water");
+        children.add("Lemon/Lime Soda");
+        children.add("Julmust(X-mas Soda)");
 
         ingredients.put("Other", children);
 
@@ -95,8 +100,9 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
         children.add("Pisang Ambong");
         children.add("Sourz Apple");
         children.add("Sourz Pineapple");
+        children.add("Licor 43");
 
-        ingredients.put("Licor", children);
+        ingredients.put("Liqueur", children);
 
     }
 
