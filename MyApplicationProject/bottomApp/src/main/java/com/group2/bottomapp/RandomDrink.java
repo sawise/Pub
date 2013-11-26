@@ -3,6 +3,7 @@ package com.group2.bottomapp;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 
 public class RandomDrink extends Fragment implements View.OnClickListener {
+    private int cocktailId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,14 +31,27 @@ public class RandomDrink extends Fragment implements View.OnClickListener {
 
         tvDrinkName.setText(cocktail.getName());
 
+        cocktailId = cocktail.getId();
+
+        ivDrinkImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.main, new Drink(), cocktailId + "");
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
         btnNewRandom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Cocktail newCocktail = APIManager.getRandomDrink();
-                while(newCocktail.equals(cocktail)){
+                while (newCocktail.equals(cocktail)) {
                     newCocktail = APIManager.getRandomDrink();
                 }
                 tvDrinkName.setText(newCocktail.getName());
+                cocktailId = newCocktail.getId();
             }
         });
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -131,6 +132,7 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 CabinetManager.AddIngredient(getGroup(groupPosition) + ", " + ingredientName);
+                Toast.makeText(context, "Added " + getGroup(groupPosition) + ", " + ingredientName + " to cabinet", 1000).show();
             }
         });
 
