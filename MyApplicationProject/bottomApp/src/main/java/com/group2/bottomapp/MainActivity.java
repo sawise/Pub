@@ -1,5 +1,6 @@
 package com.group2.bottomapp;
 
+import android.support.v4.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -64,6 +65,13 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public void onDrawerClosed(View drawerView) {
                         super.onDrawerClosed(drawerView);
+
+                        //Clears backstack
+                        FragmentManager fm = getSupportFragmentManager();
+                        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                            fm.popBackStack();
+                        }
+
                         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
                         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[pos]));
                         menuToggle.syncState();
