@@ -70,7 +70,9 @@ public class MainActivity extends FragmentActivity {
                         tx.commit();
                     }
                 });
+                menuToggle.syncState();
                 drawer.closeDrawer(navList);
+
             }
         });
 
