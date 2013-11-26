@@ -28,6 +28,10 @@ public class Drink extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.drink, container, false);
 
+        int id = 1;
+        if(getTag() != null){
+            id = Integer.parseInt(getTag());
+        }
 
         ivDrinkImage = (ImageView) rootView.findViewById(R.id.ivDrinkImage);
 
@@ -35,7 +39,7 @@ public class Drink extends Fragment implements View.OnClickListener {
         tvDrinkIngredients = (TextView) rootView.findViewById(R.id.tvDrinkIngredients);
         tvDrinkInstructions = (TextView) rootView.findViewById(R.id.tvDrinkInstructions);
 
-        initDrink();
+        initDrink(id);
 
         return rootView;
     }
@@ -47,9 +51,9 @@ public class Drink extends Fragment implements View.OnClickListener {
     }
 
 
-    public void initDrink(){
+    public void initDrink(int id){
 
-        Cocktail cocktail = APIManager.getAllAvailableCocktails().get(1);
+        Cocktail cocktail = APIManager.getDrinkWithID(id);
 
         Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
         ivDrinkImage.setImageDrawable(image);

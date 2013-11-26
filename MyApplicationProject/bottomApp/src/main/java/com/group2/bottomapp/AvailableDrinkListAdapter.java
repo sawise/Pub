@@ -1,5 +1,6 @@
 package com.group2.bottomapp;
 
+import android.app.DialogFragment;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,10 +19,13 @@ import java.util.ArrayList;
 public class AvailableDrinkListAdapter extends BaseAdapter {
     ArrayList<Cocktail> cocktails;
     Context context;
+    View.OnClickListener clicklistener;
 
-    public AvailableDrinkListAdapter(Context context){
+
+    public AvailableDrinkListAdapter(Context context, View.OnClickListener clicklistener){
         this.context = context;
         this.cocktails = (ArrayList) APIManager.getAllAvailableCocktails();
+        this.clicklistener = clicklistener;
     }
 
     @Override
@@ -52,6 +57,9 @@ public class AvailableDrinkListAdapter extends BaseAdapter {
         ivDrinkImage.setImageDrawable(image);
 
         tvDrinkName.setText(cocktails.get(i).getName());
+
+        view.setTag(cocktails.get(i).getId());
+        view.setOnClickListener(clicklistener);
 
         return view;
     }
