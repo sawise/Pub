@@ -1,56 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background">
-
-    <TextView
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Random Cocktail"
-        android:textSize="25dp"
-        android:gravity="center"
-        android:freezesText="true"
-        android:layout_weight="1"
-        android:textColor="#fff"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:gravity="center"
         android:orientation="vertical">
-
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Cocktail"
-            android:id="@+id/tvDrinkName"
-            android:textColor="#FFFFFF" />
-
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:id="@+id/ivDrinkImage"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:padding="25dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center|bottom"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btnNewRandom"
             android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:layout_alignParentBottom="true"
-            android:text="No Thanks, I Want Another"
-            android:textColor="#fff" />
+            android:layout_height="match_parent"
+            android:text="Random Cocktail"
+            android:textSize="25dp"
+            android:gravity="center"
+            android:freezesText="true"
+            android:layout_weight="1"
+            android:textColor="#fff"
+            android:layout_marginTop="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Cocktail"
+                android:id="@+id/tvDrinkName"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="60dp"/>
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:id="@+id/ivDrinkImage"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:padding="25dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|bottom"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnNewRandom"
+                android:layout_width="fill_parent"
+                android:layout_height="70dp"
+                android:layout_alignParentBottom="true"
+                android:text="No Thanks, I Want Another"
+                android:textColor="#fff"
+                android:layout_marginTop="40dp"/>
+
+        </LinearLayout>
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
