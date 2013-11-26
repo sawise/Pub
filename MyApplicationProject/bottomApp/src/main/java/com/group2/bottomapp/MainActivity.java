@@ -17,15 +17,13 @@ import android.widget.ListView;
 public class MainActivity extends FragmentActivity {
     private ActionBarDrawerToggle menuToggle;
     public static final String POSITION = "POSITION";
-    final String[] menuTitle = {"Login","Liquor Cabinet", "Drinks", "Random", "About","Add(temp)","Drink(temp)"};
+    final String[] menuTitle = {"Login","Liquor Cabinet", "Drinks", "Random", "About"};
     final String[] fragments = {
             "com.group2.bottomapp.Login",
             "com.group2.bottomapp.DrinksCabinet",
             "com.group2.bottomapp.Drinks",
             "com.group2.bottomapp.RandomDrink",
-            "com.group2.bottomapp.About",
-            "com.group2.bottomapp.addToCabinet",
-            "com.group2.bottomapp.Drink"
+            "com.group2.bottomapp.About"
     };
     private int currentPos;
     private SoundEffect soundEffect;
@@ -78,7 +76,9 @@ public class MainActivity extends FragmentActivity {
                         tx.commit();
                     }
                 });
+                menuToggle.syncState();
                 drawer.closeDrawer(navList);
+
             }
         });
 
