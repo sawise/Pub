@@ -27,6 +27,22 @@
 
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.group2.bottomapp.Login"
+            android:label="@string/title_Login"
+            android:parentActivityName="com.group2.bottomapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group2.bottomApp.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.group2.bottomapp.register"
+            android:label="@string/title_Register"
+            android:parentActivityName="com.group2.bottomapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group2.bottomApp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

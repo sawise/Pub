@@ -15,6 +15,8 @@
     <string name="title_addToCabinet">addToCabinet</string>
     <string name="title_Drinks">Drinks</string>
     <string name="title_Drink">Drink</string>
+    <string name="title_Login">Login</string>
+    <string name="title_Register">Register</string>
     <string name="title_Random">Random</string>
     <string name="title_CabinetManager">CabinetManager</string>
     <string name="drawer_open">Open Drawer</string>
