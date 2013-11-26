@@ -3,7 +3,6 @@ package com.group2.bottomapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ public class Login extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if (v == regBtn){
-            Log.i("hej","hej");
         Intent i = new Intent(getActivity().getApplicationContext(), register.class);
         startActivity(i);
     }

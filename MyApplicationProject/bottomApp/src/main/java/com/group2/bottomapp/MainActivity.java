@@ -1,14 +1,12 @@
 package com.group2.bottomapp;
 
 import android.content.res.Configuration;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -68,6 +66,7 @@ public class MainActivity extends FragmentActivity {
                         super.onDrawerClosed(drawerView);
                         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
                         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[pos]));
+                        menuToggle.syncState();
                         tx.commit();
                     }
                 });
