@@ -1,16 +1,13 @@
 package com.group2.bottomapp;
 
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
 
 public class Drink extends Fragment implements View.OnClickListener {
 
@@ -38,7 +35,6 @@ public class Drink extends Fragment implements View.OnClickListener {
         tvDrinkName = (TextView) rootView.findViewById(R.id.tvDrinkName);
         tvDrinkIngredients = (TextView) rootView.findViewById(R.id.tvDrinkIngredients);
         tvDrinkInstructions = (TextView) rootView.findViewById(R.id.tvDrinkInstructions);
-
         initDrink(id);
 
         return rootView;
