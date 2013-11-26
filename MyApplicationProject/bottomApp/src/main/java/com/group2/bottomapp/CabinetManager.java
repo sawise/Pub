@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 public class CabinetManager {
 
+    private static Webservice webService = new Webservice();
     private static ArrayList<String> ingredients = new ArrayList<String>();
     private static Application callBack;
 
@@ -73,14 +74,15 @@ public class CabinetManager {
     }
 
     private static void loadList(){
-        String fileString = readFromFile();
+        webService.getWebservice("http://172.16.6.90/pub.php");
+        /*String fileString = readFromFile();
 
         String[] ings = fileString.split(";");
 
         ingredients.clear();
         for(String s : ings){
             ingredients.add(s);
-        }
+        }*/
     }
 
 

@@ -57,16 +57,16 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
             drinkGridView = (GridView) rootView.findViewById(R.id.drinkGridView);
 
+        cabinetManager = new CabinetManager();
+
             customGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
             drinkGridView.setAdapter(customGridAdapter);
-            drinkGridView.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE);
             drinkGridView.setOnItemClickListener(this);
             drinkGridView.setOnItemLongClickListener(this);
 
 
             for(int i = 0; i<=20; i++){
                 Cocktail listItem = new Cocktail();
-
                 int rand = (int) (Math.random()*3);
                 listItem.setName(testStr[rand]);
                 listItem.setImageId(testInt[rand]);

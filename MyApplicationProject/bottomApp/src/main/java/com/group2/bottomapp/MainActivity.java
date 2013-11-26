@@ -1,12 +1,14 @@
 package com.group2.bottomapp;
 
 import android.content.res.Configuration;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,12 +28,14 @@ public class MainActivity extends FragmentActivity {
             "com.group2.bottomapp.Drink"
     };
     private int currentPos;
-
+    private SoundEffect soundEffect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        soundEffect = new SoundEffect();
+        soundEffect.start(R.raw.startup, this);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_1, menuTitle);
 
