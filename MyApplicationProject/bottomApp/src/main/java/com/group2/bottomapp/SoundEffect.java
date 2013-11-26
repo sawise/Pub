@@ -2,6 +2,7 @@ package com.group2.bottomapp;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Vibrator;
 import android.util.Log;
 
 /**
@@ -14,6 +15,9 @@ public class SoundEffect {
         try{
             MediaPlayer mp = MediaPlayer.create(context, source);
             mp.start();
+
+            Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            v.vibrate(500);
         } catch (Exception e){
             Log.i("MPerror", "" + e);
         }
