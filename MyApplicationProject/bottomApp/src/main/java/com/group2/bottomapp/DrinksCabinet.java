@@ -47,8 +47,12 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             View rootView = inflater.inflate(R.layout.drinkscapinet, container, false);
             setHasOptionsMenu(true);
             drinkGridView = (GridView) rootView.findViewById(R.id.drinkGridView);
-            cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
+        cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
+        if(HelperClass.Name.YourName.endsWith("s")){
+            cabinet.setText(HelperClass.Name.YourName + " " + "Liquor Cabinet");
+        }else{
             cabinet.setText(HelperClass.Name.YourName + "'s Liquor Cabinet");
+        }
 
         cabinetManager = new CabinetManager();
             customGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);

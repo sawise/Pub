@@ -48,8 +48,8 @@ public class Login extends Activity implements View.OnClickListener {
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
             finish();
-            SoundHelper.vibrate(getApplicationContext());
-            SoundHelper.start(R.raw.startup, getApplicationContext());
+            //SoundHelper.vibrate(getApplicationContext());
+            //SoundHelper.start(R.raw.startup, getApplicationContext());
 
         }
         else if (v == fbRegBtn){
