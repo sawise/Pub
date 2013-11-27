@@ -55,12 +55,6 @@
         </activity>
 
 
-        <receiver android:name=".ShotRaceBroadcastReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name="com.group2.bottomapp.START_ALARM" >
-                </action>
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>
