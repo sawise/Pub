@@ -44,7 +44,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.group2.bottomApp.MainActivity" />
         </activity>
-<<<<<<< HEAD
+
         <activity
             android:name="com.group2.bottomapp.hejhej"
             android:label="@string/title_hejhej"
@@ -53,7 +53,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.group2.bottomApp.MainActivity" />
         </activity>
-=======
+
 
         <receiver android:name=".ShotRaceBroadcastReceiver" android:exported="true">
             <intent-filter>
@@ -61,7 +61,6 @@
                 </action>
             </intent-filter>
         </receiver>
->>>>>>> 2e8d5b74380e2e5d7686415842d466d78338f04b
     </application>
 
 </manifest>
