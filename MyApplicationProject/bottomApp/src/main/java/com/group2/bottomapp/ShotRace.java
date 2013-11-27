@@ -21,6 +21,7 @@ public class ShotRace extends Fragment implements View.OnClickListener {
     private Button btnStart;
     private TextView tvClock;
     private boolean isActive = false;
+    private int minutesToAlarmTrigger = 1;
 
     private Calendar startCal;
 
@@ -71,7 +72,7 @@ public class ShotRace extends Fragment implements View.OnClickListener {
                             int minutePassed = newCal.get(Calendar.MINUTE) - startCal.get(Calendar.MINUTE);
                             int secondsPassed = newCal.get(Calendar.SECOND) - startCal.get(Calendar.SECOND);
 
-                            int minuteLeft = 9 - minutePassed;
+                            int minuteLeft = (minutesToAlarmTrigger - 1) - minutePassed;
                             int secondsLeft = 59 - secondsPassed;
 
                             if(secondsLeft > 59){
@@ -81,7 +82,7 @@ public class ShotRace extends Fragment implements View.OnClickListener {
                             tvClock.setText(preZero(minuteLeft) + ":" + preZero(secondsLeft));
 
                             if(minuteLeft == 0 && secondsLeft == 0){
-                                Toast.makeText(getActivity().getApplicationContext(), "Take the shot ", 1000).show();
+                                triggerAlarm();
                             }
                         }
                     });
@@ -91,12 +92,18 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         new Thread(runnable).start();
     }
 
+    private void triggerAlarm() {
+
+        Toast.makeText(getActivity().getApplicationContext(), "Take the shot ", 1000).show();
+        isActive = false;
+    }
+
     private void startRace(){
         isActive = true;
         btnStart.setText("I can't fucking handle more bro'");
 
         startCal = Calendar.getInstance();
-        tvClock.setText("09:00");
+        tvClock.setText("09:59");
         startTimerThread();
     }
 
