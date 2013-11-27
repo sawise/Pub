@@ -1,36 +1,25 @@
 package com.group2.bottomapp;
 
-    import android.app.Application;
     import android.app.Dialog;
-    import android.content.ClipData;
-    import android.content.Context;
-    import android.content.Intent;
-    import android.graphics.Bitmap;
-    import android.graphics.BitmapFactory;
-    import android.os.Bundle;
-    import android.os.Vibrator;
-    import android.support.v4.app.Fragment;
-    import android.support.v4.app.FragmentTransaction;
-    import android.util.Log;
-    import android.view.LayoutInflater;
-    import android.view.Menu;
-    import android.view.MenuInflater;
-    import android.view.MenuItem;
-    import android.view.View;
-    import android.view.ViewGroup;
-    import android.widget.Adapter;
-    import android.widget.AdapterView;
-    import android.widget.ArrayAdapter;
-    import android.widget.Button;
-    import android.widget.GridView;
-    import android.widget.ImageView;
-    import android.widget.TextView;
-    import android.widget.Toast;
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Vibrator;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-
-    import java.util.ArrayList;
-    import java.util.HashMap;
-    import java.util.List;
+import java.util.ArrayList;
 
 
 public class DrinksCabinet extends Fragment implements View.OnClickListener, GridView.OnItemClickListener, GridView.OnItemLongClickListener {
@@ -46,6 +35,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
     private Integer[] testInt = {R.drawable.bottle_one, R.drawable.bottle_two, R.drawable.bottle_three};
     TextView dialogText;
     TextView alcoholrate;
+    TextView cabinet;
     ImageView dialogImage;
     Button removeButton;
 
@@ -56,11 +46,11 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.drinkscapinet, container, false);
             setHasOptionsMenu(true);
-
             drinkGridView = (GridView) rootView.findViewById(R.id.drinkGridView);
+            cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
+            cabinet.setText(HelperClass.Name.YourName + "'s Liquor Cabinet");
 
         cabinetManager = new CabinetManager();
-
             customGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
             drinkGridView.setAdapter(customGridAdapter);
             drinkGridView.setOnItemClickListener(this);
