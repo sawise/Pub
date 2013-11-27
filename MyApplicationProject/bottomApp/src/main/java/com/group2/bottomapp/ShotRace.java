@@ -1,5 +1,7 @@
 package com.group2.bottomapp;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -21,7 +23,7 @@ public class ShotRace extends Fragment implements View.OnClickListener {
     private Button btnStart;
     private TextView tvClock;
     private boolean isActive = false;
-    private int minutesToAlarmTrigger = 1;
+    private int minutesToAlarmTrigger = 5;
 
     private Calendar startCal;
 
@@ -96,9 +98,25 @@ public class ShotRace extends Fragment implements View.OnClickListener {
 
     private void triggerAlarm() {
 
-        Toast.makeText(getActivity().getApplicationContext(), "Take the shot ", 1000).show();
         tvClock.setText("00:00");
         isActive = false;
+        SoundHelper.vibrate(getActivity().getApplicationContext());
+        SoundHelper.start(R.raw.startup, this.getActivity());
+
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Take a shot!")
+                .setMessage("Even though you won't believe me " + minutesToAlarmTrigger + " minutes has passed, and you know what that means.")
+                .setPositiveButton("Another one!", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        restartRace();
+                    }
+                })
+                .setNegativeButton("Ahw hell no", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        stopRace();
+                    }
+                })
+                .show();
     }
 
     private void startRace(){
@@ -108,6 +126,10 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         startCal = Calendar.getInstance();
         tvClock.setText(preZero(minutesToAlarmTrigger - 1) + ":59");
         startTimerThread();
+    }
+
+    private void restartRace() {
+        startRace();
     }
 
     private void stopRace(){
