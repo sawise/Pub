@@ -15,9 +15,13 @@ public class SoundEffect {
         try{
             MediaPlayer mp = MediaPlayer.create(context, source);
             mp.start();
-
         } catch (Exception e){
             Log.i("MPerror", "" + e);
         }
+    }
+    public void vibrate(Context context){
+        Vibrator vib = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        vib.vibrate(500);
+
     }
 }
