@@ -63,18 +63,22 @@
 
 
             <ImageView
+                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/like"
+                android:id="@+id/like"
                 />
 
             <ImageView
+                android:clickable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
-                android:src="@drawable/dislike"/>
+                android:src="@drawable/dislike"
+                android:id="@+id/dislike"/>
 
 
         </LinearLayout>
