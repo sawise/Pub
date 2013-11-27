@@ -1,6 +1,8 @@
 package com.group2.bottomapp;
 
 
+import android.util.Log;
+
 import java.util.List;
 
 /**
@@ -8,6 +10,7 @@ import java.util.List;
  */
 
 public class Cocktail {
+    private Convert convert;
     private int id;
 
     private int imageId;
@@ -86,10 +89,53 @@ public class Cocktail {
         this.ingredients = ingredients;
     }
 
-    public String getIngredientString() {
+    public String getIngredientString(String format) {
+        convert = new Convert();
         String result = "";
         for(Ingredient i : getIngredients()){
-            result += i.getName() + ", " + i.getMeasurement() + "\n";
+            String mesurementStr = i.getMeasurement();
+            if(mesurementStr.contains("cl") || mesurementStr.contains("oz") || mesurementStr.contains("ml")|| mesurementStr.contains("ml")){
+                String[] mesurement = mesurementStr.split(" ");
+                double mesurementInt = Double.valueOf(mesurement[0]);
+                result += i.getName() + ", ";
+                if(mesurementStr.contains("oz")){
+                    if(format.equals("cl")){
+                        mesurementInt = convert.ozTocl(mesurementInt);
+                        result +=  mesurementInt + " cl\n";
+                    } else if(format.equals("ml")){
+                        mesurementInt = convert.ozToml(mesurementInt);
+                        result +=  mesurementInt + " ml \n";
+                    } else {
+                        result +=  mesurementInt + " fl oz \n";
+                    }
+                }else if(mesurementStr.contains("cl")){
+                    if(format.equals("oz")){
+                        mesurementInt = convert.clTooz(mesurementInt);
+                        result +=  mesurementInt + " fl oz \n";
+                    } else if(format.equals("ml")){
+                        mesurementInt = convert.clToml(mesurementInt);
+                        result +=  mesurementInt + " ml \n";
+                    } else {
+                        result +=  mesurementInt + " cl \n";
+                    }
+                }else if(mesurementStr.contains("ml")){
+                    if(format.equals("oz")){
+                        mesurementInt = convert.mlTooz(mesurementInt);
+                        result +=  mesurementInt + " fl oz \n";
+                    } else if(format.equals("cl")){
+                        mesurementInt = convert.mlTocl(mesurementInt);
+                        result +=  mesurementInt + " ml \n";
+                    } else {
+                        result +=  mesurementInt + " ml\n";
+                    }
+                } else{
+                    result +=  mesurementInt + " cl\n";
+                }
+                Log.i("mesurement", i.getMeasurement());
+            }else {
+                result += i.getName() + ", " + mesurementStr + "\n";
+            }
+
         }
 
         return result;
