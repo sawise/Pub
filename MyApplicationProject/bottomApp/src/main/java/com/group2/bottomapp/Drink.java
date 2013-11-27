@@ -3,7 +3,9 @@ package com.group2.bottomapp;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
 import android.support.v4.app.FragmentTransaction;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +23,8 @@ public class Drink extends Fragment implements View.OnClickListener {
     private String drinkName;
     private String drinkIngredients;
     private String drinkInstructions;
+    private ImageView likeImage;
+    private ImageView dislikeImage;
 
     private TextView tvDrinkName;
     private TextView tvDrinkIngredients;
@@ -46,6 +52,14 @@ public class Drink extends Fragment implements View.OnClickListener {
         tvDrinkName = (TextView) rootView.findViewById(R.id.tvDrinkName);
         tvDrinkIngredients = (TextView) rootView.findViewById(R.id.tvDrinkIngredients);
         tvDrinkInstructions = (TextView) rootView.findViewById(R.id.tvDrinkInstructions);
+
+        likeImage = (ImageView) rootView.findViewById(R.id.like);
+        dislikeImage = (ImageView) rootView.findViewById(R.id.dislike);
+
+        likeImage.setOnClickListener(this);
+        dislikeImage.setOnClickListener(this);
+
+
         initDrink(id);
         setHasOptionsMenu(true);
 
@@ -55,6 +69,10 @@ public class Drink extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+
+    if (v == likeImage){
+        Log.i("Like", "");
+    }
 
     }
 
