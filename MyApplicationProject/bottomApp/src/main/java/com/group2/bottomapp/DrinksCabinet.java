@@ -67,7 +67,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             drinkGridView.setOnItemLongClickListener(this);
 
 
-            for(int i = 0; i<=20; i++){
+            for(int i = 0; i<=100; i++){
                 Cocktail listItem = new Cocktail();
                 int rand = (int) (Math.random()*3);
                 listItem.setName(testStr[rand]);
