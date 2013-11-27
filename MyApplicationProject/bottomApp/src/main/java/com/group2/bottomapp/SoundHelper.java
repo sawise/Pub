@@ -8,10 +8,10 @@ import android.util.Log;
 /**
  * Created by sam on 11/26/13.
  */
-public class SoundEffect {
+public class SoundHelper {
 
 
-    public void start(int source, Context context){
+    public static void start(int source, Context context){
         try{
             MediaPlayer mp = MediaPlayer.create(context, source);
             mp.start();
@@ -19,7 +19,7 @@ public class SoundEffect {
             Log.i("MPerror", "" + e);
         }
     }
-    public void vibrate(Context context){
+    public static void vibrate(Context context){
         Vibrator vib = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         vib.vibrate(500);
 
