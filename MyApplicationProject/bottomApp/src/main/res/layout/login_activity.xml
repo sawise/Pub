@@ -15,6 +15,7 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/tev"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="25dp"
@@ -89,6 +90,7 @@
                 android:text="Sign in with Facebook"
                 android:gravity="center"
                 android:textSize="25dp"
+                android:background="#3B5998"
                 android:textColor="#fff"/>
 
         </LinearLayout>
