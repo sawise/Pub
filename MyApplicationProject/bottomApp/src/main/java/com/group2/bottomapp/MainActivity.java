@@ -1,5 +1,6 @@
 package com.group2.bottomapp;
 
+import android.support.v4.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -16,11 +17,12 @@ import android.widget.ListView;
 public class MainActivity extends FragmentActivity {
     private ActionBarDrawerToggle menuToggle;
     public static final String POSITION = "POSITION";
-    final String[] menuTitle = {"Login","Liquor Cabinet", "Drinks", "Random", "About"};
+    final String[] menuTitle = {"Login","Liquor Cabinet", "Drinks", "Random", "Shot Race", "About"};
     final String[] fragments = {
             "com.group2.bottomapp.DrinksCabinet",
             "com.group2.bottomapp.Drinks",
             "com.group2.bottomapp.RandomDrink",
+            "com.group2.bottomapp.ShotRace",
             "com.group2.bottomapp.About"
     };
     private int currentPos;
@@ -61,6 +63,13 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public void onDrawerClosed(View drawerView) {
                         super.onDrawerClosed(drawerView);
+
+                        //Clears backstack
+                        FragmentManager fm = getSupportFragmentManager();
+                        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                            fm.popBackStack();
+                        }
+
                         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
                         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[pos]));
                         menuToggle.syncState();

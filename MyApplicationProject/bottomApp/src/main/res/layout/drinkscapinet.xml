@@ -16,7 +16,7 @@
     <GridView
         android:id="@+id/drinkGridView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="4dp"
         android:columnWidth="80dp"
         android:gravity="center"

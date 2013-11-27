@@ -16,8 +16,6 @@ public class SoundEffect {
             MediaPlayer mp = MediaPlayer.create(context, source);
             mp.start();
 
-            Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(500);
         } catch (Exception e){
             Log.i("MPerror", "" + e);
         }
