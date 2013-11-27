@@ -14,7 +14,7 @@ import android.widget.Toast;
 public class register extends Activity implements View.OnClickListener {
 private Button registerBtn;
 private Button oLogin;
-private EditText iName;
+public  EditText iName;
 private EditText iEmail;
 private EditText iPassword;
 private TextView textEmail;
@@ -45,6 +45,7 @@ private TextView textName;
         String password = iPassword.getText().toString();
         String email = iEmail.getText().toString();
         String name = iName.getText().toString();
+        HelperClass.Name.YourName = name;
 
         if (v == registerBtn){
 
@@ -65,14 +66,16 @@ private TextView textName;
             } else {
                 Intent in = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(in);
-                Toast.makeText(this, "Account created", 1000).show();
+                finish();
+                Toast.makeText(this, "Account created, Welcome" + " " + name, 1000).show();
             }
 
 
         }
         else if (v == oLogin){
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            Intent i = new Intent(getApplicationContext(), Login.class);
             startActivity(i);
+            finish();
         }
     }
 }

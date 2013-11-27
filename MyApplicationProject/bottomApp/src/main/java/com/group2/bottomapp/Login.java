@@ -41,11 +41,18 @@ public class Login extends Activity implements View.OnClickListener {
         if (v == regBtn){
             Intent i = new Intent(getApplicationContext(), register.class);
             startActivity(i);
+            finish();
     }
         else if (v == loginBtn){
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
+            finish();
 
+        }
+        else if (v == fbRegBtn){
+            Intent fb = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(fb);
+            finish();
         }
     }
 }
