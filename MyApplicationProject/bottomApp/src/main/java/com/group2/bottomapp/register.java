@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,6 +35,8 @@ private TextView textName;
         textName = (TextView)findViewById(R.id.nameText);
         registerBtn.setOnClickListener(this);
         oLogin.setOnClickListener(this);
+        getWindow().setSoftInputMode(
+        WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
     }
