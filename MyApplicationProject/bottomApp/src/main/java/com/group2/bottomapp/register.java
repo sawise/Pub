@@ -50,8 +50,12 @@ private TextView textName;
         if (v == registerBtn){
 
             LoginValidator loginValidator = new LoginValidator();
-            if (name.length() <2){
-                Toast.makeText(this, "Your Name must be atleast 2 chars", 1000).show();
+            if (name.length() <2) {
+                Toast.makeText(this, "Your Name must be 2-11 chars", 1000).show();
+                textName.setTextColor(getResources().getColor(R.color.ColorRed));
+            }
+            else if (name.length() >11){
+                Toast.makeText(this, "Your Name must be 2-11 chars", 1000).show();
                 textName.setTextColor(getResources().getColor(R.color.ColorRed));
             }
             else if(!loginValidator.validate(email)) {

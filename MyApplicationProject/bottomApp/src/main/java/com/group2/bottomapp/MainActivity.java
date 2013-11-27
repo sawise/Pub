@@ -27,14 +27,12 @@ public class MainActivity extends FragmentActivity {
             "com.group2.bottomapp.About"
     };
     private int currentPos;
-    //private SoundEffect soundEffect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        //soundEffect = new SoundEffect();
-        //soundEffect.start(R.raw.startup, this);
+        ;
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_1, menuTitle);
 

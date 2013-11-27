@@ -10,12 +10,13 @@ import android.widget.ListView;
 
 public class Favorites extends Fragment implements View.OnClickListener {
 
-    private ListView favList;
+    private ListView favvoList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.favorites, container, false);
+        favvoList = (ListView)rootView.findViewById(R.id.favList);
 
 
         return rootView;
