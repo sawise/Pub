@@ -3,10 +3,12 @@ package com.group2.bottomapp;
     import android.app.Application;
     import android.app.Dialog;
     import android.content.ClipData;
+    import android.content.Context;
     import android.content.Intent;
     import android.graphics.Bitmap;
     import android.graphics.BitmapFactory;
     import android.os.Bundle;
+    import android.os.Vibrator;
     import android.support.v4.app.Fragment;
     import android.support.v4.app.FragmentTransaction;
     import android.util.Log;
@@ -139,6 +141,9 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
         removeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("gridarray remove", selectedItem+"");
+
+                Vibrator vib = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+                vib.vibrate(500);
                 gridArray.remove(selectedItem);
                 customGridAdapter.notifyDataSetChanged();
                 dialog.dismiss();
