@@ -19,8 +19,9 @@
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
-                android:text="Full Name"/>
-            <EditText android:id="@+id/reg_fullname"
+                android:text="Name"
+                android:id="@+id/nameText"/>
+            <EditText android:id="@+id/reg_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -30,6 +31,7 @@
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
+                android:id="@+id/emailText"
                 android:text="Email"/>
             <EditText android:id="@+id/reg_email"
                 android:layout_width="fill_parent"
@@ -41,6 +43,7 @@
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
+                android:id="@+id/passText"
                 android:text="Password"/>
             <EditText android:id="@+id/reg_password"
                 android:layout_width="fill_parent"

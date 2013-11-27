@@ -1,32 +1,43 @@
 package com.group2.bottomapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 
-public class Login extends Fragment implements View.OnClickListener {
+public class Login extends Activity implements View.OnClickListener {
     private Button regBtn;
+    private Button loginBtn;
+    private Button fbRegBtn;
+    private EditText inputEmail;
+    private EditText inputPassword;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.login_activity, container, false);
-        final Button loginBtn = (Button)rootView.findViewById(R.id.btnLogin);
-        regBtn = (Button)rootView.findViewById(R.id.btnReg);
-        final Button fbRegBtn = (Button)rootView.findViewById(R.id.btnFB);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.login_activity);
+        loginBtn = (Button)findViewById(R.id.btnLogin);
+        regBtn = (Button)findViewById(R.id.btnReg);
+        fbRegBtn = (Button)findViewById(R.id.btnFB);
+        inputEmail = (EditText)findViewById(R.id.emailInput);
+        inputPassword = (EditText)findViewById(R.id.passwordInput);
         regBtn.setOnClickListener(this);
-        return rootView;
+        loginBtn.setOnClickListener(this);
+        fbRegBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v == regBtn){
-        Intent i = new Intent(getActivity().getApplicationContext(), register.class);
-        startActivity(i);
+            Intent i = new Intent(getApplicationContext(), register.class);
+            startActivity(i);
     }
+        else if (v == loginBtn){
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(i);
+        }
     }
 }
