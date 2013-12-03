@@ -27,6 +27,7 @@
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
+                android:id="@+id/email"
                 android:text="Email"/>
 
             <EditText android:layout_width="fill_parent"
@@ -40,6 +41,7 @@
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#fff"
+                android:id="@+id/password"
                 android:text="Password"/>
             <EditText android:layout_width="fill_parent"
                 android:id="@+id/passwordInput"

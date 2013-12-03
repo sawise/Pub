@@ -53,6 +53,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
         }else{
             cabinet.setText(HelperClass.Name.YourName + "'s Liquor Cabinet");
         }
+        cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
 
         cabinetManager = new CabinetManager();
             customGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
