@@ -45,6 +45,7 @@ public class Login extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         String userEmail = inputEmail.getText().toString();
         String userPass = inputPassword.getText().toString();
+        LoginValidator validEmail = new LoginValidator();
 
         if (v == regBtn){
             Intent i = new Intent(getApplicationContext(), register.class);
@@ -53,6 +54,7 @@ public class Login extends Activity implements View.OnClickListener {
     }
         else if (v == loginBtn){
             //if (db.userEmail && db.userPass == true){
+            if (!validEmail.validate(userEmail)){
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(i);
                 finish();
@@ -62,7 +64,7 @@ public class Login extends Activity implements View.OnClickListener {
                 textUserEmail.setTextColor(getResources().getColor(R.color.ColorRed));
                 textUserPass.setTextColor(getResources().getColor(R.color.ColorRed));
             }*/
-
+            }
         }
         else if (v == fbRegBtn){
             //if (fb.userEmail && fb.userPass == true){
