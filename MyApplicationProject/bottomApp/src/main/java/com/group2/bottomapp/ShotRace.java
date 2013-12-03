@@ -120,8 +120,7 @@ public class ShotRace extends Fragment implements View.OnClickListener {
     private void startRace(){
         isActive = true;
         btnStart.setText("I can't fucking handle more bro'");
-        SoundHelper.vibrate(getActivity().getApplicationContext());
-        SoundHelper.start(R.raw.minionlaugh, this.getActivity());
+
 
         startCal = Calendar.getInstance();
         tvClock.setText(preZero(minutesToAlarmTrigger - 1) + ":59");
@@ -135,6 +134,8 @@ public class ShotRace extends Fragment implements View.OnClickListener {
     private void stopRace(){
         isActive = false;
         btnStart.setText("I'm ready! Let's do it");
+        SoundHelper.vibrate(getActivity().getApplicationContext());
+        SoundHelper.start(R.raw.minionlaugh, this.getActivity());
 
         tvClock.setText(preZero(minutesToAlarmTrigger) + ":00");
     }
