@@ -9,9 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -101,7 +99,7 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         tvClock.setText("00:00");
         isActive = false;
         SoundHelper.vibrate(getActivity().getApplicationContext());
-        SoundHelper.start(R.raw.startup, this.getActivity());
+        SoundHelper.start(R.raw.AirHorn, this.getActivity());
 
         new AlertDialog.Builder(getActivity())
                 .setTitle("Take a shot!")
