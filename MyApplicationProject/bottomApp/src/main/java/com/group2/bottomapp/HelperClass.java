@@ -6,5 +6,6 @@ package com.group2.bottomapp;
 public class HelperClass {
     public static class Name{
         public static String YourName;
+        public static String YourEmail;
     }
 }

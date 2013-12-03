@@ -17,13 +17,14 @@ import android.widget.ListView;
 public class MainActivity extends FragmentActivity {
     private ActionBarDrawerToggle menuToggle;
     public static final String POSITION = "POSITION";
-    final String[] menuTitle = {"Liquor Cabinet", "Drinks","Favorites", "Random", "Shot Race", "About"};
+    final String[] menuTitle = {"Liquor Cabinet", "Drinks","Favorites", "Random", "Shot Race","My Account", "About"};
     final String[] fragments = {
             "com.group2.bottomapp.DrinksCabinet",
             "com.group2.bottomapp.Drinks",
             "com.group2.bottomapp.Favorites",
             "com.group2.bottomapp.RandomDrink",
             "com.group2.bottomapp.ShotRace",
+            "com.group2.bottomapp.myAccount",
             "com.group2.bottomapp.About"
     };
     private int currentPos;

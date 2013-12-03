@@ -46,6 +46,7 @@ private TextView textName;
         String email = iEmail.getText().toString();
         String name = iName.getText().toString();
         HelperClass.Name.YourName = name;
+        HelperClass.Name.YourEmail = email;
 
         if (v == registerBtn){
 
