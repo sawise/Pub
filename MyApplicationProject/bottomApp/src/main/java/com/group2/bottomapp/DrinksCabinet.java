@@ -47,13 +47,14 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             View rootView = inflater.inflate(R.layout.drinkscapinet, container, false);
             setHasOptionsMenu(true);
             drinkGridView = (GridView) rootView.findViewById(R.id.drinkGridView);
-        cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
-        if(HelperClass.Name.YourName.endsWith("s")){
+            cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
+            /*if(HelperClass.Name.YourName.endsWith("s")){
             cabinet.setText(HelperClass.Name.YourName + " " + "Liquor Cabinet");
-        }else{
+            }else{
             cabinet.setText(HelperClass.Name.YourName + "'s Liquor Cabinet");
-        }
-        cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
+            }*/
+            /*TILLFÄLLIG*/ cabinet.setText("Liquor Cabinet"); /*TILLFÄLLIG*/
+            cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
 
         cabinetManager = new CabinetManager();
             customGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
