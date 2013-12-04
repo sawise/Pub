@@ -1,5 +1,6 @@
 package com.group2.bottomapp.bottomAppServer;
 
+
 //import java.security.MessageDigest;
 //import java.security.NoSuchAlgorithmException;
 
@@ -8,6 +9,8 @@ public class App
 {
     public static void main( String[] args )
     {
+    	
+    	 
     	/*
     	String password = "";
     	 
@@ -47,13 +50,34 @@ public class App
 
 /* TODO  */
 
+	// Exceptions!!  http://www.baeldung.com/2013/01/31/exception-handling-for-rest-with-spring-3-2/
+	// https://github.com/nebhale/spring-one-2012/tree/master/src/main/java/com
+
+/*
+  
+<property name="url" value="jdbc:mysql://localhost:3306/team-2" />
+<property name="username" value="team-2" />
+<property name="password" value="team-2" /> 
+
+<property name="url" value="jdbc:mysql://localhost:3306/BottomApp" />
+<property name="username" value="root" />
+<property name="password" value="" />
+ 
+ */
+
+//TODO JSON API Handle Exceptions, and null pointers
+
+//TODO Handle Exceptions in Controllers
+
 //TODO implement Hibernate instead.
 
 // Use @Autowire instead?
 
 // Search in new thread?
 
-// API security
+//TODO pagination will be needed for drinks?
+
+//TODO add logout on all pages
 
 //TODO add ingredient with JSON and jQuery instead
 
@@ -70,10 +94,3 @@ public class App
 
 //TODO Nice feedback for errors (correct error messages), custom 404 page. and feedback on remove and adding item
 
-//TODO Set Headers, methods etc... in JsonController 
-
-//TODO JSON API Handle Exceptions, and null pointers
-
-//TODO JSON Methods, update rating method. secure login from app.  
-
-//TODO Handle Exceptions in web controllers aswell
