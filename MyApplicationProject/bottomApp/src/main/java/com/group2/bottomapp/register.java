@@ -38,7 +38,7 @@ private TextView textName;
         getWindow().setSoftInputMode(
         WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void onClick(View v) {

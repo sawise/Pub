@@ -1,6 +1,7 @@
 package com.group2.bottomapp;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.SeekBar.*;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -31,7 +34,52 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.shotrace, container, false);
 
         tvClock = (TextView) rootView.findViewById(R.id.textView);
-        tvClock.setText(preZero(minutesToAlarmTrigger) + ":00");
+        tvClock.setText(preZero(minutesToAlarmTrigger) + ":00"); 
+
+        tvClock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog d = new Dialog(getActivity());
+                d.setTitle("Set minutes between shots.");
+                d.setContentView(R.layout.shotracetimesliderdialog);
+
+                final TextView textView = (TextView) d.findViewById(R.id.textView);
+                Button b1 = (Button) d.findViewById(R.id.button1);
+                Button b2 = (Button) d.findViewById(R.id.button2);
+                final SeekBar sb = (SeekBar) d.findViewById(R.id.seekBar);
+                sb.setProgress(minutesToAlarmTrigger - 1);
+                textView.setText(minutesToAlarmTrigger + " min");
+
+                sb.setOnSeekBarChangeListener( new OnSeekBarChangeListener()
+                {
+                    public void onProgressChanged(SeekBar seekBar, int progress,
+                                                  boolean fromUser)
+                    {
+                        textView.setText((progress + 1) + " min");
+                    }
+                    public void onStartTrackingTouch(SeekBar seekBar){}
+                    public void onStopTrackingTouch(SeekBar seekBar){}
+                });
+
+                //np.setOnValueChangedListener(this);
+                b1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        minutesToAlarmTrigger = sb.getProgress() + 1;
+                        tvClock.setText(preZero(sb.getProgress() + 1) + ":00");
+                        d.dismiss();
+                    }
+                });
+                b2.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        d.dismiss();
+                    }
+                });
+                d.show();
+            }
+        });
 
         btnStart = (Button) rootView.findViewById(R.id.btnStart);
         btnStart.setOnClickListener(new View.OnClickListener() {

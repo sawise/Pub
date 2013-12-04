@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class CustomGridViewAdapter extends ArrayAdapter<Cocktail> {
@@ -41,6 +44,7 @@ public class CustomGridViewAdapter extends ArrayAdapter<Cocktail> {
         holder = new RecordHolder();
         holder.txtTitle = (TextView) row.findViewById(R.id.item_text);
         holder.imageItem = (ImageView) row.findViewById(R.id.item_image);
+
         row.setTag(holder);
 
     } else {
@@ -49,6 +53,9 @@ public class CustomGridViewAdapter extends ArrayAdapter<Cocktail> {
         Cocktail item = data.get(position);
         holder.txtTitle.setText(item.getName());
         holder.imageItem.setImageResource(item.getImageId());
+        if(item.getImageId() == 0){
+
+        }
         return row;
 
   }

@@ -1,13 +1,9 @@
 package com.group2.bottomapp;
 
 
-import android.util.Log;
-
 import java.util.List;
 
-/**
- * Created by FilipFransson on 2013-11-19.
- */
+
 
 public class Cocktail {
     private Convert convert;

@@ -1,5 +1,7 @@
 package com.group2.bottomapp;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -17,7 +19,7 @@ import android.widget.ListView;
 public class MainActivity extends FragmentActivity {
     private ActionBarDrawerToggle menuToggle;
     public static final String POSITION = "POSITION";
-    final String[] menuTitle = {"Liquor Cabinet", "Drinks","Favorites", "Random", "Shot Race", "About"};
+    final String[] menuTitle = {"Liquor Cabinet", "Cocktails","Favorites", "Random Cocktail", "Shot Race", "About"};
     final int[] menuImage = new int[] {R.drawable.cabinet_pic, R.drawable.cocktail_pic, R.drawable.favorits_pic, R.drawable.random_pic, R.drawable.shotl_pic, R.drawable.aboutl_pic};
     final String[] fragments = {
             "com.group2.bottomapp.DrinksCabinet",
@@ -28,7 +30,9 @@ public class MainActivity extends FragmentActivity {
             "com.group2.bottomapp.About"
     };
     private int currentPos;
+    private int oldPos;
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +47,9 @@ public class MainActivity extends FragmentActivity {
         drawer.setDrawerListener(menuToggle);
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+
+        //getActionBar().setHomeButtonEnabled(true);
+
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[0]));
@@ -58,26 +64,21 @@ public class MainActivity extends FragmentActivity {
                 currentPos = pos;
                 getActionBar().setTitle(menuTitle[pos]);
                 getActionBar().setIcon(menuImage[pos]);
-                drawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                        super.onDrawerClosed(drawerView);
-
-                        //Clears backstack
-                        FragmentManager fm = getSupportFragmentManager();
-                        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                            fm.popBackStack();
-                        }
-
-                        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-                        tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[pos]));
-                        menuToggle.syncState();
-                        tx.commit();
-                    }
-                });
                 menuToggle.syncState();
                 drawer.closeDrawer(navList);
+
+                //Clears backstack
+                FragmentManager fm = getSupportFragmentManager();
+                for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                    fm.popBackStack();
+                }
+                if(currentPos != oldPos){
+                    FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+                    tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[pos]));
+                    menuToggle.syncState();
+                    tx.commit();
+                    oldPos = currentPos;
+                }
 
             }
         });
@@ -106,8 +107,8 @@ public class MainActivity extends FragmentActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    /*protected void onSaveInstanceState(Bundle outState){
+    protected void onSaveInstanceState(Bundle outState){
 
-    }*/
+    }
 
 }
