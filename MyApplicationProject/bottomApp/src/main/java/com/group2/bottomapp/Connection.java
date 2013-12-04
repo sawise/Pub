@@ -24,7 +24,7 @@ import java.io.InputStreamReader;
  */
 
 public class Connection {
-    public static String POST(String url, int id {
+    public static String POST(String url, int id) {
         InputStream inputStream = null;
         String result = "";
         try {
@@ -114,12 +114,12 @@ public class Connection {
            
 
             return POST(urls[0],person);
-            */
+            
         }
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
         }
     }
 
