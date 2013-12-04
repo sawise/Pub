@@ -2,7 +2,16 @@ package com.group2.bottomapp;
 
 import android.util.Log;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,18 +21,36 @@ import java.util.Random;
  */
 public class APIManager {
 
+    public static JSONArray readJsonFromUrl(String url) throws IOException, JSONException {
+        InputStream is = new URL(url).openStream();
+        try {
+            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+            String jsonText = readAll(rd);
+            JSONArray json = new JSONArray(jsonText);
+            return json;
+        } finally {
+            is.close();
+        }
+    }
+    private static String readAll(Reader rd) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        int cp;
+        while ((cp = rd.read()) != -1) {
+            sb.append((char) cp);
+        }
+        return sb.toString();
+    }
+
     public static List<Cocktail> getAllCocktails(){
         //TODO: get all cocktails, not just available
         return getAllAvailableCocktails();
     }
 
     public static List<Cocktail> getAllAvailableCocktails(){
-        String json = "[{\"id\": 1,\"name\": \"Redbull Vodka\",\"description\": \"Add vodka and ice then mix with Redbull.\",\"ingredients\": [{\"id\": 1,\"name\": \"Vodka\",\"measurement\": \"6 cl\"},{\"id\": 3,\"name\": \"Redbull\",\"measurement\": \"1\"},{\"id\": 11,\"name\": \"Ice\",\"measurement\": \"3 pieces\"}],\"ratingUp\": 2,\"ratingDown\": 1,\"ingredientsSize\": 3},{\"id\": 2,\"name\": \"Vodka Orange Juice\",\"description\": \"Mix ice, vodka and orange juice.\",\"ingredients\": [{\"id\": 1,\"name\": \"Vodka\",\"measurement\": \"6 cl\"},{\"id\": 2,\"name\": \"Orange Juice\",\"measurement\": \"1\"},{\"id\": 11,\"name\": \"Ice\",\"measurement\": \"3 pieces\"}],\"ratingUp\": 2,\"ratingDown\": 1,\"ingredientsSize\": 3},{\"id\": 3,\"name\": \"The Ultimate Margarita\",\"description\": \"Shake together with ice and strain into a margarita glass. Optional: rub the cut side of a lime on the glass rim and dip it intp salt; and add a lime wedge to the rim of the glass as a garnish.\",\"ingredients\": [{\"id\": 4,\"name\": \"Orange Liqueur\",\"measurement\": \"0.5 oz\"},{\"id\": 5,\"name\": \"White Tequila\",\"measurement\": \"2 oz\"},{\"id\": 6,\"name\": \"Lemon Juice\",\"measurement\": \"1 oz\"},{\"id\": 7,\"name\": \"Lime Juice\",\"measurement\": \"1 oz\"},{\"id\": 8,\"name\": \"Syrup\",\"measurement\": \"1 oz\"}],\"ratingUp\": 0,\"ratingDown\": 0,\"ingredientsSize\": 5},{\"id\": 4,\"name\": \"Tropical Smoothie\",\"description\": \"Combine all ingredients into a blender and puree until smooth. Serve in tall stylish glasses.\",\"ingredients\": [{\"id\": 9,\"name\": \"Strawberr\",\"measurement\": \"1 qt hulled\"},{\"id\": 10,\"name\": \"Banana\",\"measurement\": \"1 chunked\"},{\"id\": 16,\"name\": \"Peach\",\"measurement\": \"2\"},{\"id\": 12,\"name\": \"Orange Peach-Mango Juice\",\"measurement\": \"1 cup\"},{\"id\": 11,\"name\": \"Ice\",\"measurement\": \"2 cup\"}],\"ratingUp\": 0,\"ratingDown\": 0,\"ingredientsSize\": 5},{\"id\": 5,\"name\": \"Monkey's Dessert\",\"description\": \"Shake Kahlua and banana liqueur in a cocktail shaker with ice. Pour into an old-fashioned glass and fill with chocolate milk.\",\"ingredients\": [{\"id\": 13,\"name\": \"Banana Liqueur\",\"measurement\": \"1 oz\"},{\"id\": 14,\"name\": \"Kahlua Coffe Liqueur\",\"measurement\": \"1 oz\"},{\"id\": 15,\"name\": \"Chocolate Milk\",\"measurement\": \"4 oz\"}],\"ratingUp\": 0,\"ratingDown\": 0,\"ingredientsSize\": 3},{\"id\": 6,\"name\": \"Screwdriver\",\"description\": \"Served in a highball glass.\\nMix 50ml Vodka (1 part) with 100ml Orange Juice (2 parts)\\n\\nThe most common variation of the Screwdriver is one part vodka, one part orange juice and one part orange soda\",\"ingredients\": [{\"id\": 1,\"name\": \"Orange Juice\",\"measurement\": \"100 ml\"},{\"id\": 1,\"name\": \"Vodka\",\"measurement\": \"50 ml\"}],\"ratingUp\": 1,\"ratingDown\": 0,\"ingredientsSize\": 2}]";
-
         //Parsar ett objekt
         try {
 
-            JSONArray cocktailArr = new JSONArray(json);
+            JSONArray cocktailArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/drinks/all");
 
             ArrayList<Cocktail> listToReturn = new ArrayList<Cocktail>();
 
