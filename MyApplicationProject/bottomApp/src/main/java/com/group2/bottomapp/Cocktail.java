@@ -14,6 +14,8 @@ public class Cocktail {
     private int id;
 
     private int imageId;
+    private int Like;
+    private int DisLike;
 
     public int getImageId() {
         return imageId;
@@ -47,6 +49,22 @@ public class Cocktail {
 
     public void setRatingUp(int ratingUp) {
         this.ratingUp = ratingUp;
+    }
+
+    public int getLike() {
+        return Like;
+    }
+
+    public void setLike(int Like) {
+        this.Like = Like;
+    }
+
+    public int getDisLike() {
+        return DisLike;
+    }
+
+    public void setDisLike(int DisLike) {
+        this.DisLike = DisLike;
     }
 
     public int getId() {
