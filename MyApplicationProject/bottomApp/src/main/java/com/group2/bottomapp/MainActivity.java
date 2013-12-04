@@ -107,8 +107,8 @@ public class MainActivity extends FragmentActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    /*protected void onSaveInstanceState(Bundle outState){
+    protected void onSaveInstanceState(Bundle outState){
 
-    }*/
+    }
 
 }
