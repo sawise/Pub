@@ -42,8 +42,8 @@ public class MainActivity extends FragmentActivity {
                 R.drawable.menu, R.string.drawer_open, R.string.drawer_close);
         drawer.setDrawerListener(menuToggle);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        //getActionBar().setHomeButtonEnabled(true);
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[0]));
