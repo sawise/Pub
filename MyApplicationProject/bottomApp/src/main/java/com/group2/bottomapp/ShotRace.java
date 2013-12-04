@@ -93,6 +93,8 @@ public class ShotRace extends Fragment implements View.OnClickListener {
             }
         });
 
+        ShotRaceService.setApplication(getActivity().getApplication());
+
 
         return rootView;
     }
