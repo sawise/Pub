@@ -1,6 +1,7 @@
 package com.group2.bottomapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,15 +12,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class register extends Activity implements View.OnClickListener {
-private Button registerBtn;
-private Button oLogin;
-public  EditText iName;
-private EditText iEmail;
-private EditText iPassword;
-private TextView textEmail;
-private TextView textPass;
-private TextView textName;
+public class Register extends Activity implements View.OnClickListener {
+
+    private Button registerBtn;
+    private Button oLogin;
+    public  EditText iName;
+    private EditText iEmail;
+    private EditText iPassword;
+    private TextView textEmail;
+    private TextView textPass;
+    private TextView textName;
+    private ProgressDialog progressDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,31 @@ private TextView textName;
         WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         //getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+
+    // show loading dialog
+    public void showProgressDialog(){
+        if(progressDialog ==  null){
+            // display dialog when loading data
+            progressDialog = ProgressDialog.show(this, "Loading", "Please Wait...", true, false);
+        }
+    }
+
+    // hide loading dialog
+    public void hideProgressDialog(){
+        // if loading dialog is visible, then hide it
+        if(progressDialog != null){
+            progressDialog.cancel();
+        }
+    }
+
+
+    public void finishActivity(String response){
+        Intent in = new Intent(getApplicationContext(), MainActivity.class);
+        Toast.makeText(this, response, 1000).show();
+        startActivity(in);
+        finish();
     }
 
     public void onClick(View v) {
@@ -69,10 +97,14 @@ private TextView textName;
                 textPass.setTextColor(getResources().getColor(R.color.ColorRed));
 
             } else {
-                Intent in = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(in);
-                finish();
-                Toast.makeText(this, "Account created, Welcome" + " " + name, 1000).show();
+                JsonPoster jPoster = new JsonPoster(getApplicationContext(), this, name, email, password);
+
+                // if we are connected
+                if(jPoster.isConnected() != false)
+                {
+                    jPoster.PostJson();
+                }
+
             }
 
 

@@ -48,7 +48,7 @@ public class Login extends Activity implements View.OnClickListener {
         LoginValidator validEmail = new LoginValidator();
 
         if (v == regBtn){
-            Intent i = new Intent(getApplicationContext(), register.class);
+            Intent i = new Intent(getApplicationContext(), Register.class);
             startActivity(i);
             finish();
     }

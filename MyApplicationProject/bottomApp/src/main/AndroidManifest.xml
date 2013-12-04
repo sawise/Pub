@@ -38,7 +38,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.group2.bottomapp.register"
+            android:name=".Register"
             android:label="@string/title_Register"
             android:parentActivityName="com.group2.bottomapp.MainActivity" >
             <meta-data
