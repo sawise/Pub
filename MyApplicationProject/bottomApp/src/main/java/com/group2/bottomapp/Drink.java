@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
-import android.support.v4.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,10 +12,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
+
 import android.widget.ImageView;
 import android.widget.TextView;
+
+
 
 public class Drink extends Fragment implements View.OnClickListener {
 
@@ -32,6 +32,7 @@ public class Drink extends Fragment implements View.OnClickListener {
     private ImageView ivDrinkImage;
 
     Cocktail cocktail;
+
 
 
     @Override
@@ -59,7 +60,6 @@ public class Drink extends Fragment implements View.OnClickListener {
         likeImage.setOnClickListener(this);
         dislikeImage.setOnClickListener(this);
 
-
         initDrink(id);
         setHasOptionsMenu(true);
 
@@ -67,12 +67,20 @@ public class Drink extends Fragment implements View.OnClickListener {
     }
 
 
+
+
+
+
     @Override
     public void onClick(View v) {
 
     if (v == likeImage){
+        
         Log.i("Like", "");
     }
+    else if (v == dislikeImage){
+            Log.i("Dislike", "");
+        }
 
     }
 
@@ -88,7 +96,7 @@ public class Drink extends Fragment implements View.OnClickListener {
         tvDrinkInstructions.setText(cocktail.getDescription());
         tvDrinkIngredients.setText(cocktail.getIngredientString("cl"));
 
-        //Log.i("Drink stuff", cocktail.getIngredientString());
+
     }
 
     @Override

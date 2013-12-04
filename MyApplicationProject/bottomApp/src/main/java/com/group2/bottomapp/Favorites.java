@@ -12,6 +12,9 @@ public class Favorites extends Fragment implements View.OnClickListener {
 
     private ListView favvoList;
 
+    private int likeUp;
+    private int likeDown;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
