@@ -58,6 +58,7 @@ public class Convert {
         
         return Double.valueOf(valueStr);*/
     }
+
     public String convertString(Ingredient i, String format){
         String mesurementStr = i.getMeasurement();
         String result = "";

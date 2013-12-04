@@ -1,8 +1,10 @@
 package com.group2.bottomapp;
 
+    import android.Manifest;
     import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
+    import android.database.Cursor;
+    import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,22 +19,32 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
+    import android.widget.ListView;
+    import android.widget.TextView;
+    import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+    import android.widget.Toast;
 
-import java.util.ArrayList;
+    import java.util.ArrayList;
+    import java.util.LinkedHashMap;
+    import com.group2.bottomapp.SectionedGridViewAdapter.OnGridItemClickListener;
 
 
-public class DrinksCabinet extends Fragment implements View.OnClickListener, GridView.OnItemClickListener, GridView.OnItemLongClickListener {
+public class DrinksCabinet extends Fragment implements View.OnClickListener, GridView.OnItemClickListener, OnGridItemClickListener {
 
 
     //public ArrayList<HashMap<Integer, String>> drinkListt = new ArrayList<HashMap<Integer, String>>();
-    private GridView drinkGridView;
+    protected static final String TAG = "DrinksCabinet";
+    private ListView listView;
+    private Dataset dataSet;
+    private SectionedGridViewAdapter adapter = null;
+    private LinkedHashMap<String, Cursor> cursorMap;
+
     private  ArrayList<Cocktail> gridArray = new ArrayList<Cocktail>();
-    private CustomGridViewAdapter customGridAdapter;
+
     private CabinetManager cabinetManager;
     private int selectedItem;
-    private String[] testStr = {"Vodka",  "Beer", "Mulled wine"};
-    private Integer[] testInt = {R.drawable.bottle_one, R.drawable.bottle_two, R.drawable.bottle_three};
+    private String[] testStr = {"Vodka",  "Beer", "Mulled wine", "Empty"};
+    private Integer[] testInt = {R.drawable.bottle_one, R.drawable.bottle_two, R.drawable.bottle_three, R.drawable.emptybottle};
     TextView dialogText;
     TextView alcoholrate;
     TextView cabinet;
@@ -46,30 +58,73 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.drinkscapinet, container, false);
             setHasOptionsMenu(true);
-            drinkGridView = (GridView) rootView.findViewById(R.id.drinkGridView);
+
         cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
+        dataSet = new Dataset();
+
+        String sectionOne = "SectionOne";
+        String sectionTwo = "SectionTwo";
+        String sectionThree = "SectionThree";
+
+        for(int i = 0; i<=20; i++){
+            Cocktail listItem = new Cocktail();
+            int rand = (int) (Math.random()*3);
+            listItem.setName(testStr[rand]);
+            listItem.setImageId(testInt[rand]);
+            Log.i("gridlistitems", testInt[rand]+"-"+testStr[rand]);
+            gridArray.add(listItem);
+        }
+
+        dataSet.addSection(sectionOne, gridArray);
+        dataSet.addSection(sectionTwo, gridArray);
+        dataSet.addSection(sectionThree, gridArray);
+
+        cursorMap = dataSet.getSectionCursorMap();
+
+        listView = (ListView) rootView.findViewById(R.id.listview);
+        listView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new OnGlobalLayoutListener() {
+
+                    @Override
+                    public void onGlobalLayout() {
+                        listView.getViewTreeObserver()
+                                .removeGlobalOnLayoutListener(this);
+
+                        // now check the width of the list view
+                        int width = listView.getWidth();
+
+                        adapter = new SectionedGridViewAdapter(
+                                getActivity(), cursorMap, listView
+                                .getWidth(), listView.getHeight(),
+                                getResources().getDimensionPixelSize(
+                                        R.dimen.grid_item_size));
+
+                        adapter.setListener(DrinksCabinet.this);
+                        listView.setAdapter(adapter);
+
+                        listView.setDividerHeight(adapter
+                                .gapBetweenChildrenInRow());
+
+                    }
+                });
+
+
         if(HelperClass.Name.YourName.endsWith("s")){
             cabinet.setText(HelperClass.Name.YourName + " " + "Liquor Cabinet");
         }else{
             cabinet.setText(HelperClass.Name.YourName + "'s Liquor Cabinet");
         }
+
+
+
         cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
-
         cabinetManager = new CabinetManager();
-            customGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
-            drinkGridView.setAdapter(customGridAdapter);
-            drinkGridView.setOnItemClickListener(this);
-            drinkGridView.setOnItemLongClickListener(this);
+        /*emptyGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, emptygridArray);
+        vodkaGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
+        vodkaGridView.setAdapter(vodkaGridAdapter);
+        vodkaGridView.setOnItemClickListener(this);*/
 
 
-            for(int i = 0; i<=100; i++){
-                Cocktail listItem = new Cocktail();
-                int rand = (int) (Math.random()*3);
-                listItem.setName(testStr[rand]);
-                listItem.setImageId(testInt[rand]);
-                Log.i("gridlistitems", testInt[rand]+"-"+testStr[rand]);
-                gridArray.add(listItem);
-            }
 
             return rootView;
         }
@@ -83,13 +138,13 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(parent == drinkGridView){
+        /*if(parent == vodkaGridView){
             selectedItem = position;
             String text = gridArray.get(selectedItem).getName();
             int imageId = gridArray.get(selectedItem).getImageId();
             dialog(text,imageId);
             //Toast.makeText(getActivity(), gridArray.get(position).getName(), Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
        @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -113,14 +168,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
         return false;
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if(adapterView == drinkGridView){
-            Log.i("gridview", l + "<->" + i);
 
-        }
-        return false;
-    }
 
     public void dialog(String text, int imageID){
         final Dialog dialog = new Dialog(getActivity());
@@ -140,7 +188,6 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
                 Vibrator vib = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                 vib.vibrate(500);
                 gridArray.remove(selectedItem);
-                customGridAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
@@ -151,5 +198,21 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
         dialog.show();
 
+    }
+
+    @Override
+    public void onGridItemClicked(String sectionName, int position, View v) {
+        Cursor sectionCursor = cursorMap.get(sectionName);
+        if(sectionCursor.moveToPosition(position)) {
+            selectedItem = position;
+            String text = gridArray.get(selectedItem).getName();
+            int imageId = gridArray.get(selectedItem).getImageId();
+
+            String data = sectionCursor.getString(0);
+            String msg = "Item clicked is:" + data;
+            dialog(position+" - "+data,imageId);
+            Toast.makeText(this.getActivity(), msg, Toast.LENGTH_SHORT).show();
+            Log.d(TAG, msg);
+        }
     }
 }
