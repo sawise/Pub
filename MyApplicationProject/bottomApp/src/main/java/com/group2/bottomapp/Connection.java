@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
  * Created by FilipFransson on 2013-12-04.
  */
 
+/*
 public class Connection {
     public static String POST(String url, int id {
         InputStream inputStream = null;
@@ -107,14 +108,14 @@ public class Connection {
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-            /*
+           
             person = new Person();
             person.setName(etName.getText().toString());
             person.setCountry(etCountry.getText().toString());
-           
+
 
             return POST(urls[0],person);
-            */
+
         }
         // onPostExecute displays the results of the AsyncTask.
         @Override
@@ -124,9 +125,5 @@ public class Connection {
     }
 
 
-
-
-
-
-
 }
+*/
