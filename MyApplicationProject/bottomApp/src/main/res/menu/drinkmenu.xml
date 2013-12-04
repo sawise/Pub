@@ -7,8 +7,5 @@
         android:title="fl oz"
         android:orderInCategory="100"
         android:showAsAction="always" />
-    <item android:id="@+id/ml"
-        android:title="ml"
-        android:orderInCategory="100"
-        android:showAsAction="always" />
+    
 </menu>

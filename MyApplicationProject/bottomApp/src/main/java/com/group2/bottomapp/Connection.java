@@ -108,7 +108,7 @@ public class Connection {
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
-           
+
             person = new Person();
             person.setName(etName.getText().toString());
             person.setCountry(etCountry.getText().toString());

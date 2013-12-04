@@ -1,6 +1,7 @@
 package com.group2.bottomapp;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.content.res.Configuration;
@@ -17,6 +18,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends FragmentActivity {
+
+    private static Context context;
+
     private ActionBarDrawerToggle menuToggle;
     public static final String POSITION = "POSITION";
     final String[] menuTitle = {"Liquor Cabinet", "Cocktails","Favorites", "Random Cocktail", "Shot Race", "About"};
@@ -37,6 +41,8 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        MainActivity.context = getApplicationContext();
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_1, menuTitle);
 
@@ -109,6 +115,10 @@ public class MainActivity extends FragmentActivity {
     }
     protected void onSaveInstanceState(Bundle outState){
 
+    }
+
+    public static Context getAppContext() {
+        return MainActivity.context;
     }
 
 }

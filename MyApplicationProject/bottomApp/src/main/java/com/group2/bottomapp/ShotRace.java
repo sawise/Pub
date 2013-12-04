@@ -182,7 +182,6 @@ public class ShotRace extends Fragment implements View.OnClickListener {
     private void stopRace(){
         isActive = false;
         btnStart.setText("I'm ready! Let's do it");
-        SoundHelper.vibrate(getActivity().getApplicationContext());
         SoundHelper.start(R.raw.minionlaugh, this.getActivity());
 
         tvClock.setText(preZero(minutesToAlarmTrigger) + ":00");

@@ -7,7 +7,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="about">Emil Svensson\nFilip Fransson\nLukas Andersson\nVictor Olsson\nSam Johnsson</string>
     <string name="description">In this app you can find some different drinks you can do, depending on the ingredients you have on hand. </string>
-
     <string name="addToCabinet">Add liquor to your Cabinet</string>
     <string name="mainMenu">Menu</string>
     <string name="title_DrinksCabinet">DrinkCabinet</string>
