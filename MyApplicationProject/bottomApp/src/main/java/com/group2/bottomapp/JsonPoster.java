@@ -6,7 +6,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -30,9 +29,9 @@ public class JsonPoster {
     private String username;
     private String email;
     private String password;
-    private Register callback;
+    private RegisterUser callback;
 
-    public JsonPoster(Context context, Register callback, String username, String email, String password){
+    public JsonPoster(Context context, RegisterUser callback, String username, String email, String password){
         this.context = context;
         this.username = username;
         this.email = email;
