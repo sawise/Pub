@@ -2,6 +2,7 @@ package com.group2.bottomapp;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -66,7 +67,7 @@ public class RegisterUser extends Activity implements View.OnClickListener {
         Intent in = new Intent(getApplicationContext(), MainActivity.class);
         Toast.makeText(this, response, 1000).show();
         startActivity(in);
-        finish();
+        this.finish();
     }
 
     public void onClick(View v) {
@@ -115,4 +116,5 @@ public class RegisterUser extends Activity implements View.OnClickListener {
             finish();
         }
     }
+
 }

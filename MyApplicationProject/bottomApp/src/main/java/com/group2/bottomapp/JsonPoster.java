@@ -80,7 +80,7 @@ public class JsonPoster {
 
         } catch (Exception e) {
             Log.d("InputStream", e.getLocalizedMessage());
-            // kill callback
+            result = "Did not work!";
         }
 
         return result;
@@ -114,8 +114,12 @@ public class JsonPoster {
                 callback.hideProgressDialog();
                 callback.finishActivity("User added successfully");
             } else if(result.contains("Email is in use!")){
+                // TODO send feedback and request them to retry
                 callback.hideProgressDialog();
             } else if(result.contains("Internal error, The User could not be added!")){
+                // TODO send feedback and request them to retry
+                callback.hideProgressDialog();
+            } else if(result.contains("Did not work!")){
                 callback.hideProgressDialog();
             }
         }
