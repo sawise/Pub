@@ -30,6 +30,7 @@ public class MainActivity extends FragmentActivity {
             "com.group2.bottomapp.About"
     };
     private int currentPos;
+    private int oldPos;
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
@@ -63,26 +64,21 @@ public class MainActivity extends FragmentActivity {
                 currentPos = pos;
                 getActionBar().setTitle(menuTitle[pos]);
                 getActionBar().setIcon(menuImage[pos]);
-                drawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                        super.onDrawerClosed(drawerView);
-
-                        //Clears backstack
-                        FragmentManager fm = getSupportFragmentManager();
-                        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-                            fm.popBackStack();
-                        }
-
-                        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-                        tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[pos]));
-                        menuToggle.syncState();
-                        tx.commit();
-                    }
-                });
                 menuToggle.syncState();
                 drawer.closeDrawer(navList);
+
+                //Clears backstack
+                FragmentManager fm = getSupportFragmentManager();
+                for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+                    fm.popBackStack();
+                }
+                if(currentPos != oldPos){
+                    FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+                    tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[pos]));
+                    menuToggle.syncState();
+                    tx.commit();
+                    oldPos = currentPos;
+                }
 
             }
         });
