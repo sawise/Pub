@@ -47,6 +47,9 @@ public class MainActivity extends FragmentActivity {
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //getActionBar().setHomeButtonEnabled(true);
+
+
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[0]));
         tx.commit();
