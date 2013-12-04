@@ -1,5 +1,7 @@
 package com.group2.bottomapp;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -29,6 +31,7 @@ public class MainActivity extends FragmentActivity {
     };
     private int currentPos;
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +45,7 @@ public class MainActivity extends FragmentActivity {
                 R.drawable.menu, R.string.drawer_open, R.string.drawer_close);
         drawer.setDrawerListener(menuToggle);
 
-        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[0]));
