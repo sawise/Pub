@@ -17,7 +17,7 @@ import android.widget.ListView;
 public class MainActivity extends FragmentActivity {
     private ActionBarDrawerToggle menuToggle;
     public static final String POSITION = "POSITION";
-    final String[] menuTitle = {"Liquor Cabinet", "Drinks","Favorites", "Random", "Shot Race", "About"};
+    final String[] menuTitle = {"Liquor Cabinet", "Cocktails","Favorites", "Random Cocktail", "Shot Race", "About"};
     final int[] menuImage = new int[] {R.drawable.cabinet_pic, R.drawable.cocktail_pic, R.drawable.favorits_pic, R.drawable.random_pic, R.drawable.shotl_pic, R.drawable.aboutl_pic};
     final String[] fragments = {
             "com.group2.bottomapp.DrinksCabinet",
@@ -43,7 +43,9 @@ public class MainActivity extends FragmentActivity {
         drawer.setDrawerListener(menuToggle);
 
         //getActionBar().setDisplayHomeAsUpEnabled(true);
+
         //getActionBar().setHomeButtonEnabled(true);
+
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[0]));

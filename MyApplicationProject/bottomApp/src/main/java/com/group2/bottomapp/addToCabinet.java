@@ -20,7 +20,7 @@ public class addToCabinet extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.addtocabinet, container, false);
-
+        setHasOptionsMenu(true);
         liquorList = (ExpandableListView) rootView.findViewById(R.id.liquorList);
         final LiquorListAdapter liquorListAdapter = new LiquorListAdapter(getActivity());
 
