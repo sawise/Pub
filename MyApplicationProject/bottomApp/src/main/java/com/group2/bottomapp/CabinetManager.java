@@ -26,7 +26,8 @@ public class CabinetManager {
     public static void Initiate(Application cb){
         callBack = cb;
         Log.i("Cabinet manager", "started..");
-        loadList();
+        //loadList();                           currently not used, causes laggggggg
+
     }
 
     public static void AddIngredient(String ing){
