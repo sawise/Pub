@@ -48,6 +48,7 @@
         </activity>
 
 
+        <service android:enabled="true" android:name="com.group2.bottomapp.ShotRaceService" android:label="@string/app_name" />
     </application>
 
 </manifest>
