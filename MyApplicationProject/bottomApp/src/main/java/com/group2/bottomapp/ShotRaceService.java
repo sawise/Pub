@@ -1,41 +1,93 @@
 package com.group2.bottomapp;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 
 /**
  * Created by Hugo on 2013-12-04.
  */
 public class ShotRaceService extends Service {
 
-    static Application application;
+    public static boolean isActive;
+    public static int secondsLeft;
     static NotificationManager mNotificationManager = null;
+    private static Activity activity;
+
+    public static void setActivity(Activity activity){
+        ShotRaceService.activity = activity;
+    }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(intent.getAction().equals("START")) {
-            showNotification();
 
-        } else if(intent.getAction().equals("STOP")) {
+        if(intent.getAction().equals("STOP")) {
             if(mNotificationManager != null){
                 mNotificationManager.cancel(99);
             }
+        } else {
+            String actionString = intent.getAction();
+            final int startMinutes = Integer.parseInt(actionString.split(":")[0]);
+            final int startSeconds = Integer.parseInt(actionString.split(":")[1]);
+            secondsLeft = startMinutes * 60 + startSeconds;
+            showNotification();
+
+            isActive = true;
+
+            final Handler handler = new Handler();
+            Runnable runnable = new Runnable() {
+
+                public void run() {
+                    do {
+                        try {
+                            Thread.sleep(1000);
+                        }
+                        catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        handler.post(new Runnable(){
+                            public void run() {
+                                if(isActive){
+
+                                    secondsLeft--;
+
+                                    showNotification();
+
+                                    if(secondsLeft == 0){
+                                        triggerAlarm();
+                                    }
+
+                                }
+                            }
+                        });
+                    } while (isActive);
+                }
+            };
+            new Thread(runnable).start();
         }
         return 0;
     }
 
     public void showNotification(){
+        int minutes = (int)Math.floor(secondsLeft/60);
+        int seconds = (int)secondsLeft%60;
+        String contentText = preZero(minutes) + ":" + preZero(seconds);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle("Shot Race")
-                        .setContentText("04:59");
+                        .setContentText(contentText);
         Intent resultIntent = new Intent(this, MainActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
@@ -48,14 +100,41 @@ public class ShotRaceService extends Service {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
         mBuilder.setContentIntent(resultPendingIntent);
-        mNotificationManager = (NotificationManager) getSystemService(application.getApplicationContext().NOTIFICATION_SERVICE);
+
+        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(99, mBuilder.build());
 
     }
 
-    public static void setApplication(Application app){
-        application = app;
+    private void triggerAlarm() {
+
+        isActive = false;
+        SoundHelper.vibrate(activity.getApplicationContext());
+        SoundHelper.start(R.raw.airhorn, activity);
+
+        new AlertDialog.Builder(activity)
+                .setTitle("Take a shot!")
+                .setMessage("It's already time for another shot!")
+                .setPositiveButton("Another one!", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //restartRace();
+                    }
+                })
+                .setNegativeButton("Ahw hell no", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        //stopRace();
+                    }
+                })
+                .show();
     }
+
     @Override
     public IBinder onBind(Intent intent) {return null;}
+
+    private String preZero(int i){
+        if(i < 10){
+            return "0" + i;
+        }
+        return i + "";
+    }
 }
