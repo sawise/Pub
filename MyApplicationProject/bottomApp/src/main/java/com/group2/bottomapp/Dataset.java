@@ -46,12 +46,16 @@ public class Dataset {
             while (itr.hasNext()) {
                 Map.Entry<String, ArrayList<Ingredient>> entry = itr.next();
                 String key = entry.getKey();
-                Log.i("valuee", "key: " + key);
-                Log.i("valuee", "value: " + entry.getValue());
+                Log.i("valuee", "key:: " + key);
+                Log.i("valuee", "outside arrau " + entry.getValue());
                 for(Ingredient listitem : entry.getValue()){
-                    String itemname = listitem.getName();
-                    cursor.addRow(new Object[] { itemname, INDEX++ });
-                    Log.i("valuee", "value: " + itemname);
+                    ArrayList<Ingredient> ingredientList = listitem.getIngredientList();
+                    for(Ingredient ingItem : ingredientList){
+                        String itemname = ingItem.getName();
+                        Log.i("valuee", "array in array in" +
+                                " array "+ingItem.getName());
+                        cursor.addRow(new Object[] { itemname, INDEX++ });
+                    }
                 }
 
             }

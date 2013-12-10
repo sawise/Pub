@@ -26,7 +26,9 @@ import android.widget.Toast;
 import com.group2.bottomapp.SectionedGridViewAdapter.OnGridItemClickListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 public class DrinksCabinet extends Fragment implements View.OnClickListener, GridView.OnItemClickListener, OnGridItemClickListener {
@@ -74,29 +76,28 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
         dataSet = new Dataset();
 
-        String sectionOne = "SectionOne";
-        String sectionTwo = "SectionTwo";
-        String sectionThree = "SectionThree";
-
-        for(int i = 0; i<=20; i++){
+        /*for(int i = 0; i<=2; i++){
             Cocktail listItem = new Cocktail();
             int rand = (int) (Math.random()*3);
             listItem.setName(testStr[rand]);
             listItem.setImageId(testInt[rand]);
             Log.i("gridlistitems", testInt[rand]+"-"+testStr[rand]);
             gridArray.add(listItem);
-        }
-        ArrayList<Ingredient> ingredients = APIManager.getIngridient();
+        }*/
+
         ArrayList<Categories> categories = APIManager.getCategories();
 
         for(Categories cat : categories){
-            Log.i("Catt", cat.getId()+"");//cat.getName());
+            ArrayList<Categories> catitem = cat.getCategoryList();
+            for(Categories catitemIncat : catitem){
+                Log.i("Cat in cat", catitemIncat.getName()+" "+catitemIncat.getId());
+                ArrayList<Ingredient> ingredientsinCat = APIManager.getIngridient(catitemIncat.getId());
+                dataSet.addSection(catitemIncat.getName(), ingredientsinCat);
+            }
         }
-        dataSet.addSection(sectionOne, ingredients);
-        dataSet.addSection(sectionTwo, ingredients);
-        dataSet.addSection(sectionThree, ingredients);
-
         cursorMap = dataSet.getSectionCursorMap();
+
+
 
         listView = (ListView) rootView.findViewById(R.id.listview);
         listView.getViewTreeObserver().addOnGlobalLayoutListener(

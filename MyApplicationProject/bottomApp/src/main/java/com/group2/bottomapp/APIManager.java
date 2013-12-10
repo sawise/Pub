@@ -113,9 +113,6 @@ public class APIManager {
                 categoriesToAdd.setCategoryList(categories);
                 listToReturn.add(categoriesToAdd);
 
-                for(Categories cat : categories){
-                    Log.i("JSONN category", cat.getId()+"-"+cat.getName());
-                }
             }
             return listToReturn;
 
@@ -128,11 +125,55 @@ public class APIManager {
     }
 
 
-    public static ArrayList<Ingredient> getIngridient(){
+    public static ArrayList<Ingredient> getIngridient(int catId){
+        //Parsar ett objekt
+        try {
+            JSONArray ingredientArr;
+
+            if(catId > 0){
+                ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/category/"+catId);
+                Log.i("JSONN", "get from category");
+            } else {
+                ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/ingredients/all");
+                Log.i("JSONN", "get all");
+            }
+            ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
+
+            for(int i = 0; i < ingredientArr.length(); i++){
+                JSONObject cocktailObj = ingredientArr.getJSONObject(i);
+                int ingredientId = cocktailObj.getInt("id");
+                String ingredientName = cocktailObj.getString("name");
+                JSONObject ingredientCat = cocktailObj.getJSONObject("category");
+                String ingMeasurement = cocktailObj.getString("measurement");
+
+                ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+                int categoryID = ingredientCat.getInt("id");
+                String categoryName = ingredientCat.getString("name");
+                ingredients.add(new Ingredient(ingredientId, ingredientName, ingMeasurement));
+                Log.i("JSONN ing in cat:"+categoryID, ingredientId+" - "+ ingredientName);
+
+
+                Ingredient ingredientToAdd = new Ingredient();
+                ingredientToAdd.setIngredientList(ingredients);
+
+                listToReturn.add(ingredientToAdd);
+            }
+
+            return listToReturn;
+
+        } catch (Exception e) {
+            Log.i("ERRROR", e+"");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static ArrayList<Ingredient> getIngridientinCategory(int catId){
         //Parsar ett objekt
         try {
 
-            JSONArray ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/ingredients/all");
+            JSONArray ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/category/");
             ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
 
             for(int i = 0; i < ingredientArr.length(); i++){
@@ -164,6 +205,7 @@ public class APIManager {
 
         return null;
     }
+
 
     public static Cocktail getRandomDrink(){
         List<Cocktail> list = getAllAvailableCocktails();
