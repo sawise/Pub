@@ -106,6 +106,8 @@ public class JsonLoginPoster {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
+            HelperClass.Name.YourName = result.replace("Logged in successfully!", "");
+
             if(result.contains("Logged in successfully!")){
                 callback.hideProgressDialog();
                 callback.finishActivity(result);

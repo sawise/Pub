@@ -3,7 +3,6 @@ package com.group2.bottomapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -105,7 +104,7 @@ public class RegisterUser extends Activity implements View.OnClickListener {
         String password = iPassword.getText().toString();
         String email = iEmail.getText().toString();
         String name = iName.getText().toString();
-        HelperClass.Name.YourName = name;
+        //HelperClass.Name.YourName = name;
         HelperClass.Name.YourEmail = email;
 
         if (v == registerBtn){

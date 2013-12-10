@@ -1,10 +1,9 @@
 package com.group2.bottomapp;
 
-    import android.Manifest;
     import android.app.Dialog;
 import android.content.Context;
-    import android.database.Cursor;
-    import android.os.Bundle;
+import android.database.Cursor;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -15,20 +14,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-    import android.widget.ListView;
-    import android.widget.TextView;
-    import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-    import android.widget.Toast;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-    import java.util.ArrayList;
-    import java.util.LinkedHashMap;
-    import java.util.List;
+import com.group2.bottomapp.SectionedGridViewAdapter.OnGridItemClickListener;
 
-    import com.group2.bottomapp.SectionedGridViewAdapter.OnGridItemClickListener;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 
 public class DrinksCabinet extends Fragment implements View.OnClickListener, GridView.OnItemClickListener, OnGridItemClickListener {
@@ -117,25 +115,20 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
                 });
 
 
-        //if(HelperClass.Name.YourName.endsWith("s")){
+
 
             //drinkGridView = (GridView) rootView.findViewById(R.id.drinkGridView);
             cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
-            /*if(HelperClass.Name.YourName.endsWith("s")){
+            if(HelperClass.Name.YourName.endsWith("s")){
 cabinet.setText(HelperClass.Name.YourName + " " + "Liquor Cabinet");
             }else{
             cabinet.setText(HelperClass.Name.YourName + "'s Liquor Cabinet");
 
         }
 
-            }*/
-            /*TILLFÄLLIG*/ cabinet.setText("Liquor Cabinet"); /*TILLFÄLLIG*/
+
             cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
 
-
-
-
-        cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
         cabinetManager = new CabinetManager();
         /*emptyGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, emptygridArray);
         vodkaGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
