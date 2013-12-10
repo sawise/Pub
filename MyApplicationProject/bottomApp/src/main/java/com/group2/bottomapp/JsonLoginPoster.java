@@ -20,20 +20,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Created by Svempa on 2013-12-04.
+ * Created by Svempa on 2013-12-10.
  */
-public class JsonPoster {
+public class JsonLoginPoster {
 
     private Context context;
     private User user;
-    private String username;
     private String email;
     private String password;
-    private RegisterUser callback;
+    private Login callback;
 
-    public JsonPoster(Context context, RegisterUser callback, String username, String email, String password){
+    public JsonLoginPoster(Context context, Login callback, String email, String password){
         this.context = context;
-        this.username = username;
         this.email = email;
         this.password = password;
         this.callback = callback;
@@ -41,12 +39,11 @@ public class JsonPoster {
 
     public void PostJson(){
         callback.showProgressDialog();
-        Log.i("Dialog", "Not showing?");
-        new HttpAsyncTask().execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/new");
+        new HttpAsyncTask().execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/login");
     }
 
 
-    public static String POSTUSER(String url, User user){
+    public static String POSTLOGIN(String url, User user){
         InputStream inputStream = null;
         String result = "";
         try {
@@ -57,7 +54,6 @@ public class JsonPoster {
             String json = "";
 
             JSONObject jsonObject = new JSONObject();
-            jsonObject.accumulate("username", user.getUsername());
             jsonObject.accumulate("email", user.getEmail());
             jsonObject.accumulate("password", user.getPassword());
 
@@ -102,22 +98,21 @@ public class JsonPoster {
         protected String doInBackground(String... urls) {
 
             user = new User();
-            user.setUsername(username);
             user.setEmail(email);
             user.setPassword(password);
 
-            return POSTUSER(urls[0], user);
+            return POSTLOGIN(urls[0], user);
         }
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            if(result.contains("User added successfully")){
+            if(result.contains("Logged in successfully!")){
                 callback.hideProgressDialog();
-                callback.finishActivity("User added successfully");
-            } else if(result.contains("Email is in use!")){
+                callback.finishActivity(result);
+            } else if(result.contains("Login failed!")){
                 callback.hideProgressDialog();
-                callback.showErrorDialog("The email is already in use! Please try another");
-            } else if(result.contains("Internal error, The User could not be added!")){
+                callback.showErrorDialog("Login failed, wrong email or password!");
+            } else if(result.contains("Internal Error")){
                 callback.hideProgressDialog();
                 callback.showErrorDialog("A server error has occurred!");
             } else if(result.contains("Did not work!")){
@@ -137,4 +132,5 @@ public class JsonPoster {
         return result;
 
     }
+
 }
