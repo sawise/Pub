@@ -106,7 +106,7 @@ public class JsonLoginPoster {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            HelperClass.Name.YourName = result.replace("Logged in successfully!", "");
+            HelperClass.Name.YourName = result.replace(" Logged in successfully!", "");
             HelperClass.Name.YourName = Character.toUpperCase(HelperClass.Name.YourName.charAt(0))
                     + HelperClass.Name.YourName.substring(1);
             if(result.contains("Logged in successfully!")){
