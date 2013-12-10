@@ -25,7 +25,7 @@ public class Drinks extends Fragment implements View.OnClickListener {
 
         List<Cocktail> cocktails = APIManager.getAllAvailableCocktails();
 
-        if(cocktails.isEmpty()){
+        if(cocktails == null){
             new AlertDialog.Builder(getActivity()).setMessage("Connect to internet!")
                     .setCancelable(false)
                     .setPositiveButton("OK",new DialogInterface.OnClickListener() {

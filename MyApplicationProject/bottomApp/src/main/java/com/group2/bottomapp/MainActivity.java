@@ -24,15 +24,17 @@ public class MainActivity extends FragmentActivity {
 
     private ActionBarDrawerToggle menuToggle;
     public static final String POSITION = "POSITION";
-    final String[] menuTitle = {"Favorites", "Cocktails","Liquor Cabinet", "Random Cocktail", "Shot Race", "About"};
-    final int[] menuImage = new int[] {R.drawable.favorits_pic, R.drawable.cocktail_pic, R.drawable.cabinet_pic, R.drawable.random_pic, R.drawable.shotl_pic, R.drawable.aboutl_pic};
+    final String[] menuTitle = {"Welcome","Liquor Cabinet", "Cocktails","Favorites", "Random Cocktail", "Shot Race", "About", "add(temp)"};
+    final int[] menuImage = new int[] {R.drawable.ic_launcher,R.drawable.cabinet_pic, R.drawable.cocktail_pic, R.drawable.favorits_pic, R.drawable.random_pic, R.drawable.shotl_pic, R.drawable.aboutl_pic,R.drawable.cabinet_pic};
     final String[] fragments = {
-            "com.group2.bottomapp.Favorites",
-            "com.group2.bottomapp.Drinks",
+            "com.group2.bottomapp.Welcome",
             "com.group2.bottomapp.DrinksCabinet",
+            "com.group2.bottomapp.Drinks",
+            "com.group2.bottomapp.Favorites",
             "com.group2.bottomapp.RandomDrink",
             "com.group2.bottomapp.ShotRace",
-            "com.group2.bottomapp.About"
+            "com.group2.bottomapp.About",
+            "com.group2.botoomapp.addToCabinet"
     };
     private int currentPos;
     private int oldPos;
@@ -63,9 +65,13 @@ public class MainActivity extends FragmentActivity {
 
         //getActionBar().setHomeButtonEnabled(true);
 
+        int firstFragment = 0;
+        if(getIntent().getAction() == "ShotRace"){
+            firstFragment = 4;
+        }
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[0]));
+        tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[firstFragment]));
         tx.commit();
 
         navList.setAdapter(adapter);
@@ -104,6 +110,7 @@ public class MainActivity extends FragmentActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         menuToggle.syncState();
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -127,5 +134,6 @@ public class MainActivity extends FragmentActivity {
     public static Context getAppContext() {
         return MainActivity.context;
     }
+
 
 }

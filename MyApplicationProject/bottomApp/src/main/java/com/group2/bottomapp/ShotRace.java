@@ -3,21 +3,20 @@ package com.group2.bottomapp;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SeekBar;
-import android.widget.SeekBar.*;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-
-import java.util.Calendar;
 
 /**
  * Created by Hugo on 2013-11-27.
@@ -27,12 +26,18 @@ public class ShotRace extends Fragment implements View.OnClickListener {
     private Button btnStart;
     private TextView tvClock;
     private boolean isActive = false;
-    private int minutesToAlarmTrigger = 5;
+    private int minutesToAlarmTrigger;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.shotrace, container, false);
+
+        SharedPreferences prefs = getActivity().getSharedPreferences(
+                "com.group2.bottomapp", Context.MODE_PRIVATE);
+        minutesToAlarmTrigger = prefs.getInt("com.group2.bottomapp.ShotRaceTime", 5);
+
+
 
         ShotRaceService.setActivity(getActivity());
 
@@ -65,11 +70,15 @@ public class ShotRace extends Fragment implements View.OnClickListener {
                         public void onStopTrackingTouch(SeekBar seekBar){}
                     });
 
-                    //np.setOnValueChangedListener(this);
                     b1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             minutesToAlarmTrigger = sb.getProgress() + 1;
+
+                            SharedPreferences prefs = getActivity().getSharedPreferences(
+                                    "com.group2.bottomapp", Context.MODE_PRIVATE);
+                            prefs.edit().putInt("com.group2.bottomapp.ShotRaceTime", minutesToAlarmTrigger).commit();
+
                             tvClock.setText(preZero(sb.getProgress() + 1) + ":00");
                             d.dismiss();
                         }
@@ -102,10 +111,16 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         if(isShotRaceServiceRunning()){
 
             int minutes = (int)Math.floor(ShotRaceService.secondsLeft/60);
-            int seconds = (int)ShotRaceService.secondsLeft%60;
+            int seconds = ShotRaceService.secondsLeft%60;
             String contentText = preZero(minutes) + ":" + preZero(seconds);
             tvClock.setText(contentText);
-            resumeRace(minutes, seconds);
+
+            if(minutes <= 0 && seconds <= 0) {
+                triggerAlarm();
+            } else {
+                resumeRace();
+            }
+
 
             Intent intent = new Intent(getActivity().getApplicationContext(), ShotRaceService.class);
             intent.setAction("STOP");
@@ -132,6 +147,32 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        if(isShotRaceServiceRunning()){
+
+            int minutes = (int)Math.floor(ShotRaceService.secondsLeft/60);
+            int seconds = ShotRaceService.secondsLeft%60;
+            String contentText = preZero(minutes) + ":" + preZero(seconds);
+            tvClock.setText(contentText);
+
+            if(!isActive){
+                if(minutes <= 0 && seconds <= 0) {
+                    triggerAlarm();
+                } else {
+                    resumeRace();
+                }
+            }
+
+            Intent intent = new Intent(getActivity().getApplicationContext(), ShotRaceService.class);
+            intent.setAction("STOP");
+            getActivity().startService(intent);
+            getActivity().stopService(intent);
+        }
+    }
+
     private void startTimerThread() {
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
@@ -146,23 +187,26 @@ public class ShotRace extends Fragment implements View.OnClickListener {
                     }
                     handler.post(new Runnable(){
                         public void run() {
-                            if(isActive){
+                        if(isActive){
+                            String minuteString = tvClock.getText().toString().split(":")[0];
+                            String secondString = tvClock.getText().toString().split(":")[1];
+                            int seconds = Integer.parseInt(secondString);
+                            int minutes = Integer.parseInt(minuteString);
 
-                                int minutes = Integer.parseInt(tvClock.getText().toString().split(":")[0]);
-                                int seconds = Integer.parseInt(tvClock.getText().toString().split(":")[1]);
 
-                                seconds--;
-                                if(seconds == 0){
-                                    minutes--;
-                                }
-
-                                tvClock.setText(preZero(minutes) + ":" + preZero(seconds));
-
-                                if(seconds == 0 && minutes == 0){
+                            if(seconds == 0){
+                                if(minutes == 0){
                                     triggerAlarm();
+                                } else {
+                                    minutes--;
+                                    seconds = 59;
                                 }
-
+                            } else {
+                                seconds--;
                             }
+
+                            tvClock.setText(preZero(minutes) + ":" + preZero(seconds));
+                        }
                         }
                     });
                 } while (isActive);
@@ -177,10 +221,20 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         isActive = false;
         SoundHelper.vibrate(getActivity().getApplicationContext());
         SoundHelper.start(R.raw.hornair, this.getActivity());
+<<<<<<< HEAD
+=======
+
+        String minuteText = "";
+        if(minutesToAlarmTrigger == 1){
+            minuteText = "minute";
+        } else {
+            minuteText = "minutes";
+        }
+>>>>>>> fc0993bdecde5406753a98c83cc7257e1d00483c
 
         new AlertDialog.Builder(getActivity())
                 .setTitle("Take a shot!")
-                .setMessage("Even though you won't believe me " + minutesToAlarmTrigger + " minutes has passed, and you know what that means.")
+                .setMessage("Even though you won't believe me " + minutesToAlarmTrigger + " " + minuteText + " has passed, and you know what that means.")
                 .setPositiveButton("Another one!", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         restartRace();
@@ -201,7 +255,7 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         startTimerThread();
     }
 
-    private void resumeRace(int minutes, int seconds){
+    private void resumeRace(){
         isActive = true;
         btnStart.setText("I can't fucking handle more bro'");
         startTimerThread();
@@ -230,9 +284,15 @@ public class ShotRace extends Fragment implements View.OnClickListener {
     }
 
     private String preZero(int i){
-        if(i < 10){
+        String result = i + "";
+        if(result.length() < 2){
+            return "0" + result;
+        } else {
+            return result;
+        }
+        /*if(i < 10){
             return "0" + i;
         }
-        return i + "";
+        return i + "";*/
     }
 }

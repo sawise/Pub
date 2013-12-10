@@ -2,7 +2,6 @@ package com.group2.bottomapp;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -13,7 +12,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 
 /**
  * Created by Hugo on 2013-12-04.
@@ -32,6 +30,7 @@ public class ShotRaceService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         if(intent.getAction().equals("STOP")) {
+            isActive = false;
             if(mNotificationManager != null){
                 mNotificationManager.cancel(99);
             }
@@ -89,6 +88,7 @@ public class ShotRaceService extends Service {
                         .setContentTitle("Shot Race")
                         .setContentText(contentText);
         Intent resultIntent = new Intent(this, MainActivity.class);
+        resultIntent.setAction("ShotRace");
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(MainActivity.class);
@@ -112,6 +112,7 @@ public class ShotRaceService extends Service {
         SoundHelper.vibrate(activity.getApplicationContext());
         SoundHelper.start(R.raw.hornair, activity);
 
+<<<<<<< HEAD
         new AlertDialog.Builder(activity)
                 .setTitle("Take a shot!")
                 .setMessage("It's already time for another shot!")
@@ -126,6 +127,13 @@ public class ShotRaceService extends Service {
                     }
                 })
                 .show();
+=======
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction("ShotRace");
+
+        startActivity(intent);
+>>>>>>> fc0993bdecde5406753a98c83cc7257e1d00483c
     }
 
     @Override
