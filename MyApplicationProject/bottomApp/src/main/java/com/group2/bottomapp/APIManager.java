@@ -1,5 +1,8 @@
 package com.group2.bottomapp;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,6 +51,7 @@ public class APIManager {
 
     public static List<Cocktail> getAllAvailableCocktails(){
         //Parsar ett objekt
+        if(!hazInternetz()) return new ArrayList<Cocktail>();
         try {
 
             JSONArray cocktailArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/drinks/all");
@@ -134,6 +138,9 @@ public class APIManager {
 
     public static Cocktail getRandomDrink(){
         List<Cocktail> list = getAllAvailableCocktails();
+        if(list.isEmpty()){
+            return null;
+        }
         Random rnd = new Random();
 
         int rndNo = rnd.nextInt(list.size());
@@ -143,7 +150,9 @@ public class APIManager {
 
     public static Cocktail getDrinkWithID(int id){
         List<Cocktail> cocktails = getAllCocktails();
-
+        if(cocktails.isEmpty()){
+            return null;
+        }
         for(Cocktail c : cocktails){
             if(c.getId() == id){
                 return c;
@@ -151,5 +160,17 @@ public class APIManager {
         }
 
         return null;
+    }
+
+
+
+    private static boolean hazInternetz(){
+        ConnectivityManager connMgr = (ConnectivityManager) MainActivity.getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        }
+        return false;
     }
 }

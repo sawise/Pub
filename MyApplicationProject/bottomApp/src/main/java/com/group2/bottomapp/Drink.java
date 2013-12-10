@@ -114,9 +114,6 @@ public class Drink extends Fragment implements View.OnClickListener {
             case R.id.oz:
                 tvDrinkIngredients.setText(cocktail.getIngredientString("oz"));
                 return true;
-            case R.id.ml:
-                tvDrinkIngredients.setText(cocktail.getIngredientString("ml"));
-                return true;
             default:
                 break;
         }
