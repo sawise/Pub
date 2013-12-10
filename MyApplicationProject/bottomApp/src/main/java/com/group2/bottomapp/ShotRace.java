@@ -102,7 +102,7 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         if(isShotRaceServiceRunning()){
 
             int minutes = (int)Math.floor(ShotRaceService.secondsLeft/60);
-            int seconds = (int)ShotRaceService.secondsLeft%60;
+            int seconds = ShotRaceService.secondsLeft%60;
             String contentText = preZero(minutes) + ":" + preZero(seconds);
             tvClock.setText(contentText);
             resumeRace(minutes, seconds);

@@ -56,9 +56,13 @@ public class MainActivity extends FragmentActivity {
 
         //getActionBar().setHomeButtonEnabled(true);
 
+        int firstFragment = 0;
+        if(getIntent().getAction() == "ShotRace"){
+            firstFragment = 4;
+        }
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[0]));
+        tx.replace(R.id.main, Fragment.instantiate(MainActivity.this, fragments[firstFragment]));
         tx.commit();
 
         navList.setAdapter(adapter);
