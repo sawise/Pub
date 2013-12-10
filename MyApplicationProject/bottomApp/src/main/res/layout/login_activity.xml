@@ -84,7 +84,8 @@
                 android:text="Or"
                 android:textColor="#fff"
                 android:gravity="center"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:id="@+id/of"/>
 
             <Button android:id="@+id/btnFB"
                 android:layout_width="fill_parent"
