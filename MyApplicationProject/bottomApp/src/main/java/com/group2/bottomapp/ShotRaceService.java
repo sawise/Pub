@@ -112,7 +112,6 @@ public class ShotRaceService extends Service {
         SoundHelper.vibrate(activity.getApplicationContext());
         SoundHelper.start(R.raw.hornair, activity);
 
-<<<<<<< HEAD
         new AlertDialog.Builder(activity)
                 .setTitle("Take a shot!")
                 .setMessage("It's already time for another shot!")
@@ -127,13 +126,11 @@ public class ShotRaceService extends Service {
                     }
                 })
                 .show();
-=======
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction("ShotRace");
 
         startActivity(intent);
->>>>>>> fc0993bdecde5406753a98c83cc7257e1d00483c
     }
 
     @Override
