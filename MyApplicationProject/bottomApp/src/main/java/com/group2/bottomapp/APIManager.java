@@ -94,32 +94,61 @@ public class APIManager {
         return null;
     }
 
+    public static ArrayList<Categories> getCategories(){
+        //Parsar ett objekt
+
+        try {
+            JSONArray CategoriesArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/categories/all");
+            ArrayList<Categories> listToReturn = new ArrayList<Categories>();
+
+            for(int i = 0; i < CategoriesArr.length(); i++){
+                JSONObject cocktailObj = CategoriesArr.getJSONObject(i);
+
+                int categoryId = cocktailObj.getInt("id");
+                String categoryName = cocktailObj.getString("name");
+                Log.i("JSONN category", categoryId+" - "+ categoryName);
+
+                ArrayList<Categories> categories = new ArrayList<Categories>();
+                categories.add(new Categories(categoryId, categoryName));
+                Categories categoriesToAdd = new Categories();
+                categoriesToAdd.setCategoryList(categories);
+                listToReturn.add(categoriesToAdd);
+
+                for(Categories cat : categories){
+                    Log.i("JSONN category", cat.getId()+"-"+cat.getName());
+                }
+            }
+            return listToReturn;
+
+        } catch (Exception e) {
+            Log.i("ERRROR", e+"");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
     public static ArrayList<Ingredient> getIngridient(){
         //Parsar ett objekt
         try {
 
             JSONArray ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/ingredients/all");
-
             ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
 
             for(int i = 0; i < ingredientArr.length(); i++){
                 JSONObject cocktailObj = ingredientArr.getJSONObject(i);
                 int ingredientId = cocktailObj.getInt("id");
                 String ingredientName = cocktailObj.getString("name");
-                String ingredientCategory = cocktailObj.getString("description");
-                Log.i("JSONN", ingredientId+" - "+ ingredientName+" - "+ ingredientCategory);
+                JSONObject ingredientCat = cocktailObj.getJSONObject("category");
+                String ingMeasurement = cocktailObj.getString("measurement");
 
                 ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-                JSONArray jsonIngredients = cocktailObj.getJSONArray("ingredients");
-                for (int j = 0; j < jsonIngredients.length(); j++)
-                {
-                    JSONObject jsonIngredientObj = jsonIngredients.getJSONObject(j);
-                    int ingId = jsonIngredientObj.getInt("id");
-                    String ingName = jsonIngredientObj.getString("name");
-                    String ingMeasurement = jsonIngredientObj.getString("measurement");
-
-                    ingredients.add(new Ingredient(ingId, ingName, ingMeasurement));
-                }
+                int categoryID = ingredientCat.getInt("id");
+                String categoryName = ingredientCat.getString("name");
+                ingredients.add(new Ingredient(categoryID, categoryName, ingMeasurement));
+                Log.i("JSONN ing", ingredientId+" - "+ ingredientName);
+                Log.i("JSONN cat", categoryID+ " - " + categoryName);
 
                 Ingredient ingredientToAdd = new Ingredient();
                 ingredientToAdd.setIngredientList(ingredients);
@@ -130,6 +159,7 @@ public class APIManager {
             return listToReturn;
 
         } catch (Exception e) {
+            Log.i("ERRROR", e+"");
             e.printStackTrace();
         }
 

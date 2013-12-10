@@ -3,6 +3,7 @@ package com.group2.bottomapp;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.os.StrictMode;
 import android.support.v4.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -43,6 +44,12 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.main);
 
         MainActivity.context = getApplicationContext();
+
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+            StrictMode.setThreadPolicy(policy);
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActionBar().getThemedContext(), android.R.layout.simple_list_item_1, menuTitle);
 

@@ -110,7 +110,7 @@ public class ShotRaceService extends Service {
 
         isActive = false;
         SoundHelper.vibrate(activity.getApplicationContext());
-        SoundHelper.start(R.raw.airhorn, activity);
+        SoundHelper.start(R.raw.hornair, activity);
 
         new AlertDialog.Builder(activity)
                 .setTitle("Take a shot!")
