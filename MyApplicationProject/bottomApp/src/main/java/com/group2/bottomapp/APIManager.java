@@ -75,7 +75,6 @@ public class APIManager {
                     int ingId = jsonIngredientObj.getInt("id");
                     String ingName = jsonIngredientObj.getString("name");
                     String ingMeasurement = jsonIngredientObj.getString("measurement");
-
                     ingredients.add(new Ingredient(ingId, ingName, ingMeasurement));
                 }
 
@@ -146,7 +145,7 @@ public class APIManager {
                 ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
                 int categoryID = ingredientCat.getInt("id");
                 String categoryName = ingredientCat.getString("name");
-                ingredients.add(new Ingredient(categoryID, categoryName, ingMeasurement));
+                ingredients.add(new Ingredient(ingredientId, categoryName, ingMeasurement));
                 Log.i("JSONN ing", ingredientId+" - "+ ingredientName);
                 Log.i("JSONN cat", categoryID+ " - " + categoryName);
 
