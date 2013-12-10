@@ -141,7 +141,7 @@ public class Login extends Activity implements View.OnClickListener {
 
 // TODO keep login state when logged in once
 // TODO if no internet show dialog
-
+// TODO check for internet in main activity
 /*
 *     // show the error dialog
     private void showErrorDialog(){
