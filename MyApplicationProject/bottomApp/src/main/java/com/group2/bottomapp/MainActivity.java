@@ -103,6 +103,7 @@ public class MainActivity extends FragmentActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         menuToggle.syncState();
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -126,5 +127,6 @@ public class MainActivity extends FragmentActivity {
     public static Context getAppContext() {
         return MainActivity.context;
     }
+
 
 }

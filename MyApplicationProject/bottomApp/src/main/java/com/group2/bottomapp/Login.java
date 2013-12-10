@@ -68,6 +68,7 @@ public class Login extends Activity implements View.OnClickListener {
         Intent in = new Intent(getApplicationContext(), MainActivity.class);
         Toast.makeText(this, response, 1000).show();
         startActivity(in);
+//        set = getSharedPreferences("assignmentKey", MODE_PRIVATE).getStringSet("myKey", null);
 
         // add the email and password to sharedprefs
         //getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", iEmail.getText().toString()).commit();
@@ -139,3 +140,26 @@ public class Login extends Activity implements View.OnClickListener {
 
 
 // TODO keep login state when logged in once
+// TODO if no internet show dialog
+
+/*
+*     // show the error dialog
+    private void showErrorDialog(){
+        // if an error occured
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("You need internet for the app to work!");
+        builder.setMessage("Please turn on your internet connection!");
+        builder.setInverseBackgroundForced(true);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+* */
