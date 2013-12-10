@@ -1,6 +1,6 @@
 package com.group2.bottomapp;
 
-    import android.app.Dialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -61,6 +61,17 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
 
         cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
+        cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
+
+        Log.i("Error", HelperClass.Name.YourName);
+
+        if(HelperClass.Name.YourName.endsWith("s")){
+            cabinet.setText(HelperClass.Name.YourName + " " + "Liquor Cabinet");
+        }else{
+            cabinet.setText(HelperClass.Name.YourName + "'s Liquor Cabinet");
+
+        }
+
         dataSet = new Dataset();
 
         String sectionOne = "SectionOne";
@@ -118,16 +129,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
 
             //drinkGridView = (GridView) rootView.findViewById(R.id.drinkGridView);
-            cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
-            if(HelperClass.Name.YourName.endsWith("s")){
-cabinet.setText(HelperClass.Name.YourName + " " + "Liquor Cabinet");
-            }else{
-            cabinet.setText(HelperClass.Name.YourName + "'s Liquor Cabinet");
 
-        }
-
-
-            cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
 
         cabinetManager = new CabinetManager();
         /*emptyGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, emptygridArray);
