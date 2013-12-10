@@ -78,6 +78,11 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             gridArray.add(listItem);
         }
         ArrayList<Ingredient> ingredients = APIManager.getIngridient();
+        ArrayList<Categories> categories = APIManager.getCategories();
+
+        for(Categories cat : categories){
+            Log.i("Catt", cat.getId()+"");//cat.getName());
+        }
         dataSet.addSection(sectionOne, ingredients);
         dataSet.addSection(sectionTwo, ingredients);
         dataSet.addSection(sectionThree, ingredients);

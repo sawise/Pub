@@ -162,4 +162,14 @@ public class Login extends Activity implements View.OnClickListener {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+      public boolean isConnected(){
+        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected())
+            return true;
+        else
+            return false;
+    }
+
 * */

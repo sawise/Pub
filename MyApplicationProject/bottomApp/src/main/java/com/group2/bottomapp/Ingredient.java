@@ -13,7 +13,6 @@ public class Ingredient {
     private String measurement;
     private ArrayList<Ingredient> ingredientList;
 
-
     public Ingredient(int id, String name, String measurement){
         this.id = id;
         this.name = name;

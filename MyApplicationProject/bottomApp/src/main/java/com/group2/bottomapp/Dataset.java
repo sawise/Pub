@@ -47,7 +47,7 @@ public class Dataset {
                 Map.Entry<String, ArrayList<Ingredient>> entry = itr.next();
                 String key = entry.getKey();
                 Log.i("valuee", "key: " + key);
-
+                Log.i("valuee", "value: " + entry.getValue());
                 for(Ingredient listitem : entry.getValue()){
                     String itemname = listitem.getName();
                     cursor.addRow(new Object[] { itemname, INDEX++ });

@@ -221,6 +221,8 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         isActive = false;
         SoundHelper.vibrate(getActivity().getApplicationContext());
         SoundHelper.start(R.raw.hornair, this.getActivity());
+<<<<<<< HEAD
+=======
 
         String minuteText = "";
         if(minutesToAlarmTrigger == 1){
@@ -228,6 +230,7 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         } else {
             minuteText = "minutes";
         }
+>>>>>>> fc0993bdecde5406753a98c83cc7257e1d00483c
 
         new AlertDialog.Builder(getActivity())
                 .setTitle("Take a shot!")
