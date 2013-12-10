@@ -27,9 +27,9 @@ public class MainActivity extends FragmentActivity {
     final int[] menuImage = new int[] {R.drawable.ic_launcher,R.drawable.cabinet_pic, R.drawable.cocktail_pic, R.drawable.favorits_pic, R.drawable.random_pic, R.drawable.shotl_pic, R.drawable.aboutl_pic};
     final String[] fragments = {
             "com.group2.bottomapp.Welcome",
-            "com.group2.bottomapp.Favorites",
-            "com.group2.bottomapp.Drinks",
             "com.group2.bottomapp.DrinksCabinet",
+            "com.group2.bottomapp.Drinks",
+            "com.group2.bottomapp.Favorites",
             "com.group2.bottomapp.RandomDrink",
             "com.group2.bottomapp.ShotRace",
             "com.group2.bottomapp.About"
