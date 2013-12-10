@@ -8,16 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SeekBar;
-import android.widget.SeekBar.*;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-
-import java.util.Calendar;
 
 /**
  * Created by Hugo on 2013-11-27.
@@ -176,7 +173,7 @@ public class ShotRace extends Fragment implements View.OnClickListener {
         tvClock.setText("00:00");
         isActive = false;
         SoundHelper.vibrate(getActivity().getApplicationContext());
-        SoundHelper.start(R.raw.airhorn, this.getActivity());
+        SoundHelper.start(R.raw.hornair, this.getActivity());
 
         new AlertDialog.Builder(getActivity())
                 .setTitle("Take a shot!")
