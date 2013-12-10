@@ -30,6 +30,7 @@ public class ShotRaceService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         if(intent.getAction().equals("STOP")) {
+            isActive = false;
             if(mNotificationManager != null){
                 mNotificationManager.cancel(99);
             }
@@ -87,6 +88,7 @@ public class ShotRaceService extends Service {
                         .setContentTitle("Shot Race")
                         .setContentText(contentText);
         Intent resultIntent = new Intent(this, MainActivity.class);
+        resultIntent.setAction("ShotRace");
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addParentStack(MainActivity.class);
