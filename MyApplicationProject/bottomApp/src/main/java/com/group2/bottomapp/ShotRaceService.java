@@ -2,7 +2,6 @@ package com.group2.bottomapp;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -13,7 +12,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.util.Log;
 
 /**
  * Created by Hugo on 2013-12-04.
@@ -110,7 +108,7 @@ public class ShotRaceService extends Service {
 
         isActive = false;
         SoundHelper.vibrate(activity.getApplicationContext());
-        SoundHelper.start(R.raw.airhorn, activity);
+        SoundHelper.start(R.raw.hornair, activity);
 
         new AlertDialog.Builder(activity)
                 .setTitle("Take a shot!")
