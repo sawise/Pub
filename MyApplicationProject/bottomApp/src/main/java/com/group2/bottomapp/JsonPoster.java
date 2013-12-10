@@ -41,6 +41,7 @@ public class JsonPoster {
 
     public void PostJson(){
         callback.showProgressDialog();
+        Log.i("Dialog", "Not showing?");
         new HttpAsyncTask().execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/new");
     }
 
@@ -114,11 +115,11 @@ public class JsonPoster {
                 callback.hideProgressDialog();
                 callback.finishActivity("User added successfully");
             } else if(result.contains("Email is in use!")){
-                // TODO send feedback and request them to retry
                 callback.hideProgressDialog();
+                callback.showErrorDialog("The email is already in use! Please try another");
             } else if(result.contains("Internal error, The User could not be added!")){
-                // TODO send feedback and request them to retry
                 callback.hideProgressDialog();
+                callback.showErrorDialog("A server error has occurred!");
             } else if(result.contains("Did not work!")){
                 callback.hideProgressDialog();
             }

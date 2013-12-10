@@ -1,8 +1,10 @@
 package com.group2.bottomapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -63,11 +65,40 @@ public class RegisterUser extends Activity implements View.OnClickListener {
     }
 
 
+    // finish activity with a feedback toast
     public void finishActivity(String response){
         Intent in = new Intent(getApplicationContext(), MainActivity.class);
         Toast.makeText(this, response, 1000).show();
         startActivity(in);
+
+        // add the email and password to sharedprefs
+        //getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", iEmail.getText().toString()).commit();
+        //getSharedPreferences("bottomAppPass", MODE_PRIVATE).edit().putString("password", iPassword.getText().toString()).commit();
+
         this.finish();
+    }
+
+    // show the error dialog
+    public void showErrorDialog(String message){
+        // if an error occured
+
+        // set progress dialog to null
+        progressDialog = null;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("An Error has occurred!");
+        builder.setMessage(message);
+        builder.setInverseBackgroundForced(true);
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     public void onClick(View v) {
@@ -83,16 +114,14 @@ public class RegisterUser extends Activity implements View.OnClickListener {
             if (name.length() <2) {
                 Toast.makeText(this, "Your Name must be 2-11 chars", 1000).show();
                 textName.setTextColor(getResources().getColor(R.color.ColorRed));
-            }
-            else if (name.length() >11){
+            } else if (name.length() >11){
                 Toast.makeText(this, "Your Name must be 2-11 chars", 1000).show();
                 textName.setTextColor(getResources().getColor(R.color.ColorRed));
-            }
-            else if(!loginValidator.validate(email)) {
+            } else if(!loginValidator.validate(email)) {
                 textName.setTextColor(getResources().getColor(R.color.ColorWhite));
                 Toast.makeText(this, "thats not a email adress", 1000).show();
                 textEmail.setTextColor(getResources().getColor(R.color.ColorRed));
-            }else if(password.length() <5){
+            } else if(password.length() <5){
                 textEmail.setTextColor(getResources().getColor(R.color.ColorWhite));
                 Toast.makeText(this, "Your password must be atleast 5 chars", 1000).show();
                 textPass.setTextColor(getResources().getColor(R.color.ColorRed));
