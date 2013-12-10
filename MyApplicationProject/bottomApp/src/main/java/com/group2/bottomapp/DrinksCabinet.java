@@ -26,6 +26,8 @@ import android.widget.ImageView;
 
     import java.util.ArrayList;
     import java.util.LinkedHashMap;
+    import java.util.List;
+
     import com.group2.bottomapp.SectionedGridViewAdapter.OnGridItemClickListener;
 
 
@@ -75,10 +77,10 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             Log.i("gridlistitems", testInt[rand]+"-"+testStr[rand]);
             gridArray.add(listItem);
         }
-
-        dataSet.addSection(sectionOne, gridArray);
-        dataSet.addSection(sectionTwo, gridArray);
-        dataSet.addSection(sectionThree, gridArray);
+        ArrayList<Ingredient> ingredients = APIManager.getIngridient();
+        dataSet.addSection(sectionOne, ingredients);
+        dataSet.addSection(sectionTwo, ingredients);
+        dataSet.addSection(sectionThree, ingredients);
 
         cursorMap = dataSet.getSectionCursorMap();
 
@@ -213,14 +215,14 @@ cabinet.setText(HelperClass.Name.YourName + " " + "Liquor Cabinet");
 
     @Override
     public void onGridItemClicked(String sectionName, int position, View v) {
+
         Cursor sectionCursor = cursorMap.get(sectionName);
         if(sectionCursor.moveToPosition(position)) {
             selectedItem = position;
             String text = gridArray.get(selectedItem).getName();
             int imageId = gridArray.get(selectedItem).getImageId();
-
             String data = sectionCursor.getString(0);
-            String msg = "Item clicked is:" + data;
+            String msg = sectionName + " - Item clicked is:" + data;
             dialog(position+" - "+data,imageId);
             Toast.makeText(this.getActivity(), msg, Toast.LENGTH_SHORT).show();
             Log.d(TAG, msg);

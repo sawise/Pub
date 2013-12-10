@@ -90,6 +90,48 @@ public class APIManager {
         return null;
     }
 
+    public static ArrayList<Ingredient> getIngridient(){
+        //Parsar ett objekt
+        try {
+
+            JSONArray ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/ingredients/all");
+
+            ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
+
+            for(int i = 0; i < ingredientArr.length(); i++){
+                JSONObject cocktailObj = ingredientArr.getJSONObject(i);
+                int ingredientId = cocktailObj.getInt("id");
+                String ingredientName = cocktailObj.getString("name");
+                String ingredientCategory = cocktailObj.getString("description");
+                Log.i("JSONN", ingredientId+" - "+ ingredientName+" - "+ ingredientCategory);
+
+                ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+                JSONArray jsonIngredients = cocktailObj.getJSONArray("ingredients");
+                for (int j = 0; j < jsonIngredients.length(); j++)
+                {
+                    JSONObject jsonIngredientObj = jsonIngredients.getJSONObject(j);
+                    int ingId = jsonIngredientObj.getInt("id");
+                    String ingName = jsonIngredientObj.getString("name");
+                    String ingMeasurement = jsonIngredientObj.getString("measurement");
+
+                    ingredients.add(new Ingredient(ingId, ingName, ingMeasurement));
+                }
+
+                Ingredient ingredientToAdd = new Ingredient();
+                ingredientToAdd.setIngredientList(ingredients);
+
+                listToReturn.add(ingredientToAdd);
+            }
+
+            return listToReturn;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public static Cocktail getRandomDrink(){
         List<Cocktail> list = getAllAvailableCocktails();
         Random rnd = new Random();

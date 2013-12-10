@@ -17,7 +17,7 @@ import android.util.Log;
 
 public class Dataset {
 
-    private LinkedHashMap<String, ArrayList<Cocktail>> sectionItems = new LinkedHashMap<String, ArrayList<Cocktail>>();
+    private LinkedHashMap<String, ArrayList<Ingredient>> sectionItems = new LinkedHashMap<String, ArrayList<Ingredient>>();
 
     public static final String DATA_COLUMN = "data";
 
@@ -31,7 +31,7 @@ public class Dataset {
 
     private LinkedHashMap<String, Cursor> sectionCursors = new LinkedHashMap<String, Cursor>();
 
-    public void addSection(String sectionName, ArrayList<Cocktail> arrayList) {
+    public void addSection(String sectionName, ArrayList<Ingredient> arrayList) {
         sectionItems.put(sectionName, arrayList);
     }
 
@@ -42,14 +42,13 @@ public class Dataset {
             //int items = sectionItems.get(sectionName);
 
             // now add item rows
-            Iterator<Map.Entry<String, ArrayList<Cocktail>>> itr = sectionItems.entrySet().iterator();
+            Iterator<Map.Entry<String, ArrayList<Ingredient>>> itr = sectionItems.entrySet().iterator();
             while (itr.hasNext()) {
-                Map.Entry<String, ArrayList<Cocktail>> entry = itr.next();
+                Map.Entry<String, ArrayList<Ingredient>> entry = itr.next();
                 String key = entry.getKey();
                 Log.i("valuee", "key: " + key);
-                ArrayList<Cocktail> list = entry.getValue();
 
-                for(Cocktail listitem : entry.getValue()){
+                for(Ingredient listitem : entry.getValue()){
                     String itemname = listitem.getName();
                     cursor.addRow(new Object[] { itemname, INDEX++ });
                     Log.i("valuee", "value: " + itemname);
