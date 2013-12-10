@@ -23,6 +23,7 @@ public class Login extends Activity implements View.OnClickListener {
     private TextView textUserEmail;
     private TextView textUserPass;
     private ProgressDialog progressDialog;
+    private TextView or;
     //private SoundHelper soundEffect;
 
     @Override
@@ -40,8 +41,11 @@ public class Login extends Activity implements View.OnClickListener {
         regBtn.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
         fbRegBtn.setOnClickListener(this);
+        or = (TextView)findViewById(R.id.of);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        fbRegBtn.setVisibility(View.INVISIBLE);
+        or.setVisibility(View.INVISIBLE);
 
     }
 
