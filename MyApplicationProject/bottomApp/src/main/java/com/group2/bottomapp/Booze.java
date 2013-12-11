@@ -1,21 +1,24 @@
 package com.group2.bottomapp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Ingredient {
+/**
+ * Created by Lukas on 2013-12-11.
+ */
+public class Booze {
     private int id;
     private String name;
     private String categoryID;
     private String categoryName;
-    private String measurement;
-    private ArrayList<Ingredient> ingredientList;
+    private HashMap<String, ArrayList<Booze>> boozeList;
 
-    public Ingredient(int id, String name, String measurement){
+
+    public Booze(int id, String name){
         this.id = id;
         this.name = name;
-        this.measurement = measurement;
     }
-    public Ingredient(){
+    public Booze(){
 
     }
 
@@ -28,22 +31,14 @@ public class Ingredient {
         this.categoryName = categoryName;
     }
 
-    public ArrayList<Ingredient> getIngredientList() {
-        return ingredientList;
+    public HashMap<String, ArrayList<Booze>> getIngredientList() {
+        return boozeList;
     }
 
-    public void setIngredientList(ArrayList<Ingredient> ingredientList) {
-        this.ingredientList = ingredientList;
+    public void setIngredientList(HashMap<String, ArrayList<Booze>> boozeList) {
+        this.boozeList = boozeList;
     }
 
-
-    public String getMeasurement() {
-        return measurement;
-    }
-
-    public void setMeasurement(String measurement) {
-        this.measurement = measurement;
-    }
 
     public String getName() {
         return name;
@@ -63,3 +58,4 @@ public class Ingredient {
 
 
 }
+

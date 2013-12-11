@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Created by Hugo on 2013-11-13.
@@ -21,89 +21,21 @@ import java.util.Map;
 public class LiquorListAdapter extends BaseExpandableListAdapter {
 
     private Activity context;
-    private Map<String, ArrayList<String>> ingredients;
-    private ArrayList<String> categories;
+    private HashMap<String, ArrayList<Booze>> ingredients;
+    private ArrayList<Categories> categories;
 
     public LiquorListAdapter(Activity context) {
         this.context = context;
 
-        categories = new ArrayList<String>();
-        categories.add("Cognac/Brandy");
-        categories.add("Liqueur");
-        categories.add("Rum");
-        categories.add("Tequila");
-        categories.add("Vodka");
-        categories.add("Whiskey");
-        categories.add("Other");
+
+        categories = APIManager.getCategories();
+        ingredients = APIManager.getBooze();
 
 
-        ingredients = new LinkedHashMap<String, ArrayList<String>>();
+        ingredients = new LinkedHashMap<String, ArrayList<Booze>>();
 
-        ArrayList<String> children = new ArrayList<String>();
+        ArrayList<Categories> children = new ArrayList<Categories>();
 
-        children.add("Blueberry");
-        children.add("Currant");
-        children.add("Lime");
-        children.add("Lemon");
-        children.add("Mango");
-        children.add("Neutral");
-        children.add("Peach");
-        children.add("Pear");
-        children.add("Raspberry");
-        children.add("Vanilla");
-
-        ingredients.put("Vodka", children);
-
-        children = new ArrayList<String>();
-        children.add("Lime");
-        children.add("Lemon");
-        children.add("Ice");
-        children.add("Orange Soda");
-        children.add("Cola");
-        children.add("Soda Water");
-        children.add("Lemon/Lime Soda");
-        children.add("Julmust(X-mas Soda)");
-
-        ingredients.put("Other", children);
-
-        children = new ArrayList<String>();
-        children.add("Apple");
-        children.add("Captain Morgan");
-        children.add("Dark");
-        children.add("Lemon");
-        children.add("Malibu (Coconut)");
-        children.add("Melon");
-        children.add("Raspberry");
-        children.add("Silver");
-
-        ingredients.put("Rum", children);
-
-        children = new ArrayList<String>();
-        children.add("Cognac");
-        children.add("Pear Cognac");
-        children.add("Brandy");
-
-        ingredients.put("Cognac/Brandy", children);
-
-        children = new ArrayList<String>();
-        children.add("Gold");
-        children.add("Silver");
-
-        ingredients.put("Tequila", children);
-
-        children = new ArrayList<String>();
-        children.add("Whiskey");
-
-        ingredients.put("Whiskey", children);
-
-        children = new ArrayList<String>();
-        children.add("Midori");
-        children.add("Pisang Ambong");
-        children.add("Sourz Apple");
-        children.add("Sourz Pineapple");
-        children.add("Licor 43");
-
-        ingredients.put("Liqueur", children);
 
     }
 
