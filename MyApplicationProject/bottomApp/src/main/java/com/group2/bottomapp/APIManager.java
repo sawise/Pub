@@ -149,9 +149,8 @@ public class APIManager {
                 ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
                 int categoryID = ingredientCat.getInt("id");
                 String categoryName = ingredientCat.getString("name");
-                ingredients.add(new Ingredient(ingredientId, ingredientName, ingMeasurement));
+                ingredients.add(new Ingredient(ingredientId, ingredientName, ingMeasurement, categoryName));
                 Log.i("JSONN ing in cat:"+categoryID, ingredientId+" - "+ ingredientName);
-
 
                 Ingredient ingredientToAdd = new Ingredient();
                 ingredientToAdd.setIngredientList(ingredients);

@@ -41,12 +41,8 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
     private SectionedGridViewAdapter adapter = null;
     private LinkedHashMap<String, Cursor> cursorMap;
 
-    private  ArrayList<Cocktail> gridArray = new ArrayList<Cocktail>();
-
     private CabinetManager cabinetManager;
     private int selectedItem;
-    private String[] testStr = {"Vodka",  "Beer", "Mulled wine", "Empty"};
-    private Integer[] testInt = {R.drawable.bottle_one, R.drawable.bottle_two, R.drawable.bottle_three, R.drawable.emptybottle};
     TextView dialogText;
     TextView alcoholrate;
     TextView cabinet;
@@ -60,7 +56,6 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.drinkscapinet, container, false);
             setHasOptionsMenu(true);
-
 
         cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
         cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
@@ -76,15 +71,6 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
         dataSet = new Dataset();
 
-        /*for(int i = 0; i<=2; i++){
-            Cocktail listItem = new Cocktail();
-            int rand = (int) (Math.random()*3);
-            listItem.setName(testStr[rand]);
-            listItem.setImageId(testInt[rand]);
-            Log.i("gridlistitems", testInt[rand]+"-"+testStr[rand]);
-            gridArray.add(listItem);
-        }*/
-
         ArrayList<Categories> categories = APIManager.getCategories();
 
         for(Categories cat : categories){
@@ -95,9 +81,8 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
                 dataSet.addSection(catitemIncat.getName(), ingredientsinCat);
             }
         }
+
         cursorMap = dataSet.getSectionCursorMap();
-
-
 
         listView = (ListView) rootView.findViewById(R.id.listview);
         listView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -127,28 +112,12 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
                 });
 
 
-
-
-            //drinkGridView = (GridView) rootView.findViewById(R.id.drinkGridView);
-
-
-        cabinetManager = new CabinetManager();
-        /*emptyGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, emptygridArray);
-        vodkaGridAdapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
-        vodkaGridView.setAdapter(vodkaGridAdapter);
-        vodkaGridView.setOnItemClickListener(this);*/
-
-
-
-            return rootView;
+           return rootView;
         }
 
 
 
-//        @Override
-        public void onClick(View v) {
 
-        }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -198,14 +167,12 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
         removeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("gridarray remove", selectedItem+"");
-
                 Vibrator vib = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                 vib.vibrate(500);
-                gridArray.remove(selectedItem);
+
                 dialog.dismiss();
             }
         });
-
         dialogText.setText(text);
         alcoholrate.setText("99%");
         dialogImage.setImageResource(imageID);
@@ -216,17 +183,21 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
     @Override
     public void onGridItemClicked(String sectionName, int position, View v) {
-
         Cursor sectionCursor = cursorMap.get(sectionName);
+        Log.d("gridd", sectionName+"<->"+sectionCursor);
+
         if(sectionCursor.moveToPosition(position)) {
-            selectedItem = position;
-            String text = gridArray.get(selectedItem).getName();
-            int imageId = gridArray.get(selectedItem).getImageId();
             String data = sectionCursor.getString(0);
-            String msg = sectionName + " - Item clicked is:" + data;
-            dialog(position+" - "+data,imageId);
+            String msg = "Item clicked is:" + data;
+            ;
             Toast.makeText(this.getActivity(), msg, Toast.LENGTH_SHORT).show();
-            Log.d(TAG, msg);
+            Log.d("gridd", "" + sectionCursor.getBlob(0));
+            dialog(data, R.drawable.bottle_one);
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

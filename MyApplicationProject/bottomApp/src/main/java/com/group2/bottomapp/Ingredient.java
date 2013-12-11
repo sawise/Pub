@@ -18,6 +18,13 @@ public class Ingredient {
         this.name = name;
         this.measurement = measurement;
     }
+
+    public Ingredient(int id, String name, String measurement, String categoryName){
+        this.id = id;
+        this.name = name;
+        this.measurement = measurement;
+        this.categoryName = categoryName;
+    }
     public Ingredient(){
 
     }
