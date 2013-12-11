@@ -5,7 +5,10 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -23,6 +26,9 @@ public class Login extends Activity implements View.OnClickListener {
     private TextView textUserEmail;
     private TextView textUserPass;
     private ProgressDialog progressDialog;
+    private JsonLoginPoster jLoginPoster = null;
+    private String storedEmail = null;
+    private String storedPassword = null;
     private TextView or;
     //private SoundHelper soundEffect;
 
@@ -50,6 +56,31 @@ public class Login extends Activity implements View.OnClickListener {
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(isConnected() != true){
+            showErrorDialog();
+        } else {
+
+            try{
+                storedEmail = getSharedPreferences("bottomAppUser", MODE_PRIVATE).getString("email", null);
+                storedPassword = getSharedPreferences("bottomAppPass", MODE_PRIVATE).getString("password", null);
+            } catch (Exception ex) {
+
+            }
+
+            if(storedEmail != null && storedPassword != null){
+                if(storedEmail != "" && storedPassword != null){
+                    jLoginPoster = new JsonLoginPoster(getApplicationContext(), this, storedEmail, storedPassword);
+
+                    jLoginPoster.PostJson();
+                }
+            }
+        }
+    }
+
     // show loading dialog
     public void showProgressDialog(){
         if(progressDialog ==  null){
@@ -69,21 +100,30 @@ public class Login extends Activity implements View.OnClickListener {
 
     // finish activity with a feedback toast
     public void finishActivity(String response){
+
+        String email = inputEmail.getText().toString();
+        String password = inputPassword.getText().toString();
+
+        if(email.length() > 5 && password.length() > 4){
+            try{
+                // add the email and password to sharedprefs
+                getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", email).commit();
+                getSharedPreferences("bottomAppPass", MODE_PRIVATE).edit().putString("password", password).commit();
+            } catch (Exception ex){
+
+            }
+
+        }
+
         Intent in = new Intent(getApplicationContext(), MainActivity.class);
         Toast.makeText(this, response, 1000).show();
         startActivity(in);
-//        set = getSharedPreferences("assignmentKey", MODE_PRIVATE).getStringSet("myKey", null);
-
-        // add the email and password to sharedprefs
-        //getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", iEmail.getText().toString()).commit();
-        //getSharedPreferences("bottomAppPass", MODE_PRIVATE).edit().putString("password", iPassword.getText().toString()).commit();
-
         this.finish();
     }
 
     // show the error dialog
     public void showErrorDialog(String message){
-        // if an error occured
+        // if an error occurred
 
         // set progress dialog to null
         progressDialog = null;
@@ -119,7 +159,7 @@ public class Login extends Activity implements View.OnClickListener {
         else if (v == loginBtn){
             if (validEmail.validate(userEmail)){
 
-                JsonLoginPoster jLoginPoster = new JsonLoginPoster(getApplicationContext(), this, userEmail, userPass);
+                jLoginPoster = new JsonLoginPoster(getApplicationContext(), this, userEmail, userPass);
 
                 // if we are connected
                 if(jLoginPoster.isConnected() != false)
@@ -140,19 +180,22 @@ public class Login extends Activity implements View.OnClickListener {
                 finish();
         }
     }
-}
 
+    private boolean isConnected(){
+        ConnectivityManager connMgr = (ConnectivityManager) getApplicationContext().getSystemService(Activity.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-// TODO keep login state when logged in once
-// TODO if no internet show dialog
-// TODO check for internet in main activity
-// Store password-token instead?
-// server should send password-token as response?
-// account manager?
-/*
-*     // show the error dialog
+        if (networkInfo != null && networkInfo.isConnected()){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    // show the error dialog
     private void showErrorDialog(){
-        // if an error occured
+        // if an error occurred
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
@@ -170,13 +213,4 @@ public class Login extends Activity implements View.OnClickListener {
         alert.show();
     }
 
-      public boolean isConnected(){
-        ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Activity.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected())
-            return true;
-        else
-            return false;
-    }
-
-* */
+}
