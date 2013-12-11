@@ -3,19 +3,13 @@ package com.group2.bottomapp;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -164,6 +158,41 @@ public class APIManager {
 
             return listToReturn;
             */
+            public static HashMap<String, ArrayList<Booze>> getBooze(){
+                //Parsar ett objekt
+
+                try {
+                    JSONArray ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/category/");
+                    HashMap<String, ArrayList<Booze>> listToReturn = new HashMap<String, ArrayList<Booze>>();
+
+                    for(int i = 0; i < ingredientArr.length(); i++){
+                        JSONObject cocktailObj = ingredientArr.getJSONObject(i);
+                        int ingredientId = cocktailObj.getInt("id");
+                        String ingredientName = cocktailObj.getString("name");
+                        JSONObject ingredientCat = cocktailObj.getJSONObject("category");
+
+                        HashMap<String, ArrayList<Booze>> booze = new HashMap<String, ArrayList<Booze>>();
+                        int categoryID = ingredientCat.getInt("id");
+                        String categoryName = ingredientCat.getString("name");
+                        booze.add(new Booze(ingredientId, ingredientName));
+                        Log.i("JSONN ing in cat:"+categoryID, ingredientId+" - "+ ingredientName);
+
+
+                        Booze boozeToAdd = new Booze();
+                        boozeToAdd.setIngredientList(booze);
+
+                        listToReturn.add(boozeToAdd);
+
+                    }
+                    return listToReturn;
+
+                } catch (Exception e) {
+                    Log.i("ERRROR", e+"");
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
         } catch (Exception e) {
             Log.i("ERRROR", e+"");
             e.printStackTrace();
