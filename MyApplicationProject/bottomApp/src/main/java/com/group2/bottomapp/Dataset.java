@@ -49,7 +49,7 @@ public class Dataset {
                 Log.i("keyy", key);
                 Log.i("keyy", "list"+entry.getValue());
                 for(Ingredient listitem : entry.getValue()){
-                    ArrayList<Ingredient> ingredientList = listitem.getIngredientList();
+                    //ArrayList<Ingredient> ingredientList = listitem.getIngredientList();
                     //for(Ingredient ingItem : ingredientList){
 
                         //if(sectionName.equals(ingItem.getCategoryName())){

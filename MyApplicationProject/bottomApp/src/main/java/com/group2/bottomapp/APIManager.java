@@ -112,16 +112,10 @@ public class APIManager {
             }
 
             for(Ingredient i : getAllIngredients()){
-                for(Ingredient ii : i.getIngredientList()){
-                    Log.i("ingg in ing", ii.getName()+"- "+catName+" - "+ii.getCategoryName());
-                }
-
                 Log.i("ingg", i.getName()+"-"+i.getCategoryName());
-
                 if(i.getCategoryName() == catName){
                     listToReturn.add(i);
                 }
-
             }
         } catch (Exception e) {
             e.printStackTrace();
