@@ -28,6 +28,10 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
 
         ingredients = new LinkedHashMap<String, ArrayList<Ingredient>>();
 
+        for(Categories c : categories){
+            ingredients.put(c.getName(), APIManager.getIngredientsByCategory(c.getId()));
+        }
+
     }
 
     public Object getChild(int groupPosition, int childPosition) {
@@ -63,10 +67,10 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
     }
 
     public int getChildrenCount(int groupPosition) {
-        return ingredients.get(categories.get(groupPosition)).size();
+        return ingredients.get(categories.get(groupPosition).getName()).size();
     }
 
-    public Object getGroup(int groupPosition) {
+    public Categories getGroup(int groupPosition) {
         return categories.get(groupPosition);
     }
 
@@ -80,7 +84,7 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
 
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        String laptopName = (String) getGroup(groupPosition);
+        String groupName = getGroup(groupPosition).getName();
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -89,7 +93,7 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
         }
         TextView item = (TextView) convertView.findViewById(R.id.textView);
         item.setTypeface(null, Typeface.BOLD);
-        item.setText(laptopName);
+        item.setText(groupName);
         return convertView;
     }
 

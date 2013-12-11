@@ -86,20 +86,28 @@ public class APIManager {
     public static ArrayList<Ingredient> getIngredientsByCategory(int category){
         ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
 
-        String catName = "";
+        try {
+            updateIngredients();
 
-        for(Categories c : categories){
-            if(c.getId() == category){
-                catName = c.getName();
+            String catName = "";
+
+            for(Categories c : categories){
+                if(c.getId() == category){
+                    catName = c.getName();
+                }
             }
+
+            for(Ingredient i : getAllIngredients()){
+                Log.i("ingg", i+"");
+                if(i.getCategoryName() == catName){
+                    listToReturn.add(i);
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        for(Ingredient i : getAllIngredients()){
-            if(i.getCategoryName() == catName){
-                listToReturn.add(i);
-                Log.i("listtoreturn", i+"");
-            }
-        }
 
         return listToReturn;
     }
