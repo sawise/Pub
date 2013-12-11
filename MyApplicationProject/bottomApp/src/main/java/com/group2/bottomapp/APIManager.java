@@ -5,6 +5,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.group2.bottomapp.JsonDownloaders.JsonDownloadAllCocktails;
+import com.group2.bottomapp.JsonDownloaders.JsonDownloadAvailableCocktails;
+import com.group2.bottomapp.JsonDownloaders.JsonDownloadCategories;
+import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredients;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.group2.bottomapp.JsonDownloaders.*;
-
 
 public class APIManager {
 
@@ -23,6 +26,17 @@ public class APIManager {
     public static ArrayList<Cocktail> availableCocktails = new ArrayList<Cocktail>();
     public static ArrayList<Categories> categories = new ArrayList<Categories>();
     public static ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+
+    public static void updateEverything(){
+        try {
+            updateAllCocktails();
+            updateAvailableCocktails();
+            updateIngredients();
+            updateCategories();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void updateAllCocktails() throws IOException, JSONException {
         JsonDownloadAllCocktails task = new JsonDownloadAllCocktails();
@@ -129,14 +143,19 @@ public class APIManager {
     }
 
     public static Cocktail getDrinkWithID(int id){
-        List<Cocktail> cocktails = getAllCocktails();
-        if(cocktails.isEmpty()){
-            return null;
-        }
-        for(Cocktail c : cocktails){
-            if(c.getId() == id){
-                return c;
+        try {
+            updateAllCocktails();
+            List<Cocktail> cocktails = getAllCocktails();
+            if(cocktails.isEmpty()){
+                return null;
             }
+            for(Cocktail c : cocktails){
+                if(c.getId() == id){
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return null;
@@ -218,12 +237,15 @@ public class APIManager {
                 JSONObject ingredientCat = cocktailObj.getJSONObject("category");
                 String ingMeasurement = cocktailObj.getString("measurement");
 
-                ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
                 int categoryID = ingredientCat.getInt("id");
                 String categoryName = ingredientCat.getString("name");
-                ingredients.add(new Ingredient(ingredientId, ingredientName, ingMeasurement));
 
                 Ingredient ingredientToAdd = new Ingredient();
+                ingredientToAdd.setId(ingredientId);
+                ingredientToAdd.setName(ingredientName);
+                ingredientToAdd.setMeasurement(ingMeasurement);
+                ingredientToAdd.setCategoryName(categoryName);
+                ingredientToAdd.setCategoryID(categoryID);
                 ingredientToAdd.setIngredientList(ingredients);
 
                 listToReturn.add(ingredientToAdd);
