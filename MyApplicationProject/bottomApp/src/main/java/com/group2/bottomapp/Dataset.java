@@ -50,7 +50,7 @@ public class Dataset {
                 Log.i("keyy", "list"+entry.getValue());
                 for(Ingredient listitem : entry.getValue()){
                     ArrayList<Ingredient> ingredientList = listitem.getIngredientList();
-                    for(Ingredient ingItem : ingredientList){
+                    //for(Ingredient ingItem : ingredientList){
 
                         //if(sectionName.equals(ingItem.getCategoryName())){
                             String itemname = listitem.getName();
@@ -59,7 +59,7 @@ public class Dataset {
                             cursor.addRow(new Object[]{itemname, itemId});
 
                         //}
-                    }
+                    //}
                 }
 
 
