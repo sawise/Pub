@@ -158,41 +158,7 @@ public class APIManager {
 
             return listToReturn;
             */
-            public static HashMap<String, ArrayList<Booze>> getBooze(){
-                //Parsar ett objekt
 
-                try {
-                    JSONArray ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/category/");
-                    HashMap<String, ArrayList<Booze>> listToReturn = new HashMap<String, ArrayList<Booze>>();
-
-                    for(int i = 0; i < ingredientArr.length(); i++){
-                        JSONObject cocktailObj = ingredientArr.getJSONObject(i);
-                        int ingredientId = cocktailObj.getInt("id");
-                        String ingredientName = cocktailObj.getString("name");
-                        JSONObject ingredientCat = cocktailObj.getJSONObject("category");
-
-                        HashMap<String, ArrayList<Booze>> booze = new HashMap<String, ArrayList<Booze>>();
-                        int categoryID = ingredientCat.getInt("id");
-                        String categoryName = ingredientCat.getString("name");
-                        booze.add(new Booze(ingredientId, ingredientName));
-                        Log.i("JSONN ing in cat:"+categoryID, ingredientId+" - "+ ingredientName);
-
-
-                        Booze boozeToAdd = new Booze();
-                        boozeToAdd.setIngredientList(booze);
-
-                        listToReturn.add(boozeToAdd);
-
-                    }
-                    return listToReturn;
-
-                } catch (Exception e) {
-                    Log.i("ERRROR", e+"");
-                    e.printStackTrace();
-                }
-
-                return null;
-            }
         } catch (Exception e) {
             Log.i("ERRROR", e+"");
             e.printStackTrace();
