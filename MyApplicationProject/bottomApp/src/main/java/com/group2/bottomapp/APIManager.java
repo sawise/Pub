@@ -5,6 +5,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.group2.bottomapp.JsonDownloaders.JsonDownloadAllCocktails;
+import com.group2.bottomapp.JsonDownloaders.JsonDownloadAvailableCocktails;
+import com.group2.bottomapp.JsonDownloaders.JsonDownloadCategories;
+import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredients;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,8 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import com.group2.bottomapp.JsonDownloaders.*;
 
 
 public class APIManager {
