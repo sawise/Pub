@@ -1,4 +1,4 @@
-package com.group2.bottomapp;
+package com.group2.bottomapp.JsonDownloaders;
 
 import android.os.AsyncTask;
 
@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+
+import com.group2.bottomapp.APIManager;
 
 /**
  * Created by Hugo on 2013-12-11.
@@ -30,8 +32,8 @@ public class JsonDownloadAvailableCocktails extends AsyncTask<String, Void, Stri
     @Override
     protected void onPostExecute(String result) {
         try {
-            APIManager.allAvailableCocktails.clear();
-            APIManager.allAvailableCocktails.addAll(APIManager.getCocktailsFromJson(result));
+            APIManager.availableCocktails.clear();
+            APIManager.availableCocktails.addAll(APIManager.getCocktailsFromJson(result));
         } catch (Exception e) {}
     }
 

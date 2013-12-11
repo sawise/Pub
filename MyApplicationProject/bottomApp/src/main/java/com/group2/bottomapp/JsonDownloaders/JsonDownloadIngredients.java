@@ -1,8 +1,9 @@
-package com.group2.bottomapp;
+package com.group2.bottomapp.JsonDownloaders;
 
 import android.os.AsyncTask;
 
-import org.json.JSONArray;
+import com.group2.bottomapp.APIManager;
+
 import org.json.JSONException;
 
 import java.io.BufferedReader;
@@ -16,7 +17,7 @@ import java.nio.charset.Charset;
 /**
  * Created by Hugo on 2013-12-11.
  */
-public class JsonDownloadAllCocktails extends AsyncTask<String, Void, String> {
+public class JsonDownloadIngredients extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... strings) {
@@ -31,8 +32,8 @@ public class JsonDownloadAllCocktails extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         try {
-            APIManager.allCocktails.clear();
-            APIManager.allCocktails.addAll(APIManager.getCocktailsFromJson(result));
+            APIManager.ingredients.clear();
+            APIManager.ingredients.addAll(APIManager.getIngredientsFromJson(result));
         } catch (Exception e) {}
     }
 

@@ -92,6 +92,7 @@ public class Drinks extends Fragment {
                                 retries++;
                                 if(retries < allowedRetries){
                                     stopRetrying = true;
+                                    progress.dismiss();
                                 }
                             }
                         }
