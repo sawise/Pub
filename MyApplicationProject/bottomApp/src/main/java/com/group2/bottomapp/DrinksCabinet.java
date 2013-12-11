@@ -75,12 +75,9 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
         ArrayList<Categories> categories = APIManager.getCategories();
 
         for(Categories cat : categories){
-            ArrayList<Categories> catitem = cat.getCategoryList();
-            for(Categories catitemIncat : catitem){
-                Log.i("Cat in cat", catitemIncat.getName()+" "+catitemIncat.getId());
-                ArrayList<Ingredient> ingredientsinCat = APIManager.getIngredientsByCategory(catitemIncat.getId());
-                dataSet.addSection(catitemIncat.getName(), ingredientsinCat);
-            }
+                Log.i("Catt", cat.getName()+" "+cat.getId());
+                ArrayList<Ingredient> ingredientsinCat = APIManager.getIngredientsByCategory(cat.getId());
+                dataSet.addSection(cat.getName(), ingredientsinCat);
         }
 
         cursorMap = dataSet.getSectionCursorMap();

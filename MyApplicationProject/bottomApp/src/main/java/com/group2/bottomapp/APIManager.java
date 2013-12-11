@@ -97,6 +97,7 @@ public class APIManager {
         for(Ingredient i : getAllIngredients()){
             if(i.getCategoryName() == catName){
                 listToReturn.add(i);
+                Log.i("listtoreturn", i+"");
             }
         }
 
