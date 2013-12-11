@@ -24,7 +24,6 @@ public class APIManager {
     public static ArrayList<Categories> categories = new ArrayList<Categories>();
     public static ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 
-
     public static void updateAllCocktails() throws IOException, JSONException {
         JsonDownloadAllCocktails task = new JsonDownloadAllCocktails();
         task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/drinks/all");
@@ -84,7 +83,6 @@ public class APIManager {
         return ingredients;
     }
 
-
     public static ArrayList<Ingredient> getIngredientsByCategory(int category){
         ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
 
@@ -104,43 +102,6 @@ public class APIManager {
 
         return listToReturn;
     }
-
-    /*public static HashMap<String, ArrayList<Booze>> getBooze(){
-        //Parsar ett objekt
-
-        try {
-            JSONArray ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/category/");
-            HashMap<String, ArrayList<Booze>> listToReturn = new HashMap<String, ArrayList<Booze>>();
-
-            for(int i = 0; i < ingredientArr.length(); i++){
-                JSONObject cocktailObj = ingredientArr.getJSONObject(i);
-                int ingredientId = cocktailObj.getInt("id");
-                String ingredientName = cocktailObj.getString("name");
-                JSONObject ingredientCat = cocktailObj.getJSONObject("category");
-
-                HashMap<String, ArrayList<Booze>> booze = new HashMap<String, ArrayList<Booze>>();
-                int categoryID = ingredientCat.getInt("id");
-                String categoryName = ingredientCat.getString("name");
-                booze.add(new Booze(ingredientId, ingredientName));
-                Log.i("JSONN ing in cat:"+categoryID, ingredientId+" - "+ ingredientName);
-
-
-                Booze boozeToAdd = new Booze();
-                boozeToAdd.setIngredientList(booze);
-
-                listToReturn.add(boozeToAdd);
-
-            }
-            return listToReturn;
-
-
-        } catch (Exception e) {
-            Log.i("ERRROR", e+"");
-            e.printStackTrace();
-        }
-
-        return null;
-    }*/
 
     public static Cocktail getRandomDrink(){
         List<Cocktail> list = getAllAvailableCocktails();
@@ -221,13 +182,7 @@ public class APIManager {
 
                 int categoryId = cocktailObj.getInt("id");
                 String categoryName = cocktailObj.getString("name");
-
-                ArrayList<Categories> categories = new ArrayList<Categories>();
-                categories.add(new Categories(categoryId, categoryName));
-                Categories categoriesToAdd = new Categories();
-                categoriesToAdd.setCategoryList(categories);
-                listToReturn.add(categoriesToAdd);
-
+                listToReturn.add(new Categories(categoryId, categoryName));;
             }
             return listToReturn;
 

@@ -15,27 +15,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-/**
- * Created by Hugo on 2013-11-13.
- */
 public class LiquorListAdapter extends BaseExpandableListAdapter {
 
     private Activity context;
-    private HashMap<String, ArrayList<Booze>> ingredients;
+    private HashMap<String, ArrayList<Ingredient>> ingredients;
     private ArrayList<Categories> categories;
 
     public LiquorListAdapter(Activity context) {
         this.context = context;
 
-
         categories = APIManager.getCategories();
-        //ingredients = APIManager.getBooze();
 
-
-        ingredients = new LinkedHashMap<String, ArrayList<Booze>>();
-
-        ArrayList<Categories> children = new ArrayList<Categories>();
-
+        ingredients = new LinkedHashMap<String, ArrayList<Ingredient>>();
 
     }
 
