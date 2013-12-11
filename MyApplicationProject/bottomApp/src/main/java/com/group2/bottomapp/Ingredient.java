@@ -2,9 +2,6 @@ package com.group2.bottomapp;
 
 import java.util.ArrayList;
 
-/**
- * Created by FilipFransson on 2013-11-19.
- */
 public class Ingredient {
     private int id;
     private String name;

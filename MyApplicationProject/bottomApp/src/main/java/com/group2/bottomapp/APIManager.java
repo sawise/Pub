@@ -3,6 +3,7 @@ package com.group2.bottomapp;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,37 +25,185 @@ import java.util.Random;
  */
 public class APIManager {
 
-    public static JSONArray readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
-            BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-            String jsonText = readAll(rd);
-            JSONArray json = new JSONArray(jsonText);
-            return json;
-        } finally {
-            is.close();
-        }
+    public static ArrayList<Cocktail> allCocktails = new ArrayList<Cocktail>();
+    public static ArrayList<Cocktail> allAvailableCocktails = new ArrayList<Cocktail>();
+
+
+    public static void updateAllCocktails() throws IOException, JSONException {
+        JsonDownloadAllCocktails task = new JsonDownloadAllCocktails();
+        task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/drinks/all");
     }
-    private static String readAll(Reader rd) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        int cp;
-        while ((cp = rd.read()) != -1) {
-            sb.append((char) cp);
-        }
-        return sb.toString();
+
+    public static void updateAvailableCocktails() throws IOException, JSONException {
+        JsonDownloadAvailableCocktails task = new JsonDownloadAvailableCocktails();
+        task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/drinks/all");
     }
 
     public static List<Cocktail> getAllCocktails(){
-        //TODO: get all cocktails, not just available
-        return getAllAvailableCocktails();
+        //if(!hazInternetz()) return new ArrayList<Cocktail>();
+        try {
+            updateAllCocktails();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return allCocktails;
     }
 
     public static List<Cocktail> getAllAvailableCocktails(){
+        //if(!hazInternetz()) return new ArrayList<Cocktail>();
+        try {
+            updateAvailableCocktails();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return allAvailableCocktails;
+    }
+
+    public static ArrayList<Categories> getCategories(){
         //Parsar ett objekt
-        if(!hazInternetz()) return new ArrayList<Cocktail>();
+        /*
         try {
 
-            JSONArray cocktailArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/drinks/all");
+            JSONArray CategoriesArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/categories/all");
+            ArrayList<Categories> listToReturn = new ArrayList<Categories>();
+
+            for(int i = 0; i < CategoriesArr.length(); i++){
+                JSONObject cocktailObj = CategoriesArr.getJSONObject(i);
+
+                int categoryId = cocktailObj.getInt("id");
+                String categoryName = cocktailObj.getString("name");
+                Log.i("JSONN category", categoryId+" - "+ categoryName);
+
+                ArrayList<Categories> categories = new ArrayList<Categories>();
+                categories.add(new Categories(categoryId, categoryName));
+                Categories categoriesToAdd = new Categories();
+                categoriesToAdd.setCategoryList(categories);
+                listToReturn.add(categoriesToAdd);
+
+            }
+            return listToReturn;
+
+        } catch (Exception e) {
+            Log.i("ERRROR", e+"");
+            e.printStackTrace();
+        }
+        */
+        return null;
+    }
+
+
+    public static ArrayList<Ingredient> getIngridient(int catId){
+        //Parsar ett objekt
+        try { /*
+            JSONArray ingredientArr;
+
+            if(catId > 0){
+                ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/category/"+catId);
+                Log.i("JSONN", "get from category");
+            } else {
+                ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/ingredients/all");
+                Log.i("JSONN", "get all");
+            }
+            ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
+
+            for(int i = 0; i < ingredientArr.length(); i++){
+                JSONObject cocktailObj = ingredientArr.getJSONObject(i);
+                int ingredientId = cocktailObj.getInt("id");
+                String ingredientName = cocktailObj.getString("name");
+                JSONObject ingredientCat = cocktailObj.getJSONObject("category");
+                String ingMeasurement = cocktailObj.getString("measurement");
+
+                ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+                int categoryID = ingredientCat.getInt("id");
+                String categoryName = ingredientCat.getString("name");
+                ingredients.add(new Ingredient(ingredientId, ingredientName, ingMeasurement, categoryName));
+                Log.i("JSONN ing in cat:"+categoryID, ingredientId+" - "+ ingredientName);
+
+                Ingredient ingredientToAdd = new Ingredient();
+                ingredientToAdd.setIngredientList(ingredients);
+
+                listToReturn.add(ingredientToAdd);
+            }
+
+            return listToReturn;
+*/
+        } catch (Exception e) {
+            Log.i("ERRROR", e+"");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static ArrayList<Ingredient> getIngridientinCategory(int catId){
+        //Parsar ett objekt
+        try {
+            /*
+            JSONArray ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/category/");
+            ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
+
+            for(int i = 0; i < ingredientArr.length(); i++){
+                JSONObject cocktailObj = ingredientArr.getJSONObject(i);
+                int ingredientId = cocktailObj.getInt("id");
+                String ingredientName = cocktailObj.getString("name");
+                JSONObject ingredientCat = cocktailObj.getJSONObject("category");
+                String ingMeasurement = cocktailObj.getString("measurement");
+
+                ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+                int categoryID = ingredientCat.getInt("id");
+                String categoryName = ingredientCat.getString("name");
+                ingredients.add(new Ingredient(ingredientId, categoryName, ingMeasurement));
+                Log.i("JSONN ing", ingredientId+" - "+ ingredientName);
+                Log.i("JSONN cat", categoryID+ " - " + categoryName);
+
+                Ingredient ingredientToAdd = new Ingredient();
+                ingredientToAdd.setIngredientList(ingredients);
+
+                listToReturn.add(ingredientToAdd);
+            }
+
+            return listToReturn;
+            */
+        } catch (Exception e) {
+            Log.i("ERRROR", e+"");
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public static Cocktail getRandomDrink(){
+        List<Cocktail> list = getAllAvailableCocktails();
+        if(list.isEmpty()){
+            return null;
+        }
+        Random rnd = new Random();
+
+        int rndNo = rnd.nextInt(list.size());
+
+        return list.get(rndNo);
+    }
+
+    public static Cocktail getDrinkWithID(int id){
+        List<Cocktail> cocktails = getAllCocktails();
+        if(cocktails.isEmpty()){
+            return null;
+        }
+        for(Cocktail c : cocktails){
+            if(c.getId() == id){
+                return c;
+            }
+        }
+
+        return null;
+    }
+
+
+    public static ArrayList<Cocktail> getCocktailsFromJson(String json){
+        try {
+
+            JSONArray cocktailArr = new JSONArray(json);
 
             ArrayList<Cocktail> listToReturn = new ArrayList<Cocktail>();
 
@@ -88,145 +237,6 @@ public class APIManager {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public static ArrayList<Categories> getCategories(){
-        //Parsar ett objekt
-
-        try {
-            JSONArray CategoriesArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/categories/all");
-            ArrayList<Categories> listToReturn = new ArrayList<Categories>();
-
-            for(int i = 0; i < CategoriesArr.length(); i++){
-                JSONObject cocktailObj = CategoriesArr.getJSONObject(i);
-
-                int categoryId = cocktailObj.getInt("id");
-                String categoryName = cocktailObj.getString("name");
-                Log.i("JSONN category", categoryId+" - "+ categoryName);
-
-                ArrayList<Categories> categories = new ArrayList<Categories>();
-                categories.add(new Categories(categoryId, categoryName));
-                Categories categoriesToAdd = new Categories();
-                categoriesToAdd.setCategoryList(categories);
-                listToReturn.add(categoriesToAdd);
-
-            }
-            return listToReturn;
-
-        } catch (Exception e) {
-            Log.i("ERRROR", e+"");
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-
-    public static ArrayList<Ingredient> getIngridient(int catId){
-        //Parsar ett objekt
-        try {
-            JSONArray ingredientArr;
-
-            if(catId > 0){
-                ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/category/"+catId);
-                Log.i("JSONN", "get from category");
-            } else {
-                ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/ingredients/all");
-                Log.i("JSONN", "get all");
-            }
-            ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
-
-            for(int i = 0; i < ingredientArr.length(); i++){
-                JSONObject cocktailObj = ingredientArr.getJSONObject(i);
-                int ingredientId = cocktailObj.getInt("id");
-                String ingredientName = cocktailObj.getString("name");
-                JSONObject ingredientCat = cocktailObj.getJSONObject("category");
-                String ingMeasurement = cocktailObj.getString("measurement");
-
-                ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-                int categoryID = ingredientCat.getInt("id");
-                String categoryName = ingredientCat.getString("name");
-                ingredients.add(new Ingredient(ingredientId, ingredientName, ingMeasurement, categoryName));
-                Log.i("JSONN ing in cat:"+categoryID, ingredientId+" - "+ ingredientName);
-
-                Ingredient ingredientToAdd = new Ingredient();
-                ingredientToAdd.setIngredientList(ingredients);
-
-                listToReturn.add(ingredientToAdd);
-            }
-
-            return listToReturn;
-
-        } catch (Exception e) {
-            Log.i("ERRROR", e+"");
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    public static ArrayList<Ingredient> getIngridientinCategory(int catId){
-        //Parsar ett objekt
-        try {
-
-            JSONArray ingredientArr = readJsonFromUrl("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/category/");
-            ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
-
-            for(int i = 0; i < ingredientArr.length(); i++){
-                JSONObject cocktailObj = ingredientArr.getJSONObject(i);
-                int ingredientId = cocktailObj.getInt("id");
-                String ingredientName = cocktailObj.getString("name");
-                JSONObject ingredientCat = cocktailObj.getJSONObject("category");
-                String ingMeasurement = cocktailObj.getString("measurement");
-
-                ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-                int categoryID = ingredientCat.getInt("id");
-                String categoryName = ingredientCat.getString("name");
-                ingredients.add(new Ingredient(ingredientId, categoryName, ingMeasurement));
-                Log.i("JSONN ing", ingredientId+" - "+ ingredientName);
-                Log.i("JSONN cat", categoryID+ " - " + categoryName);
-
-                Ingredient ingredientToAdd = new Ingredient();
-                ingredientToAdd.setIngredientList(ingredients);
-
-                listToReturn.add(ingredientToAdd);
-            }
-
-            return listToReturn;
-
-        } catch (Exception e) {
-            Log.i("ERRROR", e+"");
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-
-    public static Cocktail getRandomDrink(){
-        List<Cocktail> list = getAllAvailableCocktails();
-        if(list.isEmpty()){
-            return null;
-        }
-        Random rnd = new Random();
-
-        int rndNo = rnd.nextInt(list.size());
-
-        return list.get(rndNo);
-    }
-
-    public static Cocktail getDrinkWithID(int id){
-        List<Cocktail> cocktails = getAllCocktails();
-        if(cocktails.isEmpty()){
-            return null;
-        }
-        for(Cocktail c : cocktails){
-            if(c.getId() == id){
-                return c;
-            }
         }
 
         return null;
