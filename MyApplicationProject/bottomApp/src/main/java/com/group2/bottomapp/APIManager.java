@@ -24,6 +24,17 @@ public class APIManager {
     public static ArrayList<Categories> categories = new ArrayList<Categories>();
     public static ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 
+    public static void updateEverything(){
+        try {
+            updateAllCocktails();
+            updateAvailableCocktails();
+            updateIngredients();
+            updateCategories();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void updateAllCocktails() throws IOException, JSONException {
         JsonDownloadAllCocktails task = new JsonDownloadAllCocktails();
         task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/drinks/all");
@@ -125,14 +136,19 @@ public class APIManager {
     }
 
     public static Cocktail getDrinkWithID(int id){
-        List<Cocktail> cocktails = getAllCocktails();
-        if(cocktails.isEmpty()){
-            return null;
-        }
-        for(Cocktail c : cocktails){
-            if(c.getId() == id){
-                return c;
+        try {
+            updateAllCocktails();
+            List<Cocktail> cocktails = getAllCocktails();
+            if(cocktails.isEmpty()){
+                return null;
             }
+            for(Cocktail c : cocktails){
+                if(c.getId() == id){
+                    return c;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return null;
