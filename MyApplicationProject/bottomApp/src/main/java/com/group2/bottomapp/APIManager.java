@@ -230,12 +230,15 @@ public class APIManager {
                 JSONObject ingredientCat = cocktailObj.getJSONObject("category");
                 String ingMeasurement = cocktailObj.getString("measurement");
 
-                ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
                 int categoryID = ingredientCat.getInt("id");
                 String categoryName = ingredientCat.getString("name");
-                ingredients.add(new Ingredient(ingredientId, ingredientName, ingMeasurement));
 
                 Ingredient ingredientToAdd = new Ingredient();
+                ingredientToAdd.setId(ingredientId);
+                ingredientToAdd.setName(ingredientName);
+                ingredientToAdd.setMeasurement(ingMeasurement);
+                ingredientToAdd.setCategoryName(categoryName);
+                ingredientToAdd.setCategoryID(categoryID);
                 ingredientToAdd.setIngredientList(ingredients);
 
                 listToReturn.add(ingredientToAdd);

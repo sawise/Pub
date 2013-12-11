@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Ingredient {
     private int id;
     private String name;
-    private String categoryID;
+    private int categoryID;
     private String categoryName;
     private String measurement;
     private ArrayList<Ingredient> ingredientList;
@@ -69,4 +69,11 @@ public class Ingredient {
     }
 
 
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
 }
