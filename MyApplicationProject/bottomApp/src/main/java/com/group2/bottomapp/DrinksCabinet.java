@@ -74,13 +74,17 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
         ArrayList<Categories> categories = APIManager.getCategories();
 
+
         for(Categories cat : categories){
                 Log.i("Catt", cat.getName()+" "+cat.getId());
                 ArrayList<Ingredient> ingredientsinCat = APIManager.getIngredientsByCategory(cat.getId());
+
+
+                Log.i("Catt", ingredientsinCat.size()+"");
                 dataSet.addSection(cat.getName(), ingredientsinCat);
         }
-
         cursorMap = dataSet.getSectionCursorMap();
+
 
         listView = (ListView) rootView.findViewById(R.id.listview);
         listView.getViewTreeObserver().addOnGlobalLayoutListener(
@@ -151,7 +155,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
 
 
-    public void dialog(String text, int imageID){
+    public void dialog(final String text, int imageID, final String category){
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.drinkcabinetdialog);
         dialog.setTitle(text);
@@ -165,11 +169,11 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
         removeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.i("gridarray remove", selectedItem+"");
+
                 Vibrator vib = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                 vib.vibrate(500);
-                adapter.remove(1);
-                adapter.notifyDataSetChanged ();
+                cursorMap.remove(category);
+                adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
@@ -196,10 +200,10 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             String data = sectionCursor.getString(0);
             String msg = "Item clicked is:" + data;
 
+
             Toast.makeText(this.getActivity(), msg, Toast.LENGTH_SHORT).show();
             Log.d("gridd", "" + sectionName);
-            //adapter.
-            dialog(data, R.drawable.bottle_one);
+            dialog(data, R.drawable.bottle_one, sectionName);
         }
     }
 

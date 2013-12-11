@@ -49,32 +49,15 @@ public class Dataset {
                 Log.i("keyy", key);
                 Log.i("keyy", "list"+entry.getValue());
                 for(Ingredient listitem : entry.getValue()){
-                    //ArrayList<Ingredient> ingredientList = listitem.getIngredientList();
-                    //for(Ingredient ingItem : ingredientList){
-
-                        //if(sectionName.equals(ingItem.getCategoryName())){
-                            String itemname = listitem.getName();
-                            int itemId = listitem.getId();
-                            Log.i("valuee", "array in array in array "+itemname+" "+itemId);
-                            cursor.addRow(new Object[]{itemname, itemId});
-
-                        //}
-                    //}
+                    if(sectionName.contains(listitem.getCategoryName())){
+                        String itemname = listitem.getName();
+                        int itemId = listitem.getId();
+                        Log.i("valuee", "array in array "+itemname+" "+itemId);
+                        cursor.addRow(new Object[]{itemname, itemId});
+                    }
                 }
-
-
             }
-
-           /* for( String listitem : sectionItems.){
-                cursor.addRow(new Object[] { listitem, INDEX++ });
-                Log.i("listitemss", listitem);
-            }
-            for (int i = 0; i < items; i++) {
-
-            }*/
-
             sectionCursors.put(sectionName, cursor);
-
         }
 
         return cursor;

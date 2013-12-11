@@ -112,13 +112,15 @@ public class APIManager {
             }
 
             for(Ingredient i : getAllIngredients()){
-                Log.i("ingg", i.getName()+"-"+i.getCategoryName());
-                if(i.getCategoryName() == catName){
+                Log.i("ingg", i.getName()+"<->"+i.getCategoryName());
+                if(i.getCategoryName().equals(catName)){
+                    Log.i("ingg", i.getCategoryName());
                     listToReturn.add(i);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
+            Log.i("JSONN", ""+e);
         }
 
         return listToReturn;
