@@ -25,6 +25,9 @@ public class RegisterUser extends Activity implements View.OnClickListener {
     private TextView textPass;
     private TextView textName;
     private ProgressDialog progressDialog = null;
+    private Crypto crypto = new Crypto();
+    private String key = "b3Oto7m55Az00pp7g6fd5ds";
+    private String data = "svempa";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +78,9 @@ public class RegisterUser extends Activity implements View.OnClickListener {
 
         if(email.length() > 5 && password.length() > 4){
             try{
+                // encrypt password
+                password = crypto.encrypt(key, password);
+
                 // add the email and password to sharedprefs
                 getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", email).commit();
                 getSharedPreferences("bottomAppPass", MODE_PRIVATE).edit().putString("password", password).commit();

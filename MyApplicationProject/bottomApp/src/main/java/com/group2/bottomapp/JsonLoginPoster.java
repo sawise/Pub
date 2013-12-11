@@ -138,6 +138,7 @@ public class JsonLoginPoster {
 
 
     //TODO use response codes: httpResponse.getStatusLine().getStatusCode();
+    //TODO send the encrypted version to server
     //TODO use password-token instead
 
 }

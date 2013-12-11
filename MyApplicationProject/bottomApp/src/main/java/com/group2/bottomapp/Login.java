@@ -30,6 +30,9 @@ public class Login extends Activity implements View.OnClickListener {
     private String storedEmail = null;
     private String storedPassword = null;
     private TextView or;
+    private Crypto crypto = new Crypto();
+    private String key = "b3Oto7m55Az00pp7g6fd5ds";
+    private String data = "svempa";
     //private SoundHelper soundEffect;
 
     @Override
@@ -67,6 +70,9 @@ public class Login extends Activity implements View.OnClickListener {
             try{
                 storedEmail = getSharedPreferences("bottomAppUser", MODE_PRIVATE).getString("email", null);
                 storedPassword = getSharedPreferences("bottomAppPass", MODE_PRIVATE).getString("password", null);
+
+                // decrypt
+                storedPassword = crypto.decrypt(key, storedPassword);
             } catch (Exception ex) {
 
             }
@@ -106,6 +112,9 @@ public class Login extends Activity implements View.OnClickListener {
 
         if(email.length() > 5 && password.length() > 4){
             try{
+                // encrypt password
+                password = crypto.encrypt(key, password);
+
                 // add the email and password to sharedprefs
                 getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", email).commit();
                 getSharedPreferences("bottomAppPass", MODE_PRIVATE).edit().putString("password", password).commit();
