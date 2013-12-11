@@ -29,7 +29,7 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
 
 
         categories = APIManager.getCategories();
-        ingredients = APIManager.getBooze();
+        //ingredients = APIManager.getBooze();
 
 
         ingredients = new LinkedHashMap<String, ArrayList<Booze>>();
