@@ -31,6 +31,7 @@ public class Drink extends Fragment implements View.OnClickListener {
     private TextView tvDrinkInstructions;
     private ImageView ivDrinkImage;
 
+    private int id;
     Cocktail cocktail;
 
 
@@ -40,7 +41,7 @@ public class Drink extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.drink, container, false);
 
-        int id = 1;
+        id = 1;
         if(getTag() != null){
             id = Integer.parseInt(getTag());
         }
@@ -58,6 +59,7 @@ public class Drink extends Fragment implements View.OnClickListener {
         dislikeImage = (ImageView) rootView.findViewById(R.id.dislike);
 
         likeImage.setOnClickListener(this);
+        //likeImage.setEnabled(false);
         dislikeImage.setOnClickListener(this);
 
         initDrink(id);
@@ -75,14 +77,29 @@ public class Drink extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
 
     if (v == likeImage){
-        
+        Connection connThread = new Connection(getActivity().getApplicationContext(), id);
+        ImageView imageView = (ImageView) v;
+        imageView.setVisibility(View.INVISIBLE);
+
+        if(connThread.isConnected() != false){
+            connThread.PutJsonUp();
+        }
         Log.i("Like", "");
     }
     else if (v == dislikeImage){
-            Log.i("Dislike", "");
+           Connection connThread = new Connection(getActivity().getApplicationContext(), id);
+        ImageView imageView = (ImageView) v;
+        imageView.setVisibility(View.INVISIBLE);
+
+            if (connThread.isConnected() != false){
+                connThread.PutJsonDown();
+            }
+        Log.i("Dislike", "");
         }
 
     }
+
+
 
 
     public void initDrink(int id){

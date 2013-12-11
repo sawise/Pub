@@ -70,9 +70,19 @@ public class RegisterUser extends Activity implements View.OnClickListener {
         Toast.makeText(this, response, 1000).show();
         startActivity(in);
 
-        // add the email and password to sharedprefs
-        //getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", iEmail.getText().toString()).commit();
-        //getSharedPreferences("bottomAppPass", MODE_PRIVATE).edit().putString("password", iPassword.getText().toString()).commit();
+        String email = iEmail.getText().toString();
+        String password = iPassword.getText().toString();
+
+        if(email.length() > 5 && password.length() > 4){
+            try{
+                // add the email and password to sharedprefs
+                getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", email).commit();
+                getSharedPreferences("bottomAppPass", MODE_PRIVATE).edit().putString("password", password).commit();
+            } catch (Exception ex){
+
+            }
+
+        }
 
         this.finish();
     }
