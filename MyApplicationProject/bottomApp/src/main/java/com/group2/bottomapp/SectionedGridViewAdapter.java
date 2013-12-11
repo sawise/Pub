@@ -107,6 +107,9 @@ public class SectionedGridViewAdapter extends BaseAdapter implements
 
     }
 
+    public void remove(int id){
+        sectionCursors.remove(id);
+    }
     @Override
     public int getCount() {
 

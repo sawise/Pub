@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,14 +41,14 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
     private Dataset dataSet;
     private SectionedGridViewAdapter adapter = null;
     private LinkedHashMap<String, Cursor> cursorMap;
-
-    private CabinetManager cabinetManager;
+    private ListAdapter la;
     private int selectedItem;
-    TextView dialogText;
-    TextView alcoholrate;
-    TextView cabinet;
-    ImageView dialogImage;
-    Button removeButton;
+    private TextView dialogText;
+    private TextView alcoholrate;
+    private TextView cabinet;
+    private ImageView dialogImage;
+    private Button removeButton;
+    private Button cancelButton;
 
 
 
@@ -163,16 +164,24 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
         alcoholrate = (TextView) dialog.findViewById(R.id.alcoholrate);
         dialogImage = (ImageView) dialog.findViewById(R.id.dialogImage);
         removeButton = (Button) dialog.findViewById(R.id.buttonRemove);
+        cancelButton = (Button) dialog.findViewById(R.id.buttonCancel);
 
         removeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.i("gridarray remove", selectedItem+"");
                 Vibrator vib = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                 vib.vibrate(500);
-
+                adapter.remove(1);
+                adapter.notifyDataSetChanged ();
                 dialog.dismiss();
             }
         });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
         dialogText.setText(text);
         alcoholrate.setText("99%");
         dialogImage.setImageResource(imageID);
@@ -189,9 +198,10 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
         if(sectionCursor.moveToPosition(position)) {
             String data = sectionCursor.getString(0);
             String msg = "Item clicked is:" + data;
-            ;
+
             Toast.makeText(this.getActivity(), msg, Toast.LENGTH_SHORT).show();
-            Log.d("gridd", "" + sectionCursor.getBlob(0));
+            Log.d("gridd", "" + sectionName);
+            //adapter.
             dialog(data, R.drawable.bottle_one);
         }
     }
