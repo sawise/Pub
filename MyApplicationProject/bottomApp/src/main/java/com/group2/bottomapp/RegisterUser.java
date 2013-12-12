@@ -120,7 +120,7 @@ public class RegisterUser extends Activity implements View.OnClickListener {
         String email = iEmail.getText().toString();
         String name = iName.getText().toString();
         //HelperClass.Name.YourName = name;
-        HelperClass.Name.YourEmail = email;
+        HelperClass.Name.userEmail = email;
 
         if (v == registerBtn){
 

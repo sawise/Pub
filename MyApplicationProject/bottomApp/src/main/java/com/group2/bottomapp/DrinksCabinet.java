@@ -61,12 +61,10 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
         cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
         cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
 
-        Log.i("Error", HelperClass.Name.YourName);
-
-        if(HelperClass.Name.YourName.endsWith("s")){
-            cabinet.setText(HelperClass.Name.YourName + " " + "Liquor Cabinet");
+        if(HelperClass.Name.userName.endsWith("s")){
+            cabinet.setText(HelperClass.Name.userName + " " + "Liquor Cabinet");
         }else{
-            cabinet.setText(HelperClass.Name.YourName + "'s Liquor Cabinet");
+            cabinet.setText(HelperClass.Name.userName + "'s Liquor Cabinet");
 
         }
 
