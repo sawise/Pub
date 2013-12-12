@@ -56,6 +56,17 @@ public class Login extends Activity implements View.OnClickListener {
         fbRegBtn.setVisibility(View.INVISIBLE);
         or.setVisibility(View.INVISIBLE);
 
+        try{
+            Intent intent = getIntent();
+
+            inputEmail.setText(intent.getStringExtra("userEmail"));
+            inputPassword.setText(intent.getStringExtra("userPassword"));
+        } catch (Exception ex) {
+
+        }
+
+
+
     }
 
 

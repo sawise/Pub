@@ -69,6 +69,8 @@ public class RegisterUser extends Activity implements View.OnClickListener {
     // finish activity with a feedback toast
     public void finishActivity(String response){
         Intent in = new Intent(getApplicationContext(), Login.class);
+        in.putExtra("userEmail", iEmail.getText().toString());
+        in.putExtra("userPassword", iPassword.getText().toString());
         Toast.makeText(this, response, 1000).show();
         startActivity(in);
 
