@@ -68,33 +68,16 @@ public class RegisterUser extends Activity implements View.OnClickListener {
 
     // finish activity with a feedback toast
     public void finishActivity(String response){
-        Intent in = new Intent(getApplicationContext(), MainActivity.class);
+        Intent in = new Intent(getApplicationContext(), Login.class);
         Toast.makeText(this, response, 1000).show();
         startActivity(in);
-
-        String email = iEmail.getText().toString();
-        String password = iPassword.getText().toString();
-
-        if(email.length() > 5 && password.length() > 4){
-            try{
-                // encrypt password
-                password = crypto.encrypt(key, password);
-
-                // add the email and password to sharedprefs
-                getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", email).commit();
-                getSharedPreferences("bottomAppPass", MODE_PRIVATE).edit().putString("password", password).commit();
-            } catch (Exception ex){
-
-            }
-
-        }
 
         this.finish();
     }
 
     // show the error dialog
     public void showErrorDialog(String message){
-        // if an error occured
+        // if an error occurred
 
         // set progress dialog to null
         progressDialog = null;
@@ -119,8 +102,8 @@ public class RegisterUser extends Activity implements View.OnClickListener {
         String password = iPassword.getText().toString();
         String email = iEmail.getText().toString();
         String name = iName.getText().toString();
-        //HelperClass.Name.YourName = name;
-        HelperClass.Name.userEmail = email;
+
+        HelperClass.User.userEmail = email;
 
         if (v == registerBtn){
 

@@ -70,6 +70,8 @@ public class JsonLoginPoster {
 
             inputStream = httpResponse.getEntity().getContent();
 
+            //int statusCode = httpResponse.getStatusLine().getStatusCode();
+
             if(inputStream != null)
                 result = convertInputStreamToString(inputStream);
             else
@@ -106,11 +108,13 @@ public class JsonLoginPoster {
         // onPostExecute displays the results of the AsyncTask.
         @Override
         protected void onPostExecute(String result) {
-            HelperClass.Name.setValues(result);
 
             if(result.contains("Logged in successfully!")){
+                // set values to helper class
+                HelperClass.User.setValues(result);
+                callback.saveValues();
                 callback.hideProgressDialog();
-                callback.finishActivity(result);
+                callback.finishActivity(HelperClass.User.userName + " logged in successfully!");
             } else if(result.contains("Login failed!")){
                 callback.hideProgressDialog();
                 callback.showErrorDialog("Login failed, wrong email or password!");
@@ -134,10 +138,5 @@ public class JsonLoginPoster {
         return result;
 
     }
-
-
-    //TODO use response codes: httpResponse.getStatusLine().getStatusCode();
-    //TODO send the encrypted version to server
-    //TODO use password-token instead: http://android-developers.blogspot.ca/2013/01/verifying-back-end-calls-from-android.html?m=1
 
 }

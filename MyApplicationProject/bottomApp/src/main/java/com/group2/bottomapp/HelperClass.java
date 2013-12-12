@@ -7,7 +7,7 @@ import android.util.Log;
  * Created by Lukas on 2013-11-27.
  */
 public class HelperClass {
-    public static class Name{
+    public static class User{
 
         // This class stores all needed user data. Name, Email, Identifier and ID.
 

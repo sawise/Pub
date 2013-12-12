@@ -2,10 +2,11 @@ package com.group2.bottomapp;
 
 
 public class User {
-    public int id;
-    public String username;
-    public String email;
-    public String password;
+    private int id;
+    private String username;
+    private String email;
+    private String password;
+    private String identifier;
 
     public int getId() {
         return id;
@@ -45,6 +46,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
 }

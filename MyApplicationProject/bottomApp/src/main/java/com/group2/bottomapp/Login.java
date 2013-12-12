@@ -27,8 +27,9 @@ public class Login extends Activity implements View.OnClickListener {
     private TextView textUserPass;
     private ProgressDialog progressDialog;
     private JsonLoginPoster jLoginPoster = null;
+    private JsonIdentifierLoginPoster jLoginIdentifierPoster = null;
     private String storedEmail = null;
-    private String storedPassword = null;
+    private String storedIdentifier = null;
     private TextView or;
     private Crypto crypto = new Crypto();
     private String key = "b3Oto7m55Az00pp7g6fd5ds";
@@ -68,21 +69,38 @@ public class Login extends Activity implements View.OnClickListener {
 
             try{
                 storedEmail = getSharedPreferences("bottomAppUser", MODE_PRIVATE).getString("email", null);
-                storedPassword = getSharedPreferences("bottomAppPass", MODE_PRIVATE).getString("password", null);
+                storedIdentifier = getSharedPreferences("bottomAppIdentifier", MODE_PRIVATE).getString("identifier", null);
 
                 // decrypt
-                storedPassword = crypto.decrypt(key, storedPassword);
+                storedIdentifier = crypto.decrypt(key, storedIdentifier);
+
             } catch (Exception ex) {
 
             }
 
-            if(storedEmail != null && storedPassword != null){
-                if(storedEmail != "" && storedPassword != null){
-                    jLoginPoster = new JsonLoginPoster(getApplicationContext(), this, storedEmail, storedPassword);
 
-                    jLoginPoster.PostJson();
+            if(storedEmail != null && storedIdentifier != null){
+                if(storedEmail != "" && storedIdentifier != ""){
+                    jLoginIdentifierPoster = new JsonIdentifierLoginPoster(getApplicationContext(), this, storedEmail, storedIdentifier);
+
+                    jLoginIdentifierPoster.PostJson();
                 }
             }
+        }
+    }
+
+    // save to shared prefs
+    public void saveValues(){
+        try{
+            // encrypt password
+            HelperClass.User.userIdentifier = crypto.encrypt(key, HelperClass.User.userIdentifier);
+
+            // add the email and password to shared prefs
+            getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", HelperClass.User.userEmail).commit();
+            getSharedPreferences("bottomAppIdentifier", MODE_PRIVATE).edit().putString("identifier", HelperClass.User.userIdentifier).commit();
+
+        } catch (Exception ex){
+            Log.e("Exception: ", ex.getMessage());
         }
     }
 
@@ -104,27 +122,14 @@ public class Login extends Activity implements View.OnClickListener {
 
 
     // finish activity with a feedback toast
-    public void finishActivity(String response){
+    public void finishActivity(String result){
 
-        String email = inputEmail.getText().toString();
-        String password = inputPassword.getText().toString();
-
-        if(email.length() > 5 && password.length() > 4){
-            try{
-                // encrypt password
-                password = crypto.encrypt(key, password);
-
-                // add the email and password to sharedprefs
-                getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", email).commit();
-                getSharedPreferences("bottomAppPass", MODE_PRIVATE).edit().putString("password", password).commit();
-            } catch (Exception ex){
-
-            }
-
+        if(inputEmail.getText().toString().length() > 5){
+            HelperClass.User.userEmail = inputEmail.getText().toString();
         }
 
         Intent in = new Intent(getApplicationContext(), MainActivity.class);
-        Toast.makeText(this, response, 1000).show();
+        Toast.makeText(this, result, 1000).show();
         startActivity(in);
         this.finish();
     }
