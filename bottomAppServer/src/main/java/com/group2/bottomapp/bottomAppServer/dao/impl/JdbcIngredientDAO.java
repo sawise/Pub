@@ -299,5 +299,60 @@ public class JdbcIngredientDAO implements IngredientDAO
 		}
 	}
 	
+	 
+	// returns all ingredients a user have
+	public List<Ingredient> getIngredientsForUser(int userId){
+		String sql = "SELECT i.id, i.ingredient_name, i.category, c.id, c.name FROM ingredients i, categories c, user_ingredients ui "
+				+ "WHERE ui.user_id = ? AND i.id = ui.ingredient_id AND i.category = c.id";
+		
+		List<Ingredient> ingredientsList = new ArrayList<Ingredient>();
+		 
+		Connection conn = null;
+ 
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, userId);
+
+			Ingredient ingredient = null;
+			Category category = null;
+			
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				category = new Category(
+					rs.getInt("c.id"),
+					rs.getString("c.name")
+				);
+				
+				ingredient = new Ingredient(
+					rs.getInt("i.id"),
+					rs.getString("ingredient_name"),
+					category
+				);
+				ingredientsList.add(ingredient);
+			}
+			rs.close();
+			ps.close();
+			return ingredientsList;
+			
+		} catch (SQLException e) {
+			return null;
+			
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} catch (SQLException e) {
+					return null;
+				}
+			}
+		}
+		
+		
+	}
+	
+	
+	
+	
 	
 }

@@ -44,15 +44,9 @@ public class JdbcUserDAO implements UserDAO {
 				status = false;
 			}
 			
-			if(status != false){
-				rs.close();
-				ps.close();
-				return true;
-			} else {
-				rs.close();
-				ps.close();
-				return false;
-			}
+			rs.close();
+			ps.close();
+			return status;
 
 			
 		} catch (SQLException e) {
@@ -70,12 +64,16 @@ public class JdbcUserDAO implements UserDAO {
 	}
 	
 	
-	
 	public boolean insert(User user) {
-		
+		// generate salt
 		String salt = UUID.randomUUID().toString();
 		
-		String sql = ("INSERT INTO users (username, email, password, password_salt) VALUES (?, ?, SHA(SHA(? '" + salt + "')), ?)");
+		// generate identifier
+    	String identifier = UUID.randomUUID().toString();
+    	identifier = identifier.replace("-", ""); 
+		user.setIdentifier(identifier);
+    	
+		String sql = ("INSERT INTO users (username, email, password, password_salt, identifier) VALUES (?, ?, SHA(SHA(? '" + salt + "')), ?, ?)");
 		
 		Connection conn = null;
  
@@ -86,6 +84,7 @@ public class JdbcUserDAO implements UserDAO {
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPassword());
 			ps.setString(4, salt);
+			ps.setString(5, user.getIdentifier());
 			ps.executeUpdate();
 			ps.close();
  
@@ -107,7 +106,7 @@ public class JdbcUserDAO implements UserDAO {
 	
 	
 	public boolean update(User user) {
-		String sql = "UPDATE users SET username, email, password, password_salt = ? WHERE id = ?";
+		String sql = "UPDATE users SET username = ?, email = ?, password = ?, password_salt = ?, identifier = ? WHERE id = ?";
 		Connection conn = null;
 		
 		try{
@@ -117,7 +116,8 @@ public class JdbcUserDAO implements UserDAO {
 			ps.setString(2, user.getEmail());
 			ps.setString(3, user.getPassword());
 			ps.setString(4, user.getSalt());
-			ps.setInt(5, user.getId());
+			ps.setString(5, user.getIdentifier());
+			ps.setInt(6, user.getId());
 			ps.executeUpdate();
 			ps.close();
 			
@@ -165,6 +165,68 @@ public class JdbcUserDAO implements UserDAO {
 	}
 	
 	
+	
+	// insert a ingredient for a user
+	public boolean insertIngredientForUser(int userId, int ingredientId){
+		String sql = "INSERT INTO user_ingredients " +
+				"(user_id, ingredient_id) VALUES (?, ?)";
+		Connection conn = null;
+
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, userId);
+			ps.setInt(2, ingredientId);
+			ps.executeUpdate();
+			ps.close();
+ 
+		} catch (SQLException e) {
+			return false;
+			
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+	
+	
+	// delete a ingredient for a user
+	public boolean deleteIngredientForUser(int userId, int ingredientId){
+	String sql = "DELETE FROM user_ingredients WHERE user_id = ? AND ingredient_id = ?";
+		
+		Connection conn = null;
+		
+		try{
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, userId);
+			ps.setInt(2, ingredientId);
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch(SQLException e){
+			return false;
+			
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} catch (SQLException e) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	
 	public User findUserById(int userId) {
 
 		String sql = "SELECT * FROM users WHERE id = ?";
@@ -178,12 +240,13 @@ public class JdbcUserDAO implements UserDAO {
 			User user = null;
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				user= new User(
+				user = new User(
 					rs.getInt("id"),
 					rs.getString("username"),
 					rs.getString("email"),
 					rs.getString("password"),
-					rs.getString("password_salt")
+					rs.getString("password_salt"),
+					rs.getString("identifier")
 				);
 			}
 			rs.close();
@@ -223,7 +286,8 @@ public class JdbcUserDAO implements UserDAO {
 					rs.getString("username"),
 					rs.getString("email"),
 					rs.getString("password"),
-					rs.getString("password_salt")
+					rs.getString("password_salt"),
+					rs.getString("identifier")
 				);
 			}
 			rs.close();
@@ -263,7 +327,8 @@ public class JdbcUserDAO implements UserDAO {
 					rs.getString("username"),
 					rs.getString("email"),
 					rs.getString("password"),
-					rs.getString("password_salt")
+					rs.getString("password_salt"),
+					rs.getString("identifier")
 				);
 				usersList.add(user);
 			}

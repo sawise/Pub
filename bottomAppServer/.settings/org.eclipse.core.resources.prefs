@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/com/group2/bottomapp/bottomAppServer/App.java=UTF-8
 encoding//src/main/java/com/group2/bottomapp/bottomAppServer/dao/DrinkDAO.java=UTF-8
 encoding//src/main/java/com/group2/bottomapp/bottomAppServer/dao/impl/JdbcCategoryDAO.java=UTF-8
 encoding//src/main/java/com/group2/bottomapp/bottomAppServer/dao/impl/JdbcIngredientDAO.java=UTF-8

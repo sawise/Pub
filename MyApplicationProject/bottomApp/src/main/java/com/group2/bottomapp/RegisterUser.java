@@ -27,7 +27,6 @@ public class RegisterUser extends Activity implements View.OnClickListener {
     private ProgressDialog progressDialog = null;
     private Crypto crypto = new Crypto();
     private String key = "b3Oto7m55Az00pp7g6fd5ds";
-    private String data = "svempa";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

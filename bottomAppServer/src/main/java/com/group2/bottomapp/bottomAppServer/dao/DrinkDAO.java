@@ -14,7 +14,4 @@ public interface DrinkDAO {
 	public Drink findByDrinkId(int drinkId);
 	public Drink findByDrinkName(String drinkName);
 	public List<Drink> getAllDrinks(); 
-	public List<Drink> findDrinksByIngredients(List<Ingredient> ingredientsList);
-	public List<Drink> findDrinksByIngredient(Ingredient ingredient);
-	
 }

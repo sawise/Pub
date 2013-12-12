@@ -14,5 +14,5 @@ public interface IngredientDAO {
 	public boolean checkIfUsed(Ingredient ingredient);
 	public List<Ingredient> getIngredientsForDrink(Drink drink);
 	public List<Ingredient> getAllIngredients();
-	
+	public List<Ingredient> getIngredientsForUser(int userId);
 }

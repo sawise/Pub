@@ -1,6 +1,5 @@
 package com.group2.bottomapp.bottomAppServer;
 
-
 //import java.security.MessageDigest;
 //import java.security.NoSuchAlgorithmException;
 
@@ -9,8 +8,6 @@ public class App
 {
     public static void main( String[] args )
     {
-    	
-    	 
     	/*
     	String password = "";
     	 
@@ -65,6 +62,10 @@ public class App
  
  */
 
+
+// http://java.dzone.com/articles/java-security-tutorial-%E2%80%93-step
+// http://blog.antoine.li/2010/10/22/android-trusting-ssl-certificates/
+
 //TODO JSON API Handle Exceptions, and null pointers
 
 //TODO Handle Exceptions in Controllers
@@ -72,8 +73,6 @@ public class App
 //TODO implement Hibernate instead.
 
 // Use @Autowire instead?
-
-// Search in new thread?
 
 //TODO pagination will be needed for drinks?
 

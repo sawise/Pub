@@ -11,17 +11,19 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private String salt;
+	private String identifier;
 	
 	public User(){
 		
 	}
 	
-	public User(int id, String username, String email, String password, String salt){
+	public User(int id, String username, String email, String password, String salt, String identifier){
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.salt = salt;
+		this.identifier = identifier;
 	}
 	
 	public int getId() {
@@ -53,6 +55,14 @@ public class User implements Serializable {
 	}
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 	
 	

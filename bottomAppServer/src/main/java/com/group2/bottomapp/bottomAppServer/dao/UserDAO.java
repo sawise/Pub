@@ -10,6 +10,8 @@ public interface UserDAO {
 	public boolean insert(User user);
 	public boolean update(User user);
 	public boolean delete(User user);
+	public boolean insertIngredientForUser(int userId, int ingredientId);
+	public boolean deleteIngredientForUser(int userId, int ingredientId);
 	public User findUserById(int userId);
 	public User findByEmail(String email);
 	public List<User> getAllUsers(); 

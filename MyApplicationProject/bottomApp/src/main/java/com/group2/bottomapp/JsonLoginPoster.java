@@ -139,6 +139,6 @@ public class JsonLoginPoster {
 
     //TODO use response codes: httpResponse.getStatusLine().getStatusCode();
     //TODO send the encrypted version to server
-    //TODO use password-token instead
+    //TODO use password-token instead: http://android-developers.blogspot.ca/2013/01/verifying-back-end-calls-from-android.html?m=1
 
 }

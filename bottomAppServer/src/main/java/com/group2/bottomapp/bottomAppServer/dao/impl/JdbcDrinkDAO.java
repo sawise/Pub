@@ -299,16 +299,4 @@ public class JdbcDrinkDAO implements DrinkDAO {
 		}
 	}
 
-	public List<Drink> findDrinksByIngredients(List<Ingredient> ingredientsList) {
-		// TODO Auto-generated method stub
-		// Need to do this!!
-		return null;
-	}
-	
-	public List<Drink> findDrinksByIngredient(Ingredient ingredient) {
-		// TODO Auto-generated method stub
-		// Need to do this!!
-		return null;
-	}
-
 }

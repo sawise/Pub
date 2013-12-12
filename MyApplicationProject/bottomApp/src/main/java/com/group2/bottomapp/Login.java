@@ -32,7 +32,6 @@ public class Login extends Activity implements View.OnClickListener {
     private TextView or;
     private Crypto crypto = new Crypto();
     private String key = "b3Oto7m55Az00pp7g6fd5ds";
-    private String data = "svempa";
     //private SoundHelper soundEffect;
 
     @Override
