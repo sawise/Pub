@@ -106,10 +106,9 @@ public class Login extends Activity implements View.OnClickListener {
     public void saveValues(){
         try{
             // encrypt password
-            HelperClass.User.userIdentifier = crypto.encrypt(key, HelperClass.User.userIdentifier);
-
+            String encryptedPassword = crypto.encrypt(key, HelperClass.User.userIdentifier);
             // add the email and password to shared prefs
-            getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", HelperClass.User.userEmail).commit();
+            getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", encryptedPassword).commit();
             getSharedPreferences("bottomAppIdentifier", MODE_PRIVATE).edit().putString("identifier", HelperClass.User.userIdentifier).commit();
 
         } catch (Exception ex){
@@ -201,8 +200,8 @@ public class Login extends Activity implements View.OnClickListener {
 
         }
         else if (v == fbRegBtn){
-                Intent fb = new Intent(getApplicationContext(), Search.class);
-                startActivity(fb);
+                //Intent fb = new Intent(getApplicationContext(), Search.class);
+                //startActivity(fb);
                 finish();
         }
     }
