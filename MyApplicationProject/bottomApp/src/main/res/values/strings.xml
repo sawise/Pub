@@ -22,10 +22,11 @@
     <string name="title_CabinetManager">CabinetManager</string>
     <string name="drawer_open">Open Drawer</string>
     <string name="drawer_close">Closed Drawer</string>
+
     <color name="ColorRed">#FF0000</color>
     <color name="ColorWhite">#FFF</color>
+
     <string name="action_search">Search</string>
-
-
+    <string name="title_activity_drinks_cabinett">DrinksCabinett</string>
 
 </resources>
