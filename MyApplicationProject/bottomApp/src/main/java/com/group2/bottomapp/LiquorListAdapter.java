@@ -3,6 +3,7 @@ package com.group2.bottomapp;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 public class LiquorListAdapter extends BaseExpandableListAdapter {
 
@@ -29,13 +31,19 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
         ingredients = new LinkedHashMap<String, ArrayList<Ingredient>>();
 
         for(Categories c : categories){
-            ingredients.put(c.getName(), APIManager.getIngredientsByCategory(c.getId()));
+            ArrayList<Ingredient> tempList = APIManager.getIngredientsByCategory(c.getId());
+            if(tempList.isEmpty()){
+                Log.d("tjafsmannen", "listan är tom för fan");
+            } else {
+                Log.d("tjafsmannen", tempList.size() + " objekt finns i listjävlen");
+            }
+            ingredients.put(c.getName(), tempList);
         }
 
     }
 
-    public Object getChild(int groupPosition, int childPosition) {
-        return ingredients.get(categories.get(groupPosition)).get(childPosition);
+    public Ingredient getChild(int groupPosition, int childPosition) {
+        return ingredients.get(categories.get(groupPosition).getName()).get(childPosition);
     }
 
     public long getChildId(int groupPosition, int childPosition) {
@@ -44,7 +52,7 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
 
     public View getChildView(final int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final String ingredientName = (String) getChild(groupPosition, childPosition);
+        final String ingredientName = getChild(groupPosition, childPosition).getName();
         LayoutInflater inflater = context.getLayoutInflater();
 
         if (convertView == null) {
@@ -58,8 +66,10 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CabinetManager.AddIngredient(getGroup(groupPosition) + ", " + ingredientName);
-                Toast.makeText(context, "Added " + getGroup(groupPosition) + ", " + ingredientName + " to cabinet", 1000).show();
+                Ingredient ing = ingredients.get(categories.get(groupPosition).getName()).get(childPosition);
+                //CabinetManager.AddIngredient(getGroup(groupPosition) + ", " + ingredientName);
+                APIManager.addIngredientToAccount(ing.getId());
+
             }
         });
 

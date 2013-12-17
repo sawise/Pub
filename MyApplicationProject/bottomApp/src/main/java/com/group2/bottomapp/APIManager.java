@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.group2.bottomapp.JsonDownloaders.JsonAddIngredient;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadAllCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadAvailableCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadCategories;
@@ -252,6 +253,13 @@ public class APIManager {
         }
 
         return listToReturn;
+    }
+
+    //Uploads
+    public static void addIngredientToAccount(int ingId){
+        Log.d("tjafsmannen", "försöker lägga till " + ingId + " till konto");
+        JsonAddIngredient jsonAddIngredient = new JsonAddIngredient();
+        jsonAddIngredient.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/add/ingredient/" + ingId);
     }
 
     private static boolean hazInternetz(){
