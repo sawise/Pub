@@ -107,7 +107,11 @@ public class Cocktail {
         convert = new Convert();
         String result = "";
         for(Ingredient i : getIngredients()){
-            result = convert.convertString(i, format);
+            String tempString = convert.convertString(i, format);
+            if(tempString.trim().endsWith(",")){
+                tempString = tempString.trim().substring(0, tempString.trim().length()-1);
+            }
+            result += tempString;
         }
         return result;
     }
