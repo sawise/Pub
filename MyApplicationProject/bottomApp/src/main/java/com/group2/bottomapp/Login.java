@@ -108,8 +108,8 @@ public class Login extends Activity implements View.OnClickListener {
             // encrypt password
             String encryptedPassword = crypto.encrypt(key, HelperClass.User.userIdentifier);
             // add the email and password to shared prefs
-            getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", encryptedPassword).commit();
-            getSharedPreferences("bottomAppIdentifier", MODE_PRIVATE).edit().putString("identifier", HelperClass.User.userIdentifier).commit();
+            getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", HelperClass.User.userEmail).commit();
+            getSharedPreferences("bottomAppIdentifier", MODE_PRIVATE).edit().putString("identifier", encryptedPassword).commit();
 
         } catch (Exception ex){
             Log.e("Exception: ", ex.getMessage());
