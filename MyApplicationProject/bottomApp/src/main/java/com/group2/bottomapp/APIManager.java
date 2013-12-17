@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.group2.bottomapp.JsonDownloaders.JsonAddFavorite;
 import com.group2.bottomapp.JsonDownloaders.JsonAddIngredient;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadAllCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadAvailableCocktails;
