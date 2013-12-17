@@ -1,8 +1,8 @@
 package com.group2.bottomapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,11 +38,8 @@ public class addToCabinet extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                Fragment newFragment = new addToCabinet();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.main, newFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                Intent i = new Intent(getActivity().getApplicationContext(), Search.class);
+                startActivity(i);
                 return true;
             default:
                 break;

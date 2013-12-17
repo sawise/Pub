@@ -48,8 +48,8 @@
                 android:value="com.group2.bottomApp.MainActivity" />
         </activity>
         <activity
-            android:name=".Test"
-            android:label="@string/title_Test"
+            android:name=".Search"
+            android:label="@string/title_Search"
             android:parentActivityName="com.group2.bottomapp.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
