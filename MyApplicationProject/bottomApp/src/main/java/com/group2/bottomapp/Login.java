@@ -34,6 +34,8 @@ public class Login extends Activity implements View.OnClickListener {
     private TextView or;
     private Crypto crypto = new Crypto();
     private String key = "b3Oto7m55Az00pp7g6fd5ds";
+    public static final String PREFSUSER = "bottomAppUser";
+    public static final String PREFSIDENTIFIER = "bottomAppIdentifier";
     //private SoundHelper soundEffect;
 
     @Override
@@ -66,6 +68,13 @@ public class Login extends Activity implements View.OnClickListener {
         }
     }
 
+/*
+    @Override
+    protected void onPause(){
+        super.onPause();
+        saveValues();
+    }
+*/
 
     @Override
     protected void onResume() {
@@ -76,16 +85,11 @@ public class Login extends Activity implements View.OnClickListener {
         } else {
 
             try{
-                storedEmail = getSharedPreferences("bottomAppUser", MODE_PRIVATE).getString("email", null);
-                storedIdentifier = getSharedPreferences("bottomAppIdentifier", MODE_PRIVATE).getString("identifier", null);
+                storedEmail = getSharedPreferences(PREFSUSER, MODE_PRIVATE).getString("email", null);
+                storedIdentifier = getSharedPreferences(PREFSIDENTIFIER, MODE_PRIVATE).getString("identifier", null);
 
                 // decrypt
                 storedIdentifier = crypto.decrypt(key, storedIdentifier);
-
-                Log.i("HERE", "onResume");
-                Log.i("HERE", storedEmail);
-                Log.i("HERE", storedIdentifier);
-
 
             } catch (Exception ex) {
                 Log.e("BottomApp-Exception", ex.getMessage());
@@ -107,9 +111,13 @@ public class Login extends Activity implements View.OnClickListener {
         try{
             // encrypt password
             String encryptedPassword = crypto.encrypt(key, HelperClass.User.userIdentifier);
+
             // add the email and password to shared prefs
-            getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", HelperClass.User.userEmail).commit();
-            getSharedPreferences("bottomAppIdentifier", MODE_PRIVATE).edit().putString("identifier", encryptedPassword).commit();
+            if(HelperClass.User.userEmail != null){
+                getSharedPreferences(PREFSUSER, MODE_PRIVATE).edit().putString("email", HelperClass.User.userEmail).commit();
+            }
+
+            getSharedPreferences(PREFSIDENTIFIER, MODE_PRIVATE).edit().putString("identifier", encryptedPassword).commit();
 
         } catch (Exception ex){
             Log.e("Exception: ", ex.getMessage());
