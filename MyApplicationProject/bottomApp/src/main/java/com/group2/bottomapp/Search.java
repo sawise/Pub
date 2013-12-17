@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -33,6 +35,16 @@ public class Search extends Activity implements SearchView.OnQueryTextListener {
                 android.R.layout.simple_list_item_1,
                 mStrings));
         mListView.setTextFilterEnabled(true);
+        Comparator<String> ALPHABETICAL_ORDER1 = new Comparator<String>()
+        {
+            public int compare(String object1, String object2)
+            {
+                int res = String.CASE_INSENSITIVE_ORDER.compare(object1.toString(), object2.toString());
+                return res;
+            }
+        };
+
+        Collections.sort(mStrings, ALPHABETICAL_ORDER1);
         setupSearchView();
     }
 
