@@ -53,7 +53,7 @@ public class Login extends Activity implements View.OnClickListener {
         or = (TextView)findViewById(R.id.of);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        fbRegBtn.setVisibility(View.INVISIBLE);
+        fbRegBtn.setVisibility(View.VISIBLE);
         or.setVisibility(View.INVISIBLE);
 
         try{
@@ -64,8 +64,6 @@ public class Login extends Activity implements View.OnClickListener {
         } catch (Exception ex) {
 
         }
-
-
 
     }
 
@@ -85,8 +83,12 @@ public class Login extends Activity implements View.OnClickListener {
                 // decrypt
                 storedIdentifier = crypto.decrypt(key, storedIdentifier);
 
-            } catch (Exception ex) {
 
+                Log.i("login-debug", storedEmail);
+                Log.i("login-debug", storedIdentifier);
+
+            } catch (Exception ex) {
+                Log.e("BottomApp-Exception", ex.getMessage());
             }
 
 
@@ -199,7 +201,7 @@ public class Login extends Activity implements View.OnClickListener {
 
         }
         else if (v == fbRegBtn){
-                Intent fb = new Intent(getApplicationContext(), MainActivity.class);
+                Intent fb = new Intent(getApplicationContext(), Search.class);
                 startActivity(fb);
                 finish();
         }
