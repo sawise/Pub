@@ -53,7 +53,7 @@ public class Login extends Activity implements View.OnClickListener {
         or = (TextView)findViewById(R.id.of);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-        fbRegBtn.setVisibility(View.VISIBLE);
+        fbRegBtn.setVisibility(View.INVISIBLE);
         or.setVisibility(View.INVISIBLE);
 
         try{
@@ -199,9 +199,9 @@ public class Login extends Activity implements View.OnClickListener {
 
         }
         else if (v == fbRegBtn){
-                //Intent fb = new Intent(getApplicationContext(), Search.class);
-                //startActivity(fb);
-                finish();
+            //Intent fb = new Intent(getApplicationContext(), Test.class);
+            //startActivity(fb);
+            //finish();
         }
     }
 
