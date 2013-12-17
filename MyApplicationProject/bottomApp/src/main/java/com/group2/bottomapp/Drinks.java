@@ -74,9 +74,7 @@ public class Drinks extends Fragment {
                     handler.post(new Runnable() {
                         public void run() {
                             cocktails = APIManager.getAllAvailableCocktails();
-
                             if (!cocktails.isEmpty()) {
-
                                 AvailableDrinkListAdapter availableDrinkListAdapter = new AvailableDrinkListAdapter(getActivity().getApplicationContext(), new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {

@@ -51,7 +51,6 @@ public class Drink extends Fragment implements View.OnClickListener {
         ivDrinkImage = (ImageView) rootView.findViewById(R.id.ivDrinkImage);
 
 
-
         tvDrinkName = (TextView) rootView.findViewById(R.id.tvDrinkName);
         tvDrinkIngredients = (TextView) rootView.findViewById(R.id.tvDrinkIngredients);
         tvDrinkInstructions = (TextView) rootView.findViewById(R.id.tvDrinkInstructions);

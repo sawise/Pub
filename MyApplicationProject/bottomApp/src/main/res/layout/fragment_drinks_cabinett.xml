@@ -1,26 +1,28 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-
+android:orientation="vertical"
     android:background="@drawable/background"
     tools:context=".DrinksCabinett$PlaceholderFragment">
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Vodka"
+        android:id="@+id/textCabinett" />
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/drinkGridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:numColumns="auto_fit"
-        android:columnWidth="70dp"
+        android:columnWidth="80dp"
         android:fastScrollEnabled="true"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"
         android:stretchMode="columnWidth"
         />
 
-</RelativeLayout>
+</LinearLayout>

@@ -13,6 +13,7 @@ import com.group2.bottomapp.JsonDownloaders.JsonDownloadAvailableCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadCategories;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredients;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredientsByUser;
+import com.group2.bottomapp.JsonDownloaders.JsonRemoveIngredient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -285,6 +286,12 @@ public class APIManager {
     public static void addFavoriteToAccount(int ingId) {
         JsonAddFavorite jsonAddFavorite = new JsonAddFavorite();
         jsonAddFavorite.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/add/favorite/" + ingId);
+    }
+
+    public static void removeIngredientfromAccount(int ingId) {
+        Log.d("tjafsmannen", "försöker lägga till " + ingId + " till konto");
+        JsonRemoveIngredient jsonRemoveIngredient = new JsonRemoveIngredient();
+        jsonRemoveIngredient.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/remove/ingredient/" + ingId);
     }
 
     private static boolean hazInternetz() {

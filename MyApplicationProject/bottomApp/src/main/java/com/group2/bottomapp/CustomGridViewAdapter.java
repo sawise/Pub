@@ -51,12 +51,20 @@ public class CustomGridViewAdapter extends ArrayAdapter<Ingredient> {
             holder = (RecordHolder) row.getTag();
         }
         Ingredient item = data.get(position);
+        String catName;
+        if(item.getCategoryName().contains("/")){
+            String[] catSplit = item.getCategoryName().split("/");
+            String split1 = catSplit[0];
+            String split2 = catSplit[1];
+            catName = split1+"\r\n"+split2;
+        } else{
+            catName = item.getCategoryName();
+        }
 
-        char catName = item.getCategoryName().charAt(0);
         String id = Integer.toString(item.getId());
 
         holder.drinkID.setText(id);
-        holder.txtCategory.setText(Character.toString(catName));
+        holder.txtCategory.setText(catName);//Character.toString(catName));
         holder.txtTitle.setText(item.getName());
         holder.imageItem.setImageResource(R.drawable.bottle_threee);
         return row;
