@@ -40,7 +40,7 @@ public class Search extends Activity implements SearchView.OnQueryTextListener {
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(true);
-        mSearchView.setQueryHint("Search Here");
+        mSearchView.setQueryHint("Search for Ingredients");
     }
 
     public boolean onQueryTextChange(String newText) {
