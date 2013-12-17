@@ -28,7 +28,7 @@ public class APIManager {
     public static ArrayList<Categories> categories = new ArrayList<Categories>();
     public static ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 
-    public static void updateEverything(){
+    public static void updateEverything() {
         try {
             updateAllCocktails();
             updateAvailableCocktails();
@@ -59,7 +59,7 @@ public class APIManager {
         task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/ingredients/all");
     }
 
-    public static List<Cocktail> getAllCocktails(){
+    public static List<Cocktail> getAllCocktails() {
         //if(!hazInternetz()) return new ArrayList<Cocktail>();
         try {
             updateAllCocktails();
@@ -69,7 +69,7 @@ public class APIManager {
         return allCocktails;
     }
 
-    public static List<Cocktail> getAllAvailableCocktails(){
+    public static List<Cocktail> getAllAvailableCocktails() {
         //if(!hazInternetz()) return new ArrayList<Cocktail>();
         try {
             updateAvailableCocktails();
@@ -79,7 +79,7 @@ public class APIManager {
         return availableCocktails;
     }
 
-    public static ArrayList<Categories> getCategories(){
+    public static ArrayList<Categories> getCategories() {
         //if(!hazInternetz()) return new ArrayList<Cocktail>();
         try {
             updateCategories();
@@ -89,7 +89,7 @@ public class APIManager {
         return categories;
     }
 
-    public static ArrayList<Ingredient> getAllIngredients(){
+    public static ArrayList<Ingredient> getAllIngredients() {
         try {
             updateIngredients();
         } catch (Exception e) {
@@ -98,7 +98,7 @@ public class APIManager {
         return ingredients;
     }
 
-    public static ArrayList<Ingredient> getIngredientsByCategory(int category){
+    public static ArrayList<Ingredient> getIngredientsByCategory(int category) {
         ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
 
         try {
@@ -106,30 +106,30 @@ public class APIManager {
 
             String catName = "";
 
-            for(Categories c : categories){
-                if(c.getId() == category){
+            for (Categories c : categories) {
+                if (c.getId() == category) {
                     catName = c.getName();
                 }
             }
 
-            for(Ingredient i : getAllIngredients()){
-                Log.i("ingg", i.getName()+"<->"+i.getCategoryName());
-                if(i.getCategoryName().equals(catName)){
+            for (Ingredient i : getAllIngredients()) {
+                Log.i("ingg", i.getName() + "<->" + i.getCategoryName());
+                if (i.getCategoryName().equals(catName)) {
                     Log.i("ingg", i.getCategoryName());
                     listToReturn.add(i);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.i("JSONN", ""+e);
+            Log.i("JSONN", "" + e);
         }
 
         return listToReturn;
     }
 
-    public static Cocktail getRandomDrink(){
+    public static Cocktail getRandomDrink() {
         List<Cocktail> list = getAllAvailableCocktails();
-        if(list.isEmpty()){
+        if (list.isEmpty()) {
             return null;
         }
         Random rnd = new Random();
@@ -139,15 +139,15 @@ public class APIManager {
         return list.get(rndNo);
     }
 
-    public static Cocktail getDrinkWithID(int id){
+    public static Cocktail getDrinkWithID(int id) {
         try {
             updateAllCocktails();
             List<Cocktail> cocktails = getAllCocktails();
-            if(cocktails.isEmpty()){
+            if (cocktails.isEmpty()) {
                 return null;
             }
-            for(Cocktail c : cocktails){
-                if(c.getId() == id){
+            for (Cocktail c : cocktails) {
+                if (c.getId() == id) {
                     return c;
                 }
             }
@@ -158,14 +158,14 @@ public class APIManager {
         return null;
     }
 
-    public static ArrayList<Cocktail> getCocktailsFromJson(String json){
+    public static ArrayList<Cocktail> getCocktailsFromJson(String json) {
         try {
 
             JSONArray cocktailArr = new JSONArray(json);
 
             ArrayList<Cocktail> listToReturn = new ArrayList<Cocktail>();
 
-            for(int i = 0; i < cocktailArr.length(); i++){
+            for (int i = 0; i < cocktailArr.length(); i++) {
                 JSONObject cocktailObj = cocktailArr.getJSONObject(i);
 
                 int cocktailId = cocktailObj.getInt("id");
@@ -176,8 +176,7 @@ public class APIManager {
 
                 List<Ingredient> ingredients = new ArrayList<Ingredient>();
                 JSONArray jsonIngredients = cocktailObj.getJSONArray("ingredients");
-                for (int j = 0; j < jsonIngredients.length(); j++)
-                {
+                for (int j = 0; j < jsonIngredients.length(); j++) {
                     JSONObject jsonIngredientObj = jsonIngredients.getJSONObject(j);
                     int ingId = jsonIngredientObj.getInt("id");
                     String ingName = jsonIngredientObj.getString("name");
@@ -200,18 +199,19 @@ public class APIManager {
         return null;
     }
 
-    public static ArrayList<Categories> getCategoriesFromJson(String json){
+    public static ArrayList<Categories> getCategoriesFromJson(String json) {
         try {
 
             JSONArray CategoriesArr = new JSONArray(json);
             ArrayList<Categories> listToReturn = new ArrayList<Categories>();
 
-            for(int i = 0; i < CategoriesArr.length(); i++){
+            for (int i = 0; i < CategoriesArr.length(); i++) {
                 JSONObject cocktailObj = CategoriesArr.getJSONObject(i);
 
                 int categoryId = cocktailObj.getInt("id");
                 String categoryName = cocktailObj.getString("name");
-                listToReturn.add(new Categories(categoryId, categoryName));;
+                listToReturn.add(new Categories(categoryId, categoryName));
+                ;
             }
             return listToReturn;
 
@@ -221,13 +221,13 @@ public class APIManager {
         return null;
     }
 
-    public static ArrayList<Ingredient> getIngredientsFromJson(String json){
+    public static ArrayList<Ingredient> getIngredientsFromJson(String json) {
         ArrayList<Ingredient> listToReturn = new ArrayList<Ingredient>();
 
         try {
             JSONArray ingredientArr = new JSONArray(json);
 
-            for(int i = 0; i < ingredientArr.length(); i++){
+            for (int i = 0; i < ingredientArr.length(); i++) {
                 JSONObject cocktailObj = ingredientArr.getJSONObject(i);
                 int ingredientId = cocktailObj.getInt("id");
                 String ingredientName = cocktailObj.getString("name");
@@ -247,8 +247,7 @@ public class APIManager {
 
                 listToReturn.add(ingredientToAdd);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -256,13 +255,18 @@ public class APIManager {
     }
 
     //Uploads
-    public static void addIngredientToAccount(int ingId){
+    public static void addIngredientToAccount(int ingId) {
         Log.d("tjafsmannen", "försöker lägga till " + ingId + " till konto");
         JsonAddIngredient jsonAddIngredient = new JsonAddIngredient();
         jsonAddIngredient.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/add/ingredient/" + ingId);
     }
 
-    private static boolean hazInternetz(){
+    public static void addFavoriteToAccount(int ingId) {
+        JsonAddFavorite jsonAddFavorite = new JsonAddFavorite();
+        jsonAddFavorite.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/add/favorite/" + ingId);
+    }
+
+    private static boolean hazInternetz() {
         ConnectivityManager connMgr = (ConnectivityManager) MainActivity.getAppContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
