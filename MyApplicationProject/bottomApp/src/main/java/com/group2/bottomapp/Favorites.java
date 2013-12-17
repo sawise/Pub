@@ -39,28 +39,26 @@ public class Favorites extends Fragment implements View.OnClickListener, GridVie
 
     View rootView = inflater.inflate(R.layout.favorite_list, container, false);
     setHasOptionsMenu(true);
-    //cabinet = (TextView)rootView.findViewById(R.id.txtFavorites);
+
+        progress = new ProgressDialog(getActivity());
+        progress.setTitle("Loading");
+        progress.setMessage("Please wait...");
+        progress.show();
+
+        cabinet = (TextView)rootView.findViewById(R.id.txtFavorite);
     drinkList = (ListView)rootView.findViewById(R.id.favoriteDrinkListInside);
 
-        //cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
+    cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
 
-    /*if(HelperClass.User.userName.endsWith("s")){
+    if(HelperClass.User.userName.endsWith("s")){
         cabinet.setText(HelperClass.User.userName + "Favorites");
     }else{
         cabinet.setText(HelperClass.User.userName + "'s Favorites");
-    }*/
-
-
-    progress = new ProgressDialog(getActivity());
-    progress.setTitle("Loading");
-    progress.setMessage("Please wait...");
-    progress.show();
+    }
 
     drinksInFavorite = APIManager.getCocktailByFavorite(HelperClass.User.userId);
 
-
         if(!drinksInFavorite.isEmpty()) {
-            Toast.makeText(this.getActivity(), "first try: not empty", Toast.LENGTH_SHORT).show();
             AvailableFavoriteDrinkListAdapter availableDrinkListAdapter = new AvailableFavoriteDrinkListAdapter(getActivity().getApplicationContext(), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -73,14 +71,10 @@ public class Favorites extends Fragment implements View.OnClickListener, GridVie
             drinkList.setAdapter(availableDrinkListAdapter);
             progress.dismiss();
         } else {
-            Toast.makeText(this.getActivity(), "first try: empty", Toast.LENGTH_SHORT).show();
             startRefreshThread();
         }
-    return rootView;
-}
-
-
-
+        return rootView;
+    }
 
 
     @Override
@@ -95,8 +89,6 @@ public class Favorites extends Fragment implements View.OnClickListener, GridVie
 
 
     private void startRefreshThread(){
-
-
         final Handler handler = new Handler();
         Runnable runnable = new Runnable() {
             public void run() {

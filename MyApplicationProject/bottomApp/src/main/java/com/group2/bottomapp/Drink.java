@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,6 +37,8 @@ public class Drink extends Fragment implements View.OnClickListener {
     private TextView tvDrinkInstructions;
     private ImageView ivDrinkImage;
 
+    AlphaAnimation  blinkanimation;
+
     private int id;
     Cocktail cocktail;
 
@@ -50,9 +55,7 @@ public class Drink extends Fragment implements View.OnClickListener {
         }
         cocktail = APIManager.getDrinkWithID(id);
 
-
         ivDrinkImage = (ImageView) rootView.findViewById(R.id.ivDrinkImage);
-
 
         tvDrinkName = (TextView) rootView.findViewById(R.id.tvDrinkName);
         tvDrinkIngredients = (TextView) rootView.findViewById(R.id.tvDrinkIngredients);
@@ -61,6 +64,12 @@ public class Drink extends Fragment implements View.OnClickListener {
         likeImage = (ImageView) rootView.findViewById(R.id.like);
         dislikeImage = (ImageView) rootView.findViewById(R.id.dislike);
         starwhite = (ImageView) rootView.findViewById(R.id.starwhite);
+
+        blinkanimation= new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
+        blinkanimation.setDuration(300); // duration - half a second
+        blinkanimation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+        blinkanimation.setRepeatCount(3); // Repeat animation infinitely
+        blinkanimation.setRepeatMode(Animation.REVERSE);
 
 
         likeImage.setOnClickListener(this);
@@ -96,19 +105,17 @@ public class Drink extends Fragment implements View.OnClickListener {
         }
         Log.i("Dislike", "");
     }
-
     else if (v == starwhite) {
         if(!favorite){
             APIManager.addFavoriteToAccount(id);
             favorite = true;
             starwhite.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
+            starwhite.startAnimation(blinkanimation);
         } else {
             favorite = false;
             APIManager.removeFavoriteToAccount(id);
             starwhite.setImageDrawable(getResources().getDrawable(R.drawable.starwhite));
         }
-
-
     }
 }
 
