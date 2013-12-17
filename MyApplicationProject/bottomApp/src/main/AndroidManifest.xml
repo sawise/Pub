@@ -48,6 +48,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.group2.bottomApp.MainActivity" />
         </activity>
+        <activity
+            android:name=".Search"
+            android:label="@string/title_Search"
+            android:parentActivityName="com.group2.bottomapp.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.group2.bottomApp.MainActivity" />
+        </activity>
 
         <service
             android:name="com.group2.bottomapp.ShotRaceService"

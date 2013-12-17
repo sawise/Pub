@@ -80,6 +80,16 @@
                 android:src="@drawable/dislike"
                 android:id="@+id/dislike"/>
 
+            <ImageView
+                android:clickable="true"
+                android:layout_width="35dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:src="@drawable/starwhite"
+                android:id="@+id/starwhite"
+               />
+
 
         </LinearLayout>
     </LinearLayout>

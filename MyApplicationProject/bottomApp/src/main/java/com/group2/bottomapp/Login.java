@@ -71,6 +71,8 @@ public class Login extends Activity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
 
+        Log.i("onResume", "HERE");
+
         if(isConnected() != true){
             showErrorDialog();
         } else {
@@ -82,8 +84,9 @@ public class Login extends Activity implements View.OnClickListener {
                 // decrypt
                 storedIdentifier = crypto.decrypt(key, storedIdentifier);
 
-            } catch (Exception ex) {
 
+            } catch (Exception ex) {
+                Log.e("BottomApp-Exception", ex.getMessage());
             }
 
 
@@ -101,11 +104,10 @@ public class Login extends Activity implements View.OnClickListener {
     public void saveValues(){
         try{
             // encrypt password
-            HelperClass.User.userIdentifier = crypto.encrypt(key, HelperClass.User.userIdentifier);
-
+            String encryptedPassword = crypto.encrypt(key, HelperClass.User.userIdentifier);
             // add the email and password to shared prefs
             getSharedPreferences("bottomAppUser", MODE_PRIVATE).edit().putString("email", HelperClass.User.userEmail).commit();
-            getSharedPreferences("bottomAppIdentifier", MODE_PRIVATE).edit().putString("identifier", HelperClass.User.userIdentifier).commit();
+            getSharedPreferences("bottomAppIdentifier", MODE_PRIVATE).edit().putString("identifier", encryptedPassword).commit();
 
         } catch (Exception ex){
             Log.e("Exception: ", ex.getMessage());
@@ -196,9 +198,9 @@ public class Login extends Activity implements View.OnClickListener {
 
         }
         else if (v == fbRegBtn){
-                Intent fb = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(fb);
-                finish();
+            //Intent fb = new Intent(getApplicationContext(), Test.class);
+            //startActivity(fb);
+            //finish();
         }
     }
 

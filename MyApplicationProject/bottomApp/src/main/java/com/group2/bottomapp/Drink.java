@@ -25,6 +25,7 @@ public class Drink extends Fragment implements View.OnClickListener {
     private String drinkInstructions;
     private ImageView likeImage;
     private ImageView dislikeImage;
+    private ImageView starwhite;
 
     private TextView tvDrinkName;
     private TextView tvDrinkIngredients;
@@ -57,21 +58,18 @@ public class Drink extends Fragment implements View.OnClickListener {
 
         likeImage = (ImageView) rootView.findViewById(R.id.like);
         dislikeImage = (ImageView) rootView.findViewById(R.id.dislike);
+        starwhite = (ImageView) rootView.findViewById(R.id.starwhite);
+
 
         likeImage.setOnClickListener(this);
-        //likeImage.setEnabled(false);
         dislikeImage.setOnClickListener(this);
+        starwhite.setOnClickListener(this);
 
         initDrink(id);
         setHasOptionsMenu(true);
 
         return rootView;
     }
-
-
-
-
-
 
     @Override
     public void onClick(View v) {
@@ -91,29 +89,31 @@ public class Drink extends Fragment implements View.OnClickListener {
         ImageView imageView = (ImageView) v;
         imageView.setVisibility(View.INVISIBLE);
 
-            if (connThread.isConnected() != false){
-                connThread.PutJsonDown();
-            }
-        Log.i("Dislike", "");
+        if (connThread.isConnected() != false){
+            connThread.PutJsonDown();
         }
-
+        Log.i("Dislike", "");
     }
 
+    else if (v == starwhite) {
+        starwhite.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
 
+    }
+}
 
 
     public void initDrink(int id){
 
         cocktail = APIManager.getDrinkWithID(id);
 
-        Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
-        ivDrinkImage.setImageDrawable(image);
+        if(cocktail != null){
+            Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
+            ivDrinkImage.setImageDrawable(image);
 
-        tvDrinkName.setText(cocktail.getName());
-        tvDrinkInstructions.setText(cocktail.getDescription());
-        tvDrinkIngredients.setText(cocktail.getIngredientString("cl"));
-
-
+            tvDrinkName.setText(cocktail.getName());
+            tvDrinkInstructions.setText(cocktail.getDescription());
+            tvDrinkIngredients.setText(cocktail.getIngredientString("cl"));
+        }
     }
 
     @Override

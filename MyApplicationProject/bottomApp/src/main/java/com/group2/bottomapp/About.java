@@ -6,22 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
-public class About extends Fragment implements View.OnClickListener {
-
+public class About extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.about, container, false);
-
         return rootView;
     }
 
-
-    @Override
-    public void onClick(View v) {
-
-    }
-
 }
+
+
