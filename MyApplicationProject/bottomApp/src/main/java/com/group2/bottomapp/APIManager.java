@@ -45,7 +45,7 @@ public class APIManager {
 
     public static void updateAvailableCocktails() throws IOException, JSONException {
         JsonDownloadAvailableCocktails task = new JsonDownloadAvailableCocktails();
-        task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/drinks/all");
+        task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/" + HelperClass.User.userId);
     }
 
     public static void updateCategories() throws IOException, JSONException {
