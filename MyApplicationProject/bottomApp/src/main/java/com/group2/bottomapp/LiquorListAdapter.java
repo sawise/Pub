@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +18,7 @@ import java.util.List;
 
 public class LiquorListAdapter extends BaseExpandableListAdapter {
 
+    public static List<String> allIngredients;
     private Activity context;
     private HashMap<String, ArrayList<Ingredient>> ingredients;
     private ArrayList<Categories> categories;
@@ -30,6 +30,13 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
 
         ingredients = new LinkedHashMap<String, ArrayList<Ingredient>>();
 
+        allIngredients = new ArrayList<String>();
+
+
+        for(Ingredient ingredient : APIManager.getAllIngredients()) {
+            allIngredients.add(ingredient.getName());
+
+        }
         for(Categories c : categories){
             ArrayList<Ingredient> tempList = APIManager.getIngredientsByCategory(c.getId());
             if(tempList.isEmpty()){

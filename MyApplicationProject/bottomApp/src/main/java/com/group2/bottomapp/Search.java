@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import java.util.List;
+
 /**
  * Created by Lukas on 2013-12-17.
  */
@@ -16,7 +18,7 @@ public class Search extends Activity implements SearchView.OnQueryTextListener {
     private SearchView mSearchView;
     private ListView mListView;
 
-    private final String[] mStrings = LiquorSearch.sCheeseStrings;
+    List<String> mStrings = LiquorListAdapter.allIngredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
