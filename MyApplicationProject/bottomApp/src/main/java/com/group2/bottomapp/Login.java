@@ -72,8 +72,6 @@ public class Login extends Activity implements View.OnClickListener {
     protected void onResume() {
         super.onResume();
 
-        Log.i("onResume", "HERE");
-
         if(isConnected() != true){
             showErrorDialog();
         } else {
@@ -84,6 +82,10 @@ public class Login extends Activity implements View.OnClickListener {
 
                 // decrypt
                 storedIdentifier = crypto.decrypt(key, storedIdentifier);
+
+                Log.i("HERE", "onResume");
+                Log.i("HERE", storedEmail);
+                Log.i("HERE", storedIdentifier);
 
 
             } catch (Exception ex) {
