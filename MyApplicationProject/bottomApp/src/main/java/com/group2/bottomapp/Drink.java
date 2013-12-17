@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 
 
 public class Drink extends Fragment implements View.OnClickListener {
@@ -26,6 +27,7 @@ public class Drink extends Fragment implements View.OnClickListener {
     private ImageView likeImage;
     private ImageView dislikeImage;
     private ImageView starwhite;
+    private boolean favorite = false;
 
     private TextView tvDrinkName;
     private TextView tvDrinkIngredients;
@@ -47,6 +49,7 @@ public class Drink extends Fragment implements View.OnClickListener {
             id = Integer.parseInt(getTag());
         }
         cocktail = APIManager.getDrinkWithID(id);
+
 
         ivDrinkImage = (ImageView) rootView.findViewById(R.id.ivDrinkImage);
 
@@ -95,7 +98,16 @@ public class Drink extends Fragment implements View.OnClickListener {
     }
 
     else if (v == starwhite) {
-        starwhite.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
+        if(!favorite){
+            APIManager.addFavoriteToAccount(id);
+            favorite = true;
+            starwhite.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
+        } else {
+            favorite = false;
+            APIManager.removeFavoriteToAccount(id);
+            starwhite.setImageDrawable(getResources().getDrawable(R.drawable.starwhite));
+        }
+
 
     }
 }
@@ -106,6 +118,16 @@ public class Drink extends Fragment implements View.OnClickListener {
         cocktail = APIManager.getDrinkWithID(id);
 
         if(cocktail != null){
+            ArrayList<Cocktail> drinksInFavorite = APIManager.getCocktailByFavorite(HelperClass.User.userId);
+
+            for(Cocktail fav : drinksInFavorite){
+                if(fav.getId() == id){
+                    favorite = true;
+                    starwhite.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
+                    break;
+                }
+            }
+
             Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
             ivDrinkImage.setImageDrawable(image);
 
@@ -114,6 +136,8 @@ public class Drink extends Fragment implements View.OnClickListener {
             tvDrinkIngredients.setText(cocktail.getIngredientString("cl"));
         }
     }
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

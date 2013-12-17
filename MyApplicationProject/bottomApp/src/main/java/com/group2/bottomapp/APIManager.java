@@ -7,10 +7,10 @@ import android.util.Log;
 
 import com.group2.bottomapp.JsonDownloaders.JsonAddFavorite;
 import com.group2.bottomapp.JsonDownloaders.JsonAddIngredient;
-import com.group2.bottomapp.JsonDownloaders.JsonAddFavorite;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadAllCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadAvailableCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadCategories;
+import com.group2.bottomapp.JsonDownloaders.JsonDownloadFavoriteDrinksByUser;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredients;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredientsByUser;
 import com.group2.bottomapp.JsonDownloaders.JsonRemoveIngredient;
@@ -32,6 +32,7 @@ public class APIManager {
     public static ArrayList<Categories> categories = new ArrayList<Categories>();
     public static ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
     public static ArrayList<Ingredient> ingredientsByUser = new ArrayList<Ingredient>();
+    public static ArrayList<Cocktail> drinkByFavorite = new ArrayList<Cocktail>();
 
     public static void updateEverything() {
         try {
@@ -64,11 +65,15 @@ public class APIManager {
         task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/ingredients/all");
     }
 
-
     public static void updateIngredientsUser(int userID) throws IOException, JSONException {
         JsonDownloadIngredientsByUser task = new JsonDownloadIngredientsByUser();
         task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/"+userID+"/ingredients");
     }
+    public static void updateCocktailByFavorite(int userID) throws IOException, JSONException {
+        JsonDownloadFavoriteDrinksByUser task = new JsonDownloadFavoriteDrinksByUser();
+        task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/"+userID+"/favorite/drink");
+    }
+
 
 
     public static List<Cocktail> getAllCocktails() {
@@ -102,13 +107,13 @@ public class APIManager {
         return categories;
     }
 
-    public static ArrayList<Ingredient> getIngredientsByUser(int userID){
+    public static ArrayList<Cocktail> getCocktailByFavorite(int userID){
         try {
-            updateIngredientsUser(userID);
+            updateCocktailByFavorite(userID);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ingredientsByUser;
+        return drinkByFavorite;
     }
 
     public static ArrayList<Ingredient> getAllIngredients() {
@@ -147,6 +152,15 @@ public class APIManager {
         }
 
         return listToReturn;
+    }
+
+    public static ArrayList<Ingredient> getIngredientsByUser(int userID){
+        try {
+            updateIngredientsUser(userID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ingredientsByUser;
     }
 
     public static Cocktail getRandomDrink() {
@@ -276,6 +290,7 @@ public class APIManager {
         return listToReturn;
     }
 
+
     //Uploads
     public static void addIngredientToAccount(int ingId) {
         Log.d("tjafsmannen", "försöker lägga till " + ingId + " till konto");
@@ -285,7 +300,12 @@ public class APIManager {
 
     public static void addFavoriteToAccount(int ingId) {
         JsonAddFavorite jsonAddFavorite = new JsonAddFavorite();
-        jsonAddFavorite.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/add/favorite/" + ingId);
+        jsonAddFavorite.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/add/favorite/drink/" + ingId);
+    }
+
+    public static void removeFavoriteToAccount(int ingId) {
+        JsonAddFavorite jsonAddFavorite = new JsonAddFavorite();
+        jsonAddFavorite.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/remove/favorite/drink/" + ingId);
     }
 
     public static void removeIngredientfromAccount(int ingId) {

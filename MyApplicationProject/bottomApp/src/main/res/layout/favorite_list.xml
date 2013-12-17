@@ -7,7 +7,7 @@
     android:background="@drawable/background">
 
     <ListView
-        android:id="@+id/drinkListInside"
+        android:id="@+id/favoriteDrinkListInside"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 

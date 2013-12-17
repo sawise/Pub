@@ -33,8 +33,6 @@ import java.util.Map;
 
 public class DrinksCabinett extends Fragment implements View.OnClickListener, GridView.OnItemClickListener {
 
-    private List<Integer> drinkList;
-    private Integer[] drinkArray;
     private  ArrayList<Ingredient> gridArray = new ArrayList<Ingredient>();
     private CustomGridViewAdapter adapter;
     LinkedHashMap<String, ArrayList<Ingredient>> sendToAdapter;
@@ -42,7 +40,6 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
     private int selectedItem;
     private TextView cabinet;
     private TextView dialogText;
-    private TextView alcoholrate;
     private ImageView dialogImage;
     private Button removeButton;
     private Button cancelButton;
@@ -110,7 +107,7 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
 
         //Log.i("getSec", dataSett.getSections());
         //LinkedHashMap<String, ArrayList<Ingredient>> sendToAdapter = dataSett.getSections();
-        drinkList = new ArrayList<Integer>();
+
 
         drinkGridView.setOnItemClickListener(this);
         return rootView;
