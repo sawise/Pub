@@ -1,5 +1,6 @@
 package com.group2.bottomapp;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -62,11 +63,7 @@ public class Login extends Activity implements View.OnClickListener {
             inputEmail.setText(intent.getStringExtra("userEmail"));
             inputPassword.setText(intent.getStringExtra("userPassword"));
         } catch (Exception ex) {
-
         }
-
-
-
     }
 
 

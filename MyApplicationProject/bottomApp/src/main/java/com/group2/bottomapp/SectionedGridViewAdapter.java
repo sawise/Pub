@@ -8,6 +8,7 @@ package com.group2.bottomapp;
 
         import android.content.Context;
         import android.database.Cursor;
+        import android.database.MatrixCursor;
         import android.util.SparseBooleanArray;
         import android.view.LayoutInflater;
         import android.view.View;
@@ -34,7 +35,7 @@ public class SectionedGridViewAdapter extends BaseAdapter implements
 
     private int childSpacing = -1;
 
-    private LinkedHashMap<String, Cursor> sectionCursors = null;
+    private LinkedHashMap<String, MatrixCursor> sectionCursors = null;
 
     private LinkedHashMap<String, Integer> sectionRowsCount = new LinkedHashMap<String, Integer>();
 
@@ -53,7 +54,7 @@ public class SectionedGridViewAdapter extends BaseAdapter implements
     private OnGridItemClickListener listener = null;
 
     public SectionedGridViewAdapter(Context context,
-                                    LinkedHashMap<String, Cursor> sectionCursors, int listItemRowSize,
+                                    LinkedHashMap<String, MatrixCursor> sectionCursors, int listItemRowSize,
                                     int listViewHeight, int gridItemSquareSize) {
 
         this.sectionCursors = sectionCursors;
@@ -107,9 +108,7 @@ public class SectionedGridViewAdapter extends BaseAdapter implements
 
     }
 
-    public void remove(int id){
-        sectionCursors.remove(id);
-    }
+
     @Override
     public int getCount() {
 

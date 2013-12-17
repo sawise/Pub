@@ -9,6 +9,7 @@ import com.group2.bottomapp.JsonDownloaders.JsonDownloadAllCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadAvailableCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadCategories;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredients;
+import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredientsByUser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,6 +27,7 @@ public class APIManager {
     public static ArrayList<Cocktail> availableCocktails = new ArrayList<Cocktail>();
     public static ArrayList<Categories> categories = new ArrayList<Categories>();
     public static ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+    public static ArrayList<Ingredient> ingredientsByUser = new ArrayList<Ingredient>();
 
     public static void updateEverything(){
         try {
@@ -58,6 +60,11 @@ public class APIManager {
         task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/ingredients/all");
     }
 
+    public static void updateIngredientsUser(int userID) throws IOException, JSONException {
+        JsonDownloadIngredientsByUser task = new JsonDownloadIngredientsByUser();
+        task.execute("http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/"+userID+"/ingredients");
+    }
+
     public static List<Cocktail> getAllCocktails(){
         //if(!hazInternetz()) return new ArrayList<Cocktail>();
         try {
@@ -86,6 +93,16 @@ public class APIManager {
             e.printStackTrace();
         }
         return categories;
+    }
+
+
+    public static ArrayList<Ingredient> getIngredientsByUser(int userID){
+        try {
+            updateIngredientsUser(userID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ingredientsByUser;
     }
 
     public static ArrayList<Ingredient> getAllIngredients(){
