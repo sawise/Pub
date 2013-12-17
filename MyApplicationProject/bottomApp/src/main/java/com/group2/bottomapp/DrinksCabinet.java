@@ -3,6 +3,7 @@ package com.group2.bottomapp;
 import android.app.Dialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
@@ -24,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.group2.bottomapp.SectionedGridViewAdapter.OnGridItemClickListener;
 
 import java.util.ArrayList;
@@ -40,8 +42,9 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
     private ListView listView;
     private Dataset dataSet;
     private SectionedGridViewAdapter adapter = null;
-    private LinkedHashMap<String, Cursor> cursorMap;
+    private LinkedHashMap<String, MatrixCursor> cursorMap;
     private ListAdapter la;
+    ArrayList<Categories> categories;
     private int selectedItem;
     private TextView dialogText;
     private TextView alcoholrate;
@@ -58,6 +61,8 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             View rootView = inflater.inflate(R.layout.drinkscapinet, container, false);
             setHasOptionsMenu(true);
 
+
+
         cabinet = (TextView)rootView.findViewById(R.id.textCabinet);
         cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
 
@@ -65,19 +70,15 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             cabinet.setText(HelperClass.User.userName + " " + "Liquor Cabinet");
         }else{
             cabinet.setText(HelperClass.User.userName + "'s Liquor Cabinet");
-
         }
 
         dataSet = new Dataset();
 
-        ArrayList<Categories> categories = APIManager.getCategories();
-
+        categories = APIManager.getCategories();
 
         for(Categories cat : categories){
                 Log.i("Catt", cat.getName()+" "+cat.getId());
                 ArrayList<Ingredient> ingredientsinCat = APIManager.getIngredientsByCategory(cat.getId());
-
-
                 Log.i("Catt", ingredientsinCat.size()+"");
                 dataSet.addSection(cat.getName(), ingredientsinCat);
         }
@@ -114,7 +115,6 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
            return rootView;
         }
-
 
 
 
@@ -156,7 +156,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
     public void dialog(final String text, int imageID, final String category){
         final Dialog dialog = new Dialog(getActivity());
         dialog.setContentView(R.layout.drinkcabinetdialog);
-        dialog.setTitle(text);
+        dialog.setTitle(category);
         dialog.setCancelable(true);
 
         dialogText = (TextView) dialog.findViewById(R.id.dialogText);
@@ -167,17 +167,15 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
         removeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 Vibrator vib = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
                 vib.vibrate(500);
-                cursorMap.remove(category);
-                adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                dialog.dismiss();
+                dialog.cancel();
+
             }
         });
 
@@ -197,11 +195,30 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
         if(sectionCursor.moveToPosition(position)) {
             String data = sectionCursor.getString(0);
             String msg = "Item clicked is:" + data;
-
-
             Toast.makeText(this.getActivity(), msg, Toast.LENGTH_SHORT).show();
             Log.d("gridd", "" + sectionName);
             dialog(data, R.drawable.bottle_one, sectionName);
+            Iterator<Map.Entry<String, MatrixCursor>> itr = cursorMap.entrySet().iterator();
+            while(itr.hasNext()/* && !itr.next().getKey().equals(sectionName)*/){
+              Map.Entry<String, MatrixCursor> itrr = itr.next();
+                if(itrr.getKey().equals(sectionName)){
+                    MatrixCursor cursor = itrr.getValue();
+                    cursor.moveToFirst();
+                    Toast.makeText(this.getActivity(), itrr.getKey()+"<->"+cursor, Toast.LENGTH_SHORT).show();
+                    Log.i("itrr yees..", itrr.getKey() + "<->" + cursor.getString(0));
+
+                    //adapter.notifyDataSetChanged();
+                    break;
+                }
+                Log.i("itrr not..", itrr.getKey());
+
+                /*cursorMap.entrySet().remove(sectionName);
+                adapter.remove(1);
+                adapter.notifyDataSetChanged();*/
+
+                //cursorMap.not
+
+            }
         }
     }
 

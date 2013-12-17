@@ -29,13 +29,15 @@ public class Dataset {
 
     private static volatile int INDEX = 1;
 
-    private LinkedHashMap<String, Cursor> sectionCursors = new LinkedHashMap<String, Cursor>();
+    private LinkedHashMap<String, MatrixCursor> sectionCursors = new LinkedHashMap<String, MatrixCursor>();
+
+
 
     public void addSection(String sectionName, ArrayList<Ingredient> arrayList) {
         sectionItems.put(sectionName, arrayList);
     }
 
-    public Cursor getSectionCursor(String sectionName) {
+    public MatrixCursor getSectionCursor(String sectionName) {
         MatrixCursor cursor = (MatrixCursor) sectionCursors.get(sectionName);
         if( cursor == null) {
             cursor = new MatrixCursor(COLUMNS);
@@ -63,7 +65,7 @@ public class Dataset {
         return cursor;
     }
 
-    public LinkedHashMap<String, Cursor> getSectionCursorMap() {
+    public LinkedHashMap<String, MatrixCursor> getSectionCursorMap() {
         if(sectionCursors.isEmpty()) {
             for(String sectionName : sectionItems.keySet()) {
                 getSectionCursor(sectionName);
