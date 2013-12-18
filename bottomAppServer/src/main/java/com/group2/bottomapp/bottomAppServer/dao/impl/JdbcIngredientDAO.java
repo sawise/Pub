@@ -203,7 +203,7 @@ public class JdbcIngredientDAO implements IngredientDAO
 	
 
 	public List<Ingredient> getAllIngredients() {
-		String sql = "SELECT i.id, i.ingredient_name, i.category, c.id, c.name FROM ingredients i, categories c WHERE i.category = c.id";
+		String sql = "SELECT i.id, i.ingredient_name, i.category, c.id, c.name FROM ingredients i, categories c WHERE i.category = c.id ORDER BY i.ingredient_name";
 		
 		List<Ingredient> ingredientsList = new ArrayList<Ingredient>();
 		 
@@ -251,7 +251,7 @@ public class JdbcIngredientDAO implements IngredientDAO
 	
 	public List<Ingredient> getIngredientsForDrink(Drink drink) {
 		String sql = "SELECT i.id, i.ingredient_name, i.category, di.measurement, c.id, c.name FROM ingredients i, drink_ingredients di, categories c "
-				+ "WHERE di.drink_id = ? AND i.id = ingredient_id AND i.category = c.id";
+				+ "WHERE di.drink_id = ? AND i.id = ingredient_id AND i.category = c.id ORDER BY i.ingredient_name";
 		
 		List<Ingredient> ingredientsList = new ArrayList<Ingredient>();
 		
@@ -303,7 +303,7 @@ public class JdbcIngredientDAO implements IngredientDAO
 	// returns all ingredients a user have
 	public List<Ingredient> getIngredientsForUser(int userId){
 		String sql = "SELECT i.id, i.ingredient_name, i.category, c.id, c.name FROM ingredients i, categories c, user_ingredients ui "
-				+ "WHERE ui.user_id = ? AND i.id = ui.ingredient_id AND i.category = c.id";
+				+ "WHERE ui.user_id = ? AND i.id = ui.ingredient_id AND i.category = c.id ORDER BY i.ingredient_name";
 		
 		List<Ingredient> ingredientsList = new ArrayList<Ingredient>();
 		 

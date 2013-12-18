@@ -220,7 +220,7 @@ public class JdbcDrinkDAO implements DrinkDAO {
 	
 	
 	public List<Drink> getAllDrinks(){
-		String sql = "SELECT * FROM drinks";
+		String sql = "SELECT * FROM drinks ORDER BY name";
 		 
 		Connection conn = null;
 		List<Drink> drinkList = new ArrayList<Drink>();
@@ -303,7 +303,7 @@ public class JdbcDrinkDAO implements DrinkDAO {
 	// get favorite drinks for a certain user
 	public List<Drink> getUserFavoriteDrinks(int userId){
 		String sql = "SELECT d.id, d.name, d.description, d.ratingUp, d.ratingDown FROM drinks d, user_favorites uf "
-				+ "WHERE uf.user_id = ? AND d.id = uf.drink_id";
+				+ "WHERE uf.user_id = ? AND d.id = uf.drink_id ORDER BY d.name";
 	
 		Connection conn = null;
 		List<Drink> drinkList = new ArrayList<Drink>();
