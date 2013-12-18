@@ -13,9 +13,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 
 
 public class Drink extends Fragment implements View.OnClickListener {
@@ -25,13 +29,19 @@ public class Drink extends Fragment implements View.OnClickListener {
     private String drinkInstructions;
     private ImageView likeImage;
     private ImageView dislikeImage;
+
     private ImageView star;
     private boolean stared;
+    private ImageView starwhite;
+    private boolean favorite = false;
+
 
     private TextView tvDrinkName;
     private TextView tvDrinkIngredients;
     private TextView tvDrinkInstructions;
     private ImageView ivDrinkImage;
+
+    AlphaAnimation  blinkanimation;
 
     private int id;
     Cocktail cocktail;
@@ -51,8 +61,6 @@ public class Drink extends Fragment implements View.OnClickListener {
 
         ivDrinkImage = (ImageView) rootView.findViewById(R.id.ivDrinkImage);
 
-
-
         tvDrinkName = (TextView) rootView.findViewById(R.id.tvDrinkName);
         tvDrinkIngredients = (TextView) rootView.findViewById(R.id.tvDrinkIngredients);
         tvDrinkInstructions = (TextView) rootView.findViewById(R.id.tvDrinkInstructions);
@@ -60,6 +68,12 @@ public class Drink extends Fragment implements View.OnClickListener {
         likeImage = (ImageView) rootView.findViewById(R.id.like);
         dislikeImage = (ImageView) rootView.findViewById(R.id.dislike);
         starwhite = (ImageView) rootView.findViewById(R.id.starwhite);
+
+        blinkanimation= new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
+        blinkanimation.setDuration(300); // duration - half a second
+        blinkanimation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+        blinkanimation.setRepeatCount(3); // Repeat animation infinitely
+        blinkanimation.setRepeatMode(Animation.REVERSE);
 
 
         likeImage.setOnClickListener(this);
@@ -96,11 +110,23 @@ public class Drink extends Fragment implements View.OnClickListener {
         Log.i("Dislike", "");
     }
 
+
     else if (v == star) {
         if (stared) {
             star.setImageDrawable(getResources().getDrawable(R.drawable.starwhite));
         }  else {
-            star.setImageDrawable(getResources().getDrawable(R.drawable.staryellow);
+            star.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
+        }
+    } else if (v == starwhite) {
+        if(!favorite){
+            APIManager.addFavoriteToAccount(id);
+            favorite = true;
+            starwhite.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
+            starwhite.startAnimation(blinkanimation);
+        } else {
+            favorite = false;
+            APIManager.removeFavoriteToAccount(id);
+            starwhite.setImageDrawable(getResources().getDrawable(R.drawable.starwhite));
         }
     }
 
@@ -112,6 +138,16 @@ public class Drink extends Fragment implements View.OnClickListener {
         cocktail = APIManager.getDrinkWithID(id);
 
         if(cocktail != null){
+            ArrayList<Cocktail> drinksInFavorite = APIManager.getCocktailByFavorite(HelperClass.User.userId);
+
+            for(Cocktail fav : drinksInFavorite){
+                if(fav.getId() == id){
+                    favorite = true;
+                    starwhite.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
+                    break;
+                }
+            }
+
             Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
             ivDrinkImage.setImageDrawable(image);
 
@@ -120,6 +156,8 @@ public class Drink extends Fragment implements View.OnClickListener {
             tvDrinkIngredients.setText(cocktail.getIngredientString("cl"));
         }
     }
+
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

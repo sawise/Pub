@@ -21,6 +21,7 @@ public class HelperClass {
         public static void setValues(String result){
 
             try{
+
                 // set userName
                 int indexName = result.indexOf("|username:");
                 userName = (result.substring(indexName, result.length()));

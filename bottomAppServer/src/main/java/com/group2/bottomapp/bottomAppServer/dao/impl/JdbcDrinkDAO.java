@@ -298,5 +298,52 @@ public class JdbcDrinkDAO implements DrinkDAO {
 			}
 		}
 	}
+	
+	
+	// get favorite drinks for a certain user
+	public List<Drink> getUserFavoriteDrinks(int userId){
+		String sql = "SELECT d.id, d.name, d.description, d.ratingUp, d.ratingDown FROM drinks d, user_favorites uf "
+				+ "WHERE uf.user_id = ? AND d.id = uf.drink_id";
+	
+		Connection conn = null;
+		List<Drink> drinkList = new ArrayList<Drink>();
+
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, userId);
+			Drink drink = null;
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				drink = new Drink(
+					rs.getInt("id"),
+					rs.getString("name"),
+				    rs.getString("description"),
+				    rs.getInt("ratingUp"),
+				    rs.getInt("ratingDown")
+				);
+				drinkList.add(drink);
+				
+			}
+			rs.close();
+			ps.close();
+			return drinkList;
+			
+		} catch (SQLException e) {
+			return null;
+			
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} catch (SQLException e) {
+					return null;
+				}
+			}
+		}
+	
+	}		
+	
+	
 
 }

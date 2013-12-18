@@ -1,6 +1,8 @@
 package com.group2.bottomapp;
 
 
+import android.util.Log;
+
 import java.util.List;
 
 
@@ -104,14 +106,18 @@ public class Cocktail {
     }
 
     public String getIngredientString(String format) {
+        Log.d("com.group2", "Kom hit iaf");
         convert = new Convert();
         String result = "";
+        int size = getIngredients().size();
         for(Ingredient i : getIngredients()){
-            String tempString = convert.convertString(i, format);
-            if(tempString.trim().endsWith(",")){
-                tempString = tempString.trim().substring(0, tempString.trim().length()-1);
+            String tempString = convert.convertString(i, format).trim();
+            if(tempString.endsWith(",")){
+                tempString = tempString.substring(0, tempString.length()-1);
             }
             result += tempString;
+            result += "\n";
+            Log.d("com.group2", tempString);
         }
         return result;
     }

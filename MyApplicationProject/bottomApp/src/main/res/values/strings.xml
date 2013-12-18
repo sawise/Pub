@@ -11,6 +11,7 @@
     <string name="mainMenu">Menu</string>
     <string name="title_DrinksCabinet">DrinkCabinet</string>
     <string name="title_About">About</string>
+    <string name="title_Search">Search</string>
     <string name="title_addToCabinet">addToCabinet</string>
     <string name="title_Drinks">Drinks</string>
     <string name="title_Drink">Drink</string>
@@ -21,10 +22,11 @@
     <string name="title_CabinetManager">CabinetManager</string>
     <string name="drawer_open">Open Drawer</string>
     <string name="drawer_close">Closed Drawer</string>
+
     <color name="ColorRed">#FF0000</color>
     <color name="ColorWhite">#FFF</color>
+
     <string name="action_search">Search</string>
-
-
+    <string name="title_activity_drinks_cabinett">DrinksCabinett</string>
 
 </resources>

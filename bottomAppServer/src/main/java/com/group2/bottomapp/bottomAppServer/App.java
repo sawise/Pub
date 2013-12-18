@@ -62,6 +62,13 @@ public class App
  
  */
 
+// also push, check login errors 
+//Error with login, email get's null? no need to replace token each time?
+
+// what happens on server timeout???  503 Service Unavailable : (funkar med did not work??)
+
+// OBS validate new user input here as well max chars
+
 
 // http://java.dzone.com/articles/java-security-tutorial-%E2%80%93-step
 // http://blog.antoine.li/2010/10/22/android-trusting-ssl-certificates/

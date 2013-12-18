@@ -109,7 +109,6 @@ public class RandomDrink extends Fragment implements View.OnClickListener {
                                 ivDrinkImage.setImageDrawable(image);
 
                                 tvDrinkName.setText(cocktail.getName());
-
                                 cocktailId = cocktail.getId();
 
                                 ivDrinkImage.setOnClickListener(new View.OnClickListener() {
@@ -121,7 +120,6 @@ public class RandomDrink extends Fragment implements View.OnClickListener {
                                         ft.commit();
                                     }
                                 });
-
                                 btnNewRandom.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
