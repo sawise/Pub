@@ -48,8 +48,7 @@ public class RandomDrink extends Fragment implements View.OnClickListener {
         cocktail = APIManager.getRandomDrink();
         if(cocktail != null){
 
-            Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
-            ivDrinkImage.setImageDrawable(image);
+            ivDrinkImage.setImageResource(cocktail.imageResourceId);
 
             tvDrinkName.setText(cocktail.getName());
 
@@ -72,6 +71,7 @@ public class RandomDrink extends Fragment implements View.OnClickListener {
                     while (newCocktail.equals(cocktail)) {
                         newCocktail = APIManager.getRandomDrink();
                     }
+                    ivDrinkImage.setImageResource(newCocktail.imageResourceId);
                     tvDrinkName.setText(newCocktail.getName());
                     cocktailId = newCocktail.getId();
                 }
@@ -105,8 +105,7 @@ public class RandomDrink extends Fragment implements View.OnClickListener {
 
                             if (cocktail != null) {
 
-                                Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
-                                ivDrinkImage.setImageDrawable(image);
+                                ivDrinkImage.setImageResource(cocktail.imageResourceId);
 
                                 tvDrinkName.setText(cocktail.getName());
                                 cocktailId = cocktail.getId();

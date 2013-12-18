@@ -277,10 +277,7 @@ public class APIManager {
                 int categoryID = ingredientCat.getInt("id");
                 String categoryName = ingredientCat.getString("name");
 
-                Ingredient ingredientToAdd = new Ingredient();
-                ingredientToAdd.setId(ingredientId);
-                ingredientToAdd.setName(ingredientName);
-                ingredientToAdd.setMeasurement(ingMeasurement);
+                Ingredient ingredientToAdd = new Ingredient(ingredientId, ingredientName, ingMeasurement);
                 ingredientToAdd.setCategoryName(categoryName);
                 ingredientToAdd.setCategoryID(categoryID);
                 ingredientToAdd.setIngredientList(ingredients);

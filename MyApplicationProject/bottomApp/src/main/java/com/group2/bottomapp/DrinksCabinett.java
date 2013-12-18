@@ -89,12 +89,9 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
             for(Categories cat : categories){
                 for(Ingredient ingIncat : ingredientsinCat){
                     if(cat.getId() == ingIncat.getCategoryID()){
-                        Ingredient ingtoAdd = new Ingredient();
-                        ingtoAdd.setId(ingIncat.getId());
-                        ingtoAdd.setName(ingIncat.getName());
+                        Ingredient ingtoAdd = new Ingredient(ingIncat.getId(), ingIncat.getName(), ingIncat.getMeasurement());
                         ingtoAdd.setCategoryName(ingIncat.getCategoryName());
                         ingtoAdd.setCategoryID(ingIncat.getCategoryID());
-                        ingtoAdd.setMeasurement(ingIncat.getMeasurement());
                         gridArray.add(ingtoAdd);
                     }
                 }
@@ -144,18 +141,8 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
             String text = gridArray.get(position).getName();
             String category = gridArray.get(position).getCategoryName();
             //int imageId = gridArray.get(position).getImageId();
-            int image;
-            int test = MainActivity.getAppContext().getResources().getIdentifier(gridArray.get(position).getName().replace(" ", "_").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
-            if (test != 0) {
-                //Personlig bild finns
-                image = MainActivity.getAppContext().getResources().getIdentifier(gridArray.get(position).getName().replace(" ", "_").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
-            } else {
-                image = R.drawable.ic_launcher;
-            }
 
-
-
-            dialog(category,image, text);
+            dialog(category,gridArray.get(position).imageResourceId, text);
         }
     }
 
@@ -218,13 +205,9 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
                                 for(Categories cat : categories){
                                     for(Ingredient ingIncat : ingredientsinCat){
                                         if(cat.getId() == ingIncat.getCategoryID()){
-                                            Ingredient ingtoAdd = new Ingredient();
-
-                                            ingtoAdd.setId(ingIncat.getId());
-                                            ingtoAdd.setName(ingIncat.getName());
+                                            Ingredient ingtoAdd = new Ingredient(ingIncat.getId(), ingIncat.getName(), ingIncat.getMeasurement());
                                             ingtoAdd.setCategoryName(ingIncat.getCategoryName());
                                             ingtoAdd.setCategoryID(ingIncat.getCategoryID());
-                                            ingtoAdd.setMeasurement(ingIncat.getMeasurement());
                                             gridArray.add(ingtoAdd);
                                         }
                                     }

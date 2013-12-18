@@ -3,6 +3,9 @@ package com.group2.bottomapp;
 import java.util.ArrayList;
 
 public class Ingredient {
+
+    public int imageResourceId;
+
     private int id;
     private String name;
     private int categoryID;
@@ -14,18 +17,15 @@ public class Ingredient {
         this.id = id;
         this.name = name;
         this.measurement = measurement;
-    }
 
-    public Ingredient(int id, String name, String measurement, String categoryName){
-        this.id = id;
-        this.name = name;
-        this.measurement = measurement;
-        this.categoryName = categoryName;
+        int test = MainActivity.getAppContext().getResources().getIdentifier(name.replace(" ", "_").replace("/", "").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+        if (test != 0) {
+            //Personlig bild finns
+            imageResourceId = MainActivity.getAppContext().getResources().getIdentifier(name.replace(" ", "_").replace("/","").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+        } else {
+            imageResourceId = R.drawable.ic_launcher;
+        }
     }
-    public Ingredient(){
-
-    }
-
 
     public String getCategoryName() {
         return categoryName;
