@@ -111,8 +111,13 @@ public class Drink extends Fragment implements View.OnClickListener {
         cocktail = APIManager.getDrinkWithID(id);
 
         if(cocktail != null){
-            Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
-            ivDrinkImage.setImageDrawable(image);
+            int test = MainActivity.getAppContext().getResources().getIdentifier(cocktail.getName().replace(" ", "_").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+            if (test != 0) {
+                //Personlig bild finns
+                ivDrinkImage.setImageResource(MainActivity.getAppContext().getResources().getIdentifier(cocktail.getName().replace(" ", "_").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName()));
+            } else {
+                ivDrinkImage.setImageResource(R.drawable.ic_launcher);
+            }
 
             tvDrinkName.setText(cocktail.getName());
             tvDrinkInstructions.setText(cocktail.getDescription());

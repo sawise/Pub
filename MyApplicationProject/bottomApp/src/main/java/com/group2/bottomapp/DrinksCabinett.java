@@ -144,8 +144,18 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
             String text = gridArray.get(position).getName();
             String category = gridArray.get(position).getCategoryName();
             //int imageId = gridArray.get(position).getImageId();
-            dialog(text,R.drawable.bottle_three, category);
-            Toast.makeText(getActivity(), "Item: " + gridArray.get(position).getName(), Toast.LENGTH_LONG).show();
+            int image;
+            int test = MainActivity.getAppContext().getResources().getIdentifier(gridArray.get(position).getName().replace(" ", "_").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+            if (test != 0) {
+                //Personlig bild finns
+                image = MainActivity.getAppContext().getResources().getIdentifier(gridArray.get(position).getName().replace(" ", "_").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+            } else {
+                image = R.drawable.ic_launcher;
+            }
+
+
+
+            dialog(category,image, text);
         }
     }
 
