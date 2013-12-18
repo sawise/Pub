@@ -71,7 +71,6 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
         progress.show();
 
         categories = APIManager.getCategories();
-        //LinkedHashMap<String, ArrayList<Ingredient>> sendToAdapter = new LinkedHashMap<String, ArrayList<Ingredient>>();
 
         String catStr = "";
         adapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
@@ -104,10 +103,6 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
         } else {
             startRefreshThread();
         }
-
-        //Log.i("getSec", dataSett.getSections());
-        //LinkedHashMap<String, ArrayList<Ingredient>> sendToAdapter = dataSett.getSections();
-
 
         drinkGridView.setOnItemClickListener(this);
         return rootView;

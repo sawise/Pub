@@ -68,13 +68,6 @@ public class Login extends Activity implements View.OnClickListener {
         }
     }
 
-/*
-    @Override
-    protected void onPause(){
-        super.onPause();
-        saveValues();
-    }
-*/
 
     @Override
     protected void onResume() {

@@ -146,7 +146,7 @@ public class APIManager {
             for (Ingredient i : getAllIngredients()) {
                 Log.i("ingg", i.getName() + "<->" + i.getCategoryName());
                 if (i.getCategoryName().equals(catName)) {
-                    Log.i("ingg", i.getCategoryName());
+
                     listToReturn.add(i);
                 }
             }
