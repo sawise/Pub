@@ -10,6 +10,7 @@ import com.group2.bottomapp.JsonDownloaders.JsonDownloadAllCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadAvailableCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadCategories;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredients;
+import com.group2.bottomapp.JsonDownloaders.JsonAddFavorite;
 
 import org.json.JSONArray;
 import org.json.JSONException;

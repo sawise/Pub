@@ -25,7 +25,8 @@ public class Drink extends Fragment implements View.OnClickListener {
     private String drinkInstructions;
     private ImageView likeImage;
     private ImageView dislikeImage;
-    private ImageView starwhite;
+    private ImageView star;
+    private boolean stared;
 
     private TextView tvDrinkName;
     private TextView tvDrinkIngredients;
@@ -95,10 +96,14 @@ public class Drink extends Fragment implements View.OnClickListener {
         Log.i("Dislike", "");
     }
 
-    else if (v == starwhite) {
-        starwhite.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
-
+    else if (v == star) {
+        if (stared) {
+            star.setImageDrawable(getResources().getDrawable(R.drawable.starwhite));
+        }  else {
+            star.setImageDrawable(getResources().getDrawable(R.drawable.staryellow);
+        }
     }
+
 }
 
 
