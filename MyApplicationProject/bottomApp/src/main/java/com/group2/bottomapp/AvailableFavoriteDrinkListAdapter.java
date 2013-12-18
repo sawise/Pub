@@ -51,13 +51,7 @@ public class AvailableFavoriteDrinkListAdapter extends BaseAdapter {
         ImageView ivDrinkImage = (ImageView) view.findViewById(R.id.ivDrinkImage);
         TextView tvDrinkName = (TextView) view.findViewById(R.id.tvDrinkName);
 
-        int test = MainActivity.getAppContext().getResources().getIdentifier(cocktails.get(i).getName().replace(" ", "_").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
-        if (test != 0) {
-            //Personlig bild finns
-            ivDrinkImage.setImageResource(MainActivity.getAppContext().getResources().getIdentifier(cocktails.get(i).getName().replace(" ", "_").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName()));
-        } else {
-            ivDrinkImage.setImageResource(R.drawable.ic_launcher);
-        }
+        ivDrinkImage.setImageResource(cocktails.get(i).imageResourceId);
 
         tvDrinkName.setText(cocktails.get(i).getName());
 
