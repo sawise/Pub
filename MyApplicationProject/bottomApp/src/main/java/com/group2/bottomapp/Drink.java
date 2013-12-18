@@ -30,8 +30,9 @@ public class Drink extends Fragment implements View.OnClickListener {
     private String drinkInstructions;
     private ImageView likeImage;
     private ImageView dislikeImage;
-    
+
     private boolean favorite = false;
+
 
     private TextView tvDrinkName;
     private TextView tvDrinkIngredients;
@@ -109,6 +110,7 @@ public class Drink extends Fragment implements View.OnClickListener {
         }
         Log.i("Dislike", "");
     }
+
 }
 
 
@@ -117,10 +119,6 @@ public class Drink extends Fragment implements View.OnClickListener {
         cocktail = APIManager.getDrinkWithID(id);
 
         if(cocktail != null){
-
-
-
-
             Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
             ivDrinkImage.setImageDrawable(image);
 

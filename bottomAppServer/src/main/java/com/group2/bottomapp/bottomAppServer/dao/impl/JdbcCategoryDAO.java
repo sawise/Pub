@@ -182,7 +182,7 @@ public class JdbcCategoryDAO implements CategoryDAO {
 	
 
 	public List<Category> getAllCategories() {
-		String sql = "SELECT * FROM categories";
+		String sql = "SELECT * FROM categories ORDER BY name";
 		List<Category> categoriesList = new ArrayList<Category>();
 		 
 		Connection conn = null;

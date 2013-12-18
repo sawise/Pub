@@ -12,8 +12,12 @@ import com.group2.bottomapp.JsonDownloaders.JsonDownloadAvailableCocktails;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadCategories;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadFavoriteDrinksByUser;
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredients;
+
+import com.group2.bottomapp.JsonDownloaders.JsonAddFavorite;
+
 import com.group2.bottomapp.JsonDownloaders.JsonDownloadIngredientsByUser;
 import com.group2.bottomapp.JsonDownloaders.JsonRemoveIngredient;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
