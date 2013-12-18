@@ -66,7 +66,14 @@ public class CustomGridViewAdapter extends ArrayAdapter<Ingredient> {
         holder.drinkID.setText(id);
         holder.txtCategory.setText(catName);//Character.toString(catName));
         holder.txtTitle.setText(item.getName());
-        holder.imageItem.setImageResource(R.drawable.bottle_threee);
+
+        int test = MainActivity.getAppContext().getResources().getIdentifier(item.getName().replace(" ", "_").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+        if (test != 0) {
+            //Personlig bild finns
+            holder.imageItem.setImageResource(MainActivity.getAppContext().getResources().getIdentifier(item.getName().replace(" ", "_").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName()));
+        } else {
+            holder.imageItem.setImageResource(R.drawable.bottle_threee);
+        }
         return row;
 
     }

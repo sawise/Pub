@@ -84,6 +84,8 @@ public class Login extends Activity implements View.OnClickListener {
                 // decrypt
                 storedIdentifier = crypto.decrypt(key, storedIdentifier);
 
+                HelperClass.User.userEmail = storedEmail;
+
             } catch (Exception ex) {
                 Log.e("BottomApp-Exception", ex.getMessage());
             }
@@ -104,11 +106,11 @@ public class Login extends Activity implements View.OnClickListener {
         try{
             // encrypt password
             String encryptedPassword = crypto.encrypt(key, HelperClass.User.userIdentifier);
-/*
+
             // add the email and password to shared prefs
             if(HelperClass.User.userEmail != null){
                 getSharedPreferences(PREFSUSER, MODE_PRIVATE).edit().putString("email", HelperClass.User.userEmail).commit();
-            } */
+            }
 
             getSharedPreferences(PREFSIDENTIFIER, MODE_PRIVATE).edit().putString("identifier", encryptedPassword).commit();
 
@@ -139,12 +141,12 @@ public class Login extends Activity implements View.OnClickListener {
 
         if(inputEmail.getText().toString().length() > 5){
             HelperClass.User.userEmail = inputEmail.getText().toString();
+
             try {
                 // add the email and password to shared prefs
                 if(HelperClass.User.userEmail != null){
                     getSharedPreferences(PREFSUSER, MODE_PRIVATE).edit().putString("email", HelperClass.User.userEmail).commit();
                 }
-
 
             } catch (Exception ex){
                 Log.e("Exception: ", ex.getMessage());

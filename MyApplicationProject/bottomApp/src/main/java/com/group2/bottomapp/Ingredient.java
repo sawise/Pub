@@ -76,4 +76,10 @@ public class Ingredient {
     public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }
