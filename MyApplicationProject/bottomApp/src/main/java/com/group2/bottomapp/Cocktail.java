@@ -11,6 +11,7 @@ public class Cocktail {
     private Convert convert;
     private int id;
 
+    public int imageResourceId;
     private int imageId;
     private int Like;
     private int DisLike;
@@ -35,9 +36,14 @@ public class Cocktail {
         this.description = description;
         this.ratingUp = ratingUp;
         this.ratingDown = ratingDown;
-    }
-    public Cocktail(){
 
+        int test = MainActivity.getAppContext().getResources().getIdentifier(name.replace(" ", "_").replace("/", "").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+        if (test != 0) {
+            //Personlig bild finns
+            imageResourceId = MainActivity.getAppContext().getResources().getIdentifier(name.replace(" ", "_").replace("/","").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+        } else {
+            imageResourceId = R.drawable.ic_launcher;
+        }
     }
 
 //Getters and setters
