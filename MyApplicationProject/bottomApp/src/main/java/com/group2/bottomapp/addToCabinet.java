@@ -2,6 +2,7 @@ package com.group2.bottomapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,11 +17,17 @@ public class addToCabinet extends Fragment {
 
     private ExpandableListView liquorList;
 
+    static public Handler handler;
+    static public String loadStatus = "";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.addtocabinet, container, false);
         setHasOptionsMenu(true);
+
+        handler = new Handler();
+
         liquorList = (ExpandableListView) rootView.findViewById(R.id.liquorList);
         final LiquorListAdapter liquorListAdapter = new LiquorListAdapter(getActivity());
 

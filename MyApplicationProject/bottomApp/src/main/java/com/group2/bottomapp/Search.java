@@ -48,12 +48,14 @@ public class Search extends Activity implements SearchView.OnQueryTextListener {
         setupSearchView();
     }
 
+
     private void setupSearchView() {
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setOnQueryTextListener(this);
-        mSearchView.setSubmitButtonEnabled(true);
+        //mSearchView.setSubmitButtonEnabled(true);
         mSearchView.setQueryHint("Search for Ingredients");
     }
+
 
     public boolean onQueryTextChange(String newText) {
         if (TextUtils.isEmpty(newText)) {

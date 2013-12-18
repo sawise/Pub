@@ -1,6 +1,7 @@
 package com.group2.bottomapp;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.os.StrictMode;
@@ -21,6 +22,7 @@ import android.widget.ListView;
 public class MainActivity extends FragmentActivity {
 
     private static Context context;
+    private static Activity activity;
 
     private ActionBarDrawerToggle menuToggle;
     public static final String POSITION = "POSITION";
@@ -46,6 +48,7 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.main);
 
         MainActivity.context = getApplicationContext();
+        MainActivity.activity = this;
 
         APIManager.updateEverything();
 
@@ -136,6 +139,7 @@ public class MainActivity extends FragmentActivity {
     public static Context getAppContext() {
         return MainActivity.context;
     }
+    public static Activity getActivity() {return MainActivity.activity; }
 
 
 }
