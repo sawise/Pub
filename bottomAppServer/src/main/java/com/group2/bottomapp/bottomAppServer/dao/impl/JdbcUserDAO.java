@@ -349,6 +349,70 @@ public class JdbcUserDAO implements UserDAO {
 			}
 		}
 	}
+	
+	
+	
+
+	// insert a favorite drink for a user
+	public boolean insertFavoriteDrinkForUser(int userId, int drinkId){
+		String sql = "INSERT INTO user_favorites " +
+				"(user_id, drink_id) VALUES (?, ?)";
+		Connection conn = null;
+
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, userId);
+			ps.setInt(2, drinkId);
+			ps.executeUpdate();
+			ps.close();
+ 
+		} catch (SQLException e) {
+			return false;
+			
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+	
+	
+	// delete a ingredient for a user
+	public boolean deleteFavoriteDrinkForUser(int userId, int drinkId){
+	String sql = "DELETE FROM user_favorites WHERE user_id = ? AND drink_id = ?";
+		
+		Connection conn = null;
+		
+		try{
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, userId);
+			ps.setInt(2, drinkId);
+			ps.executeUpdate();
+			ps.close();
+			
+		} catch(SQLException e){
+			return false;
+			
+		} finally {
+			if (conn != null) {
+				try {
+				conn.close();
+				} catch (SQLException e) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
 
 
 }
