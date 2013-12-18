@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -51,7 +50,7 @@ public class Favorites extends Fragment implements View.OnClickListener, GridVie
     cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
 
     if(HelperClass.User.userName.endsWith("s")){
-        cabinet.setText(HelperClass.User.userName + "Favorites");
+        cabinet.setText(HelperClass.User.userName + " " + "Favorites");
     }else{
         cabinet.setText(HelperClass.User.userName + "'s Favorites");
     }
