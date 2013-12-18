@@ -43,8 +43,6 @@ public class Drink extends Fragment implements View.OnClickListener {
 
     private MenuItem favMenu;
 
-    AlphaAnimation  blinkanimation;
-
     private int id;
     Cocktail cocktail;
 
@@ -53,13 +51,14 @@ public class Drink extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.drink, container, false);
+        setHasOptionsMenu(true);
 
         id = 1;
         if(getTag() != null){
             id = Integer.parseInt(getTag());
         }
-        cocktail = APIManager.getDrinkWithID(id);
 
         ivDrinkImage = (ImageView) rootView.findViewById(R.id.ivDrinkImage);
 
@@ -70,21 +69,12 @@ public class Drink extends Fragment implements View.OnClickListener {
         likeImage = (ImageView) rootView.findViewById(R.id.like);
         dislikeImage = (ImageView) rootView.findViewById(R.id.dislike);
 
-
-
-        blinkanimation= new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
-        blinkanimation.setDuration(300); // duration - half a second
-        blinkanimation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
-        blinkanimation.setRepeatCount(3); // Repeat animation infinitely
-        blinkanimation.setRepeatMode(Animation.REVERSE);
-
-        SharedPreferences prefs = this.getActivity().getPreferences(Context.MODE_PRIVATE);
+        //SharedPreferences prefs = this.getActivity().getPreferences(Context.MODE_PRIVATE);
         likeImage.setOnClickListener(this);
         dislikeImage.setOnClickListener(this);
 
-
         initDrink(id);
-        setHasOptionsMenu(true);
+
 
         return rootView;
     }
@@ -143,7 +133,7 @@ public class Drink extends Fragment implements View.OnClickListener {
         for(Cocktail fav : drinksInFavorite){
             if(fav.getId() == id){
                 favorite = true;
-                favMenu.setIcon(getResources().getDrawable(R.drawable.menustaryellow));
+                favMenu.setIcon(R.drawable.menustaryellow);
                 break;
             }
         }
