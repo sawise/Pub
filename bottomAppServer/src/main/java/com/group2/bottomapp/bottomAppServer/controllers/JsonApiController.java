@@ -40,7 +40,7 @@ public class JsonApiController {
 	
 	// compares two lists of ingredients and return the number of matches found
 	private boolean checkMatchingIngredients(List<Ingredient> userIngredients, List<Ingredient> drinkIngredients){
-
+		
 		int drinkIngredientsSize = drinkIngredients.size();
 		int matches = 0;
 		
@@ -236,13 +236,13 @@ public class JsonApiController {
 				
 				// update stored user with new identifier
 				if(userDAO.update(tempUser)){
-					return new ResponseEntity <String>("Logged in successfully!" + " ,userId: " + tempUser.getId() + "  ,identifier: " + tempUser.getIdentifier() + " ,username: " + tempUser.getUsername(), HttpStatus.OK);	
+					return new ResponseEntity <String>("Logged in successfully!" + "|userId:" + tempUser.getId() + "|identifier:" + tempUser.getIdentifier() + "|username:" + tempUser.getUsername(), HttpStatus.OK);	
 				} else {
 					return new ResponseEntity <String>("Login failed!", HttpStatus.BAD_REQUEST);	
 				}
 				
 			} else {
-				return new ResponseEntity <String>("Login failed!", HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity <String>("Login failed!", HttpStatus.BAD_REQUEST);
 			}
 		} else {
 			return new ResponseEntity <String>("Login failed!", HttpStatus.BAD_REQUEST);
@@ -268,13 +268,13 @@ public class JsonApiController {
 				userLogin.setIdentifier(identifier);
 				
 				if(userDAO.update(userLogin) != false){
-					return new ResponseEntity <String>("Logged in successfully!" + " ,userId: " + userLogin.getId() + "  ,identifier: " + userLogin.getIdentifier() + " ,username: " + userLogin.getUsername(), HttpStatus.OK);	
+					return new ResponseEntity <String>("Logged in successfully!" + "|userId:" + userLogin.getId() + "|identifier:" + userLogin.getIdentifier() + "|username:" + userLogin.getUsername(), HttpStatus.OK);	
 				} else {
 					return new ResponseEntity <String>("Login failed!", HttpStatus.BAD_REQUEST);
 				}
 				
 			} else {
-				return new ResponseEntity <String>("Login failed!", HttpStatus.UNAUTHORIZED);
+				return new ResponseEntity <String>("Login failed!", HttpStatus.BAD_REQUEST);
 			}
 		} catch (NullPointerException ex){
 			return new ResponseEntity <String>("Login failed!", HttpStatus.BAD_REQUEST);
@@ -307,7 +307,7 @@ public class JsonApiController {
 			}
 				
 		} else {
-			return new ResponseEntity <String>("Logout failed!", HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity <String>("Logout failed!", HttpStatus.BAD_REQUEST);
 		}
 
 	}
@@ -347,6 +347,17 @@ public class JsonApiController {
 		return matchingDrinks;
 	}
 	
+	// return all ingredients for a user
+	@RequestMapping(method = RequestMethod.GET, value = "/users/{id}/ingredients", produces = "application/json; charset=utf-8")
+	public @ResponseBody List<Ingredient> getUsersIngredients(@PathVariable int id){
+		List<Ingredient> ingredients = new ArrayList<Ingredient>();
+		
+		ingredients = ingredientDAO.getIngredientsForUser(id);
+		
+		return ingredients;
+				
+	}
+	
 	// add a ingredient for a user
 	@RequestMapping(method = RequestMethod.POST, value = "/users/add/ingredient/{id}", produces = "application/json; charset=utf-8", headers = { "Accept=application/json", "Authorization=apikey='1c9fk3u35ldcefgw'" })
 	ResponseEntity<String> addIngredientForUser(@PathVariable int id, @RequestBody User user){		
@@ -358,9 +369,17 @@ public class JsonApiController {
 			
 			// find user
 			User userLogin = userDAO.findUserById(user.getId());
-			
+				
+			// check if the user already have that ingredient
+			for (Ingredient ingred : ingredientDAO.getIngredientsForUser(userLogin.getId())){
+				if(ingred.getId() == ingredient.getId()){
+					return new ResponseEntity <String>("Ingredient not added! User already have that ingredient", HttpStatus.BAD_REQUEST);
+				}
+			}
+					
 			// check if it is a valid user
 			if(userLogin != null && userLogin.getIdentifier().equals(user.getIdentifier())){
+					
 				// add the ingredient for the user
 				if(userDAO.insertIngredientForUser(user.getId(), ingredient.getId()) != false){
 					return new ResponseEntity <String>("Ingredient added!", HttpStatus.OK);
@@ -368,7 +387,7 @@ public class JsonApiController {
 					return new ResponseEntity <String>("Internal error, ingredient could not be added!", HttpStatus.INTERNAL_SERVER_ERROR);	
 				}
 			} else {
-				return new ResponseEntity <String>("Internal error, ingredient could not be added!", HttpStatus.UNAUTHORIZED);	
+				return new ResponseEntity <String>("Internal error, ingredient could not be added!", HttpStatus.BAD_REQUEST);	
 			}
 			
 		} catch (NullPointerException ex){
@@ -399,13 +418,108 @@ public class JsonApiController {
 					return new ResponseEntity <String>("Internal error, ingredient could not be added!", HttpStatus.INTERNAL_SERVER_ERROR);	
 				}
 			} else {
-				return new ResponseEntity <String>("Internal error, ingredient could not be added!", HttpStatus.UNAUTHORIZED);	
+				return new ResponseEntity <String>("Internal error, ingredient could not be added!", HttpStatus.BAD_REQUEST);	
 			}
 			
 		} catch (NullPointerException ex){
 			return new ResponseEntity <String>("Ingredient not found!", HttpStatus.BAD_REQUEST);
 		}	
 	}
+	
+
+	// return all favorite drinks for a user
+	@RequestMapping(method = RequestMethod.GET, value = "/users/{id}/favorite/drink", produces = "application/json; charset=utf-8")
+	public @ResponseBody List<Drink> getUserFavoriteDrinks(@PathVariable int id){
+		
+		List<Drink> drinks = new ArrayList<Drink>();
+		List<Ingredient> ingredientsList = new ArrayList<Ingredient>();
+		
+		drinks = drinkDAO.getUserFavoriteDrinks(id);
+		
+		
+        for(Drink d : drinks){
+        	
+        	ingredientsList = ingredientDAO.getIngredientsForDrink(d);
+        	
+        	
+        	if(ingredientsList != null){
+        		d.setIngredients(ingredientsList);
+        	}
+
+        }
+		
+		
+		return drinks;
+	}
+	
+	
+	// add a favorite drink for a user
+	@RequestMapping(method = RequestMethod.POST, value = "/users/add/favorite/drink/{id}", produces = "application/json; charset=utf-8", headers = { "Accept=application/json", "Authorization=apikey='1c9fk3u35ldcefgw'" })
+	ResponseEntity<String> addFavoriteDrinkForUser(@PathVariable int id, @RequestBody User user){		
+
+		Drink drink;
+
+		try {
+			drink = drinkDAO.findByDrinkId(id);
+			
+			// find user
+			User userLogin = userDAO.findUserById(user.getId());
+			
+			// check if the user already have that drink as a favorite
+			for (Drink d : drinkDAO.getUserFavoriteDrinks(userLogin.getId())){
+				if(d.getId() == drink.getId()){
+					return new ResponseEntity <String>("Drink not added to favorites! User already have that drink as a favorite", HttpStatus.BAD_REQUEST);
+				}
+			}
+			
+			
+			// check if it is a valid user
+			if(userLogin != null && userLogin.getIdentifier().equals(user.getIdentifier())){
+				// add the ingredient for the user
+				if(userDAO.insertFavoriteDrinkForUser(user.getId(), drink.getId()) != false){
+					return new ResponseEntity <String>("Favorite Drink added!", HttpStatus.OK);
+				} else {
+					return new ResponseEntity <String>("Internal error, favorite drink could not be added!", HttpStatus.INTERNAL_SERVER_ERROR);	
+				}
+			} else {
+				return new ResponseEntity <String>("Internal error, favorite drink could not be added!", HttpStatus.BAD_REQUEST);	
+			}
+			
+		} catch (NullPointerException ex){
+			return new ResponseEntity <String>("Drink not found!", HttpStatus.BAD_REQUEST);
+		}	
+	}
+	
+	
+	// remove a drink for a user
+	@RequestMapping(method = RequestMethod.POST, value = "/users/remove/favorite/drink/{id}", produces = "application/json; charset=utf-8", headers = { "Accept=application/json", "Authorization=apikey='1c9fk3u35ldcefgw'" })
+	ResponseEntity<String> removeFavoriteDrinkForUser(@PathVariable int id, @RequestBody User user){		
+
+		Drink drink;
+
+		try {
+			drink = drinkDAO.findByDrinkId(id);
+			
+			// find user
+			User userLogin = userDAO.findUserById(user.getId());
+			
+			// check if it is a valid user
+			if(userLogin != null && userLogin.getIdentifier().equals(user.getIdentifier())){
+				// delete the ingredient for the user
+				if(userDAO.deleteFavoriteDrinkForUser(user.getId(), drink.getId()) != false){
+					return new ResponseEntity <String>("Favorite Drink removed!", HttpStatus.OK);
+				} else {
+					return new ResponseEntity <String>("Internal error, favorite drink could not be added!", HttpStatus.INTERNAL_SERVER_ERROR);	
+				}
+			} else {
+				return new ResponseEntity <String>("Internal error, favorite drink could not be added!", HttpStatus.BAD_REQUEST);	
+			}
+			
+		} catch (NullPointerException ex){
+			return new ResponseEntity <String>("Drink not found!", HttpStatus.BAD_REQUEST);
+		}	
+	}
+	
 	
 	
 

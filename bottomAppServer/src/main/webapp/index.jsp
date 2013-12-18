@@ -47,6 +47,14 @@
  <p>http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/1</p>
  <br>
  <br>
+ <p>Get a list of ingredients for a certain user (with user id):</p>
+ <p>http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/1/ingredients</p>
+ <br>
+ <br>
+ <p>Get a list of favorite drinks for a certain user (with user id):</p>
+ <p>http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/1/favorite/drink</p>
+ <br>
+ <br>
  <p>This is used to set rating up +1 for Drink with id 4, response will be 200 ("Drink rating updated!") if ok.</p>
  <p>http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/drinks/4/ratingup</p>
  <p>Header should be set to:</p>
@@ -86,7 +94,7 @@
  <br>
  <br>
  <p>Sending a json object as such: {"email":"svenne87@gmail.com","password":"svempa"} to http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/login</p>
- <p>Will login a user. If user is logged in, 200 is returned (with message, id, identifier and username). If wrong credentials 401 will be returned. Else it will return 400 = bad request, password is sent in clear text should be over SSL!.</p>
+ <p>Will login a user. If user is logged in, 200 is returned (with message, id, identifier and username). Else it will return 400 = bad request, password is sent in clear text should be over SSL!.</p>
  <p>Header should be set to:</p>
  <p>Method = POST</p>
  <p>Accept: application/json</p>
@@ -96,7 +104,7 @@
  <br>
  <br>
  <p>Sending a json object as such: {"email":"svenne87@gmail.com","identifier":"e4fa63c2662a4bd380e42a21699826a8"} to http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/identifierlogin</p>
- <p>Will login a user using a identifier. If user is logged in, 200 is returned (with message, id, identifier and username). If wrong credentials 401 will be returned. Else it will return 400 = bad request, a new identifier is generate and returned with this request.</p>
+ <p>Will login a user using a identifier. If user is logged in, 200 is returned (with message, id, identifier and username). Else it will return 400 = bad request, a new identifier is generate and returned with this request.</p>
  <p>So the identifier is only valid for one login.</p>
  <p>Header should be set to:</p>
  <p>Method = POST</p>
@@ -107,7 +115,7 @@
  <br>
  <br>
  <p>Sending a json object as such: {"email":"svenne87@gmail.com","identifier":"e4fa63c2662a4bd380e42a21699826a8"} to http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/logout</p>
- <p>Will logout a new user. If user is logged out, 200 is returned (with message and username). If wrong credentials 401 will be returned. Else it will return 400 = bad request, identifier is sent in clear text should be over SSL!.</p>
+ <p>Will logout a new user. If user is logged out, 200 is returned (with message and username). Else it will return 400 = bad request, identifier is sent in clear text should be over SSL!.</p>
  <p>When logout is successful the identifier is destroyed, and user will have to login using email and password credentials.</p>
  <p>Header should be set to:</p>
  <p>Method = POST</p>
@@ -118,7 +126,8 @@
  <br>
  <br>
  <p>Sending a json object as such: {"id":"2","identifier":"e4fa63c2662a4bd380e42a21699826a8"} to http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/add/ingredient/2</p>
- <p>With ingredient id as url parameter, if the ingredient is added and login with identifier is successful. 200 is returned (with message). If wrong credentials 401 is returned and if server error then 500 is returned. Else it will return 400 = bad request.</p>
+ <p>With ingredient id as url parameter, if the ingredient is added and login with identifier is successful. 200 is returned (with message). If server error then 500 is returned. Else it will return 400 = bad request.</p>
+ <p>Trying to add a ingredient that the user already have will cause 400 with message</p>
  <p>Header should be set to:</p>
  <p>Method = POST</p>
  <p>Accept: application/json</p>
@@ -128,13 +137,34 @@
  <br>
  <br>
  <p>Sending a json object as such: {"id":"2","identifier":"e4fa63c2662a4bd380e42a21699826a8"} to http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/remove/ingredient/2</p>
- <p>With ingredient id as url parameter, if the ingredient is removed and login with identifier is successful. 200 is returned (with message). If wrong credentials 401 is returned and if server error then 500 is returned. Else it will return 400 = bad request.</p>
+ <p>With ingredient id as url parameter, if the ingredient is removed and login with identifier is successful. 200 is returned (with message). If server error then 500 is returned. Else it will return 400 = bad request.</p>
  <p>Header should be set to:</p>
  <p>Method = POST</p>
  <p>Accept: application/json</p>
  <p>Authorization: apikey='1c9fk3u35ldcefgw'</p>
  <p>Try ut out with curl (Linux/Mac):</p>
  <p>curl -i -H "Accept: application/json" -H "Authorization: apikey='1c9fk3u35ldcefgw'" -H "Content-type: application/json" -X POST -d '{"id":"2","identifier":"e4fa63c2662a4bd380e42a21699826a8"}' http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/remove/ingredient/2</p>
+ <br>
+ <br>
+ <p>Sending a json object as such: {"id":"2","identifier":"e4fa63c2662a4bd380e42a21699826a8"} to http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/add/favorite/drink/1</p>
+ <p>With drink id as url parameter, if the drink is added and login with identifier is successful. 200 is returned (with message). If server error then 500 is returned. Else it will return 400 = bad request.</p>
+ <p>Trying to add a favorite drink that the user already have will cause 400 with message</p>
+ <p>Header should be set to:</p>
+ <p>Method = POST</p>
+ <p>Accept: application/json</p>
+ <p>Authorization: apikey='1c9fk3u35ldcefgw'</p>
+ <p>Try ut out with curl (Linux/Mac):</p>
+ <p>curl -i -H "Accept: application/json" -H "Authorization: apikey='1c9fk3u35ldcefgw'" -H "Content-type: application/json" -X POST -d '{"id":"2","identifier":"e4fa63c2662a4bd380e42a21699826a8"}' http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/add/favorite/drink/1</p>
+ <br>
+ <br>
+ <p>Sending a json object as such: {"id":"2","identifier":"e4fa63c2662a4bd380e42a21699826a8"} to http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/remove/favorite/drink/1</p>
+ <p>With drink id as url parameter, if the drink is removed and login with identifier is successful. 200 is returned (with message). If server error then 500 is returned. Else it will return 400 = bad request.</p>
+ <p>Header should be set to:</p>
+ <p>Method = POST</p>
+ <p>Accept: application/json</p>
+ <p>Authorization: apikey='1c9fk3u35ldcefgw'</p>
+ <p>Try ut out with curl (Linux/Mac):</p>
+ <p>curl -i -H "Accept: application/json" -H "Authorization: apikey='1c9fk3u35ldcefgw'" -H "Content-type: application/json" -X POST -d '{"id":"2","identifier":"e4fa63c2662a4bd380e42a21699826a8"}' http://dev2-vyh.softwerk.se:8080/bottomAppServer/json/users/remove/favorite/drink/1</p>
  <br>
  <br>
  <p>More will come :)</p>
