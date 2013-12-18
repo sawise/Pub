@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 
 public class Welcome extends Fragment {
 
@@ -18,16 +20,15 @@ public class Welcome extends Fragment {
         View rootView = inflater.inflate(R.layout.welcome, container, false);
 
 
-        SharedPreferences sharedPreferences = PreferenceManager
-                .getDefaultSharedPreferences(this.getActivity());
 
-        boolean checkBoxValue = sharedPreferences.getBoolean("CheckBox_Value", false);
-        String name = sharedPreferences.getString("storedName", "YourName");
 
 
 
         return rootView;
     }
+
+
+
 
 
 }

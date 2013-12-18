@@ -1,6 +1,8 @@
 package com.group2.bottomapp;
 
 import android.content.ClipData;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -76,7 +78,7 @@ public class Drink extends Fragment implements View.OnClickListener {
         blinkanimation.setRepeatCount(3); // Repeat animation infinitely
         blinkanimation.setRepeatMode(Animation.REVERSE);
 
-
+        SharedPreferences prefs = this.getActivity().getPreferences(Context.MODE_PRIVATE);
         likeImage.setOnClickListener(this);
         dislikeImage.setOnClickListener(this);
 
@@ -132,7 +134,6 @@ public class Drink extends Fragment implements View.OnClickListener {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
         inflater.inflate(R.menu.drinkmenu, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
