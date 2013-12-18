@@ -20,7 +20,7 @@ import java.util.List;
 
 public class LiquorListAdapter extends BaseExpandableListAdapter {
 
-    public static List<String> allIngredients;
+    public static List<Ingredient> allIngredients;
     private Activity context;
     private HashMap<String, ArrayList<Ingredient>> ingredients;
     private ArrayList<Categories> categories;
@@ -32,11 +32,11 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
 
         ingredients = new LinkedHashMap<String, ArrayList<Ingredient>>();
 
-        allIngredients = new ArrayList<String>();
+        allIngredients = new ArrayList<Ingredient>();
 
 
         for(Ingredient ingredient : APIManager.getAllIngredients()) {
-            allIngredients.add(ingredient.getName());
+            allIngredients.add(ingredient);
 
         }
         for(Categories c : categories){

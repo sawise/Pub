@@ -20,7 +20,7 @@ public class Search extends Activity implements SearchView.OnQueryTextListener {
     private SearchView mSearchView;
     private ListView mListView;
 
-    List<String> mStrings = LiquorListAdapter.allIngredients;
+    List<Ingredient> mStrings = LiquorListAdapter.allIngredients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,20 +31,11 @@ public class Search extends Activity implements SearchView.OnQueryTextListener {
 
         mSearchView = (SearchView) findViewById(R.id.search_view);
         mListView = (ListView) findViewById(R.id.list_view);
-        mListView.setAdapter(new ArrayAdapter<String>(this,
+        mListView.setAdapter(new ArrayAdapter<Ingredient>(this,
                 android.R.layout.simple_list_item_1,
                 mStrings));
         mListView.setTextFilterEnabled(true);
-        Comparator<String> ALPHABETICAL_ORDER1 = new Comparator<String>()
-        {
-            public int compare(String object1, String object2)
-            {
-                int res = String.CASE_INSENSITIVE_ORDER.compare(object1.toString(), object2.toString());
-                return res;
-            }
-        };
 
-        Collections.sort(mStrings, ALPHABETICAL_ORDER1);
         setupSearchView();
     }
 
