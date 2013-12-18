@@ -37,10 +37,12 @@ public class Cocktail {
         this.ratingUp = ratingUp;
         this.ratingDown = ratingDown;
 
-        int test = MainActivity.getAppContext().getResources().getIdentifier("cocktails/" + name.replace(" ", "_").replace("/", "").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+
+        String filename = name.replace(" ", "_").replace("/", "").toLowerCase();
+        int test = MainActivity.getAppContext().getResources().getIdentifier(filename,"drawable",MainActivity.getAppContext().getPackageName());
         if (test != 0) {
             //Personlig bild finns
-            imageResourceId = MainActivity.getAppContext().getResources().getIdentifier("cocktails/" + name.replace(" ", "_").replace("/","").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+            imageResourceId = test;
         } else {
             imageResourceId = R.drawable.ic_launcher;
         }
