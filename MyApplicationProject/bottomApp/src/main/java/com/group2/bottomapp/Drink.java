@@ -160,7 +160,7 @@ public class Drink extends Fragment implements View.OnClickListener {
                 return true;
             case R.id.starInMenu:
                 if(!favorite){
-
+                    favMenu.setIcon(getResources().getDrawable(R.drawable.menustaryellow));
                     APIManager.addFavoriteToAccount(id);
                     favorite = true;
                 } else {
