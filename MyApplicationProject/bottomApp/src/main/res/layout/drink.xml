@@ -61,34 +61,23 @@
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal">
 
-
             <ImageView
                 android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/like"
+                android:src="@drawable/thumbup"
                 android:id="@+id/like"
                 />
 
             <ImageView
                 android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_marginTop="10dp"
                 android:paddingLeft="10dp"
-                android:src="@drawable/dislike"
+                android:src="@drawable/thumbdown"
                 android:id="@+id/dislike"/>
-
-            <ImageView
-                android:clickable="true"
-                android:layout_width="35dp"
-                android:layout_height="25dp"
-                android:layout_marginTop="10dp"
-                android:paddingLeft="10dp"
-                android:src="@drawable/starwhite"
-                android:id="@+id/starwhite"
-               />
 
 
         </LinearLayout>

@@ -48,7 +48,7 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
     private boolean stopRetrying = false;
 
     private ProgressDialog progress;
-    ArrayList<Categories> categories;
+    private ArrayList<Categories> categories;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -204,10 +204,11 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
                         public void run() {
 
                             Log.i("retry...", "no =)");
+
                             categories = APIManager.getCategories();
                             adapter = new CustomGridViewAdapter(getActivity(), R.layout.row_grid, gridArray);
-
                             if (!categories.isEmpty()) {
+                                gridArray.clear();
                                 ArrayList<Ingredient> ingredientsinCat = APIManager.getIngredientsByUser(HelperClass.User.userId);
                                 for(Categories cat : categories){
                                     for(Ingredient ingIncat : ingredientsinCat){

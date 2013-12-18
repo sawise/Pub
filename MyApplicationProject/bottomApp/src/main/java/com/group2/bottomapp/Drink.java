@@ -1,5 +1,6 @@
 package com.group2.bottomapp;
 
+import android.content.ClipData;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,13 +30,15 @@ public class Drink extends Fragment implements View.OnClickListener {
     private String drinkInstructions;
     private ImageView likeImage;
     private ImageView dislikeImage;
-    private ImageView starwhite;
+    
     private boolean favorite = false;
 
     private TextView tvDrinkName;
     private TextView tvDrinkIngredients;
     private TextView tvDrinkInstructions;
     private ImageView ivDrinkImage;
+
+    private MenuItem favMenu;
 
     AlphaAnimation  blinkanimation;
 
@@ -63,7 +66,8 @@ public class Drink extends Fragment implements View.OnClickListener {
 
         likeImage = (ImageView) rootView.findViewById(R.id.like);
         dislikeImage = (ImageView) rootView.findViewById(R.id.dislike);
-        starwhite = (ImageView) rootView.findViewById(R.id.starwhite);
+
+
 
         blinkanimation= new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
         blinkanimation.setDuration(300); // duration - half a second
@@ -74,7 +78,7 @@ public class Drink extends Fragment implements View.OnClickListener {
 
         likeImage.setOnClickListener(this);
         dislikeImage.setOnClickListener(this);
-        starwhite.setOnClickListener(this);
+
 
         initDrink(id);
         setHasOptionsMenu(true);
@@ -105,18 +109,6 @@ public class Drink extends Fragment implements View.OnClickListener {
         }
         Log.i("Dislike", "");
     }
-    else if (v == starwhite) {
-        if(!favorite){
-            APIManager.addFavoriteToAccount(id);
-            favorite = true;
-            starwhite.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
-            starwhite.startAnimation(blinkanimation);
-        } else {
-            favorite = false;
-            APIManager.removeFavoriteToAccount(id);
-            starwhite.setImageDrawable(getResources().getDrawable(R.drawable.starwhite));
-        }
-    }
 }
 
 
@@ -125,15 +117,9 @@ public class Drink extends Fragment implements View.OnClickListener {
         cocktail = APIManager.getDrinkWithID(id);
 
         if(cocktail != null){
-            ArrayList<Cocktail> drinksInFavorite = APIManager.getCocktailByFavorite(HelperClass.User.userId);
 
-            for(Cocktail fav : drinksInFavorite){
-                if(fav.getId() == id){
-                    favorite = true;
-                    starwhite.setImageDrawable(getResources().getDrawable(R.drawable.staryellow));
-                    break;
-                }
-            }
+
+
 
             Drawable image = getResources().getDrawable(R.drawable.ic_launcher);
             ivDrinkImage.setImageDrawable(image);
@@ -148,8 +134,21 @@ public class Drink extends Fragment implements View.OnClickListener {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
         inflater.inflate(R.menu.drinkmenu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+
+        favMenu = (MenuItem) menu.findItem(R.id.starInMenu);
+
+        ArrayList<Cocktail> drinksInFavorite = APIManager.getCocktailByFavorite(HelperClass.User.userId);
+        for(Cocktail fav : drinksInFavorite){
+            if(fav.getId() == id){
+                favorite = true;
+                favMenu.setIcon(getResources().getDrawable(R.drawable.menustaryellow));
+                break;
+            }
+        }
+
     }
 
     @Override
@@ -161,6 +160,17 @@ public class Drink extends Fragment implements View.OnClickListener {
             case R.id.oz:
                 tvDrinkIngredients.setText(cocktail.getIngredientString("oz"));
                 return true;
+            case R.id.starInMenu:
+                if(!favorite){
+
+                    APIManager.addFavoriteToAccount(id);
+                    favorite = true;
+                } else {
+                    favorite = false;
+                    favMenu.setIcon(getResources().getDrawable(R.drawable.menustarwhite));
+                    APIManager.removeFavoriteToAccount(id);
+
+                }
             default:
                 break;
         }
