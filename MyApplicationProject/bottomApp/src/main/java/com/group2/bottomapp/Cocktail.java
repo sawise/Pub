@@ -44,7 +44,7 @@ public class Cocktail {
             //Personlig bild finns
             imageResourceId = test;
         } else {
-            imageResourceId = R.drawable.ic_non;
+            imageResourceId = R.drawable.ic_launcher;
         }
     }
 
