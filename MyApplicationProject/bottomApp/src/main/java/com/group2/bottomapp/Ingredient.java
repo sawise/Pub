@@ -18,10 +18,10 @@ public class Ingredient {
         this.name = name;
         this.measurement = measurement;
 
-        int test = MainActivity.getAppContext().getResources().getIdentifier(name.replace(" ", "_").replace("/", "").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+        int test = MainActivity.getAppContext().getResources().getIdentifier("ingredients/" + name.replace(" ", "_").replace("/", "").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
         if (test != 0) {
             //Personlig bild finns
-            imageResourceId = MainActivity.getAppContext().getResources().getIdentifier(name.replace(" ", "_").replace("/","").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
+            imageResourceId = MainActivity.getAppContext().getResources().getIdentifier("ingredients/" + name.replace(" ", "_").replace("/","").toLowerCase(),"drawable",MainActivity.getAppContext().getPackageName());
         } else {
             imageResourceId = R.drawable.ic_launcher;
         }
