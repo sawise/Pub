@@ -5,8 +5,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.group2.bottomapp.APIManager;
 import com.group2.bottomapp.HelperClass;
 import com.group2.bottomapp.MainActivity;
+import com.group2.bottomapp.addToCabinet;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -15,15 +17,12 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class JsonAddIngredient extends AsyncTask<String, Void, String> {
-
-    //Context context;
-
-    public JsonAddIngredient(){
-        //context = MainActivity.getAppContext();
-    }
 
     @Override
     protected String doInBackground(String... urls) {
@@ -60,16 +59,18 @@ public class JsonAddIngredient extends AsyncTask<String, Void, String> {
             HttpResponse httpResponse = httpclient.execute(httpPost);
 
             inputStream = httpResponse.getEntity().getContent();
+            String message = convertInputStreamToString(inputStream);
+            Log.d("tjafs", message);
 
             int statusCode = httpResponse.getStatusLine().getStatusCode();
 
             if(statusCode == 200){
                 Log.d("com.group2", "Lyckades ladda upp ingredient");
-                //Toast.makeText(context, "Added " + "to cabinet", 1000).show();
+                addToCabinet.loadStatus = "done";
                 return "true";
             } else if(statusCode == 400 || statusCode == 401 || statusCode == 404 || statusCode == 500){
                 Log.d("com.group2", "Misslyckades med att ladda upp ingredient, felkod: " + statusCode + " identifier: " + HelperClass.User.userIdentifier);
-                //Toast.makeText(context, "Failed to add " + "to cabinet", 1000).show();
+                addToCabinet.loadStatus = "fail";
                 return "false";
             }
 
@@ -82,5 +83,17 @@ public class JsonAddIngredient extends AsyncTask<String, Void, String> {
         }
 
         return result;
+    }
+
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        return result;
+
     }
 }

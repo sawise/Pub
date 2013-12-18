@@ -1,6 +1,7 @@
 package com.group2.bottomapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -76,7 +78,43 @@ public class LiquorListAdapter extends BaseExpandableListAdapter {
                 Ingredient ing = ingredients.get(categories.get(groupPosition).getName()).get(childPosition);
                 //CabinetManager.AddIngredient(getGroup(groupPosition) + ", " + ingredientName);
                 APIManager.addIngredientToAccount(ing.getId());
-
+                addToCabinet.handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        final ProgressDialog progDialog = ProgressDialog.show(MainActivity.getActivity(), "Loading",
+                                "Please wait...", true);
+                        new Thread() {
+                            public void run() {
+                                while(!(addToCabinet.loadStatus == "done" || addToCabinet.loadStatus == "fail")){
+                                    try {
+                                        sleep(200);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                                progDialog.dismiss();
+                                Log.d("tjafs", addToCabinet.loadStatus);
+                                if(addToCabinet.loadStatus == "done"){
+                                    addToCabinet.handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(MainActivity.getAppContext(), "Ingredient was added to cabinet", 1000).show();
+                                            addToCabinet.loadStatus = "";
+                                        }
+                                    });
+                                } else if(addToCabinet.loadStatus == "fail"){
+                                    addToCabinet.handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(MainActivity.getAppContext(), "Failed to add ingredient to cabinet\nMaybe you already have the ingredient?", 1000).show();
+                                            addToCabinet.loadStatus = "";
+                                        }
+                                    });
+                                }
+                            }
+                        }.start();
+                    }
+                });
             }
         });
 
