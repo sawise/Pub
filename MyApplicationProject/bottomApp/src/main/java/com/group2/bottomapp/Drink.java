@@ -92,21 +92,21 @@ public class Drink extends Fragment implements View.OnClickListener {
 
     if (v == likeImage){
         Connection connThread = new Connection(getActivity().getApplicationContext(), id);
-        ImageView imageView = (ImageView) v;
-        imageView.setVisibility(View.INVISIBLE);
 
         if(connThread.isConnected() != false){
             connThread.PutJsonUp();
+            likeImage.setImageResource(R.drawable.thumbupblack);
+            likeImage.setEnabled(false);
         }
         Log.i("Like", "");
     }
     else if (v == dislikeImage){
            Connection connThread = new Connection(getActivity().getApplicationContext(), id);
-        ImageView imageView = (ImageView) v;
-        imageView.setVisibility(View.INVISIBLE);
 
         if (connThread.isConnected() != false){
             connThread.PutJsonDown();
+            dislikeImage.setImageResource(R.drawable.thumbdownblack);
+            dislikeImage.setEnabled(false);
         }
         Log.i("Dislike", "");
     }
@@ -167,7 +167,6 @@ public class Drink extends Fragment implements View.OnClickListener {
                     favorite = false;
                     favMenu.setIcon(getResources().getDrawable(R.drawable.menustarwhite));
                     APIManager.removeFavoriteToAccount(id);
-
                 }
             default:
                 break;
