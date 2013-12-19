@@ -80,7 +80,7 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return name;
+        return name.toLowerCase();
     }
 
 }
