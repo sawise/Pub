@@ -24,7 +24,7 @@ public class Ingredient {
             //Personlig bild finns
             imageResourceId = test;
         } else {
-            imageResourceId = R.drawable.ic_launcher;
+            imageResourceId = R.drawable.ic_non;
         }
     }
 
