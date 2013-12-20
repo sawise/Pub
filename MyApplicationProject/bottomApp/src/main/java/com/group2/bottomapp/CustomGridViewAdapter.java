@@ -177,7 +177,7 @@ public class CustomGridViewAdapter extends ArrayAdapter<Ingredient> {
         protected Bitmap doInBackground(Integer... params) {
             data = params[0];
             final Bitmap bitmap = decodeSampledBitmapFromResource(
-                    context.getResources(), data, 50, 50);
+                    context.getResources(), data, 100, 100);
             addBitmapToMemoryCache(String.valueOf(params[0]), bitmap);
             return bitmap;
         }
