@@ -39,14 +39,7 @@
         </TextView>
 
     </LinearLayout>
-    <TextView
-        android:id="@+id/rowCatname"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left|top"
-        android:text="V"
-        android:textSize="10dp"/>
+    
 
 
 </RelativeLayout>

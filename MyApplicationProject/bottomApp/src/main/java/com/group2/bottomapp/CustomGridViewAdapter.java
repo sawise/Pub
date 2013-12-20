@@ -43,7 +43,6 @@ public class CustomGridViewAdapter extends ArrayAdapter<Ingredient> {
             holder = new RecordHolder();
             holder.txtTitle = (TextView) row.findViewById(R.id.item_text);
             holder.imageItem = (ImageView) row.findViewById(R.id.item_image);
-            holder.txtCategory = (TextView) row.findViewById(R.id.rowCatname);
             holder.drinkID = (TextView) row.findViewById(R.id.rowDrinkID);
             row.setTag(holder);
 
@@ -51,20 +50,11 @@ public class CustomGridViewAdapter extends ArrayAdapter<Ingredient> {
             holder = (RecordHolder) row.getTag();
         }
         Ingredient item = data.get(position);
-        String catName;
-        if(item.getCategoryName().contains("/")){
-            String[] catSplit = item.getCategoryName().split("/");
-            String split1 = catSplit[0];
-            String split2 = catSplit[1];
-            catName = split1+"\r\n"+split2;
-        } else{
-            catName = item.getCategoryName();
-        }
+
 
         String id = Integer.toString(item.getId());
 
         holder.drinkID.setText(id);
-        holder.txtCategory.setText(catName);//Character.toString(catName));
         holder.txtTitle.setText(item.getName());
 
         holder.imageItem.setImageResource(item.imageResourceId);
@@ -76,7 +66,6 @@ public class CustomGridViewAdapter extends ArrayAdapter<Ingredient> {
     static class RecordHolder {
         TextView txtTitle;
         ImageView imageItem;
-        TextView txtCategory;
         TextView drinkID;
     }
 

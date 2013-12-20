@@ -78,14 +78,6 @@ public class DrinksCabinett extends Fragment implements View.OnClickListener, Gr
 
         ArrayList<Ingredient> ingredientsinCat = APIManager.getIngredientsByUser(HelperClass.User.userId);
         if(!ingredientsinCat.isEmpty()) {
-            gridArray.clear();
-            Collections.sort(ingredientsinCat, new Comparator<Ingredient>() {
-                @Override
-                public int compare(Ingredient ingredient, Ingredient ingredient2) {
-                    Log.i("compare", ingredient.getCategoryID()+"<->"+ingredient2.getCategoryID());
-                    return ingredient.getCategoryID();
-                }
-            });
             for(Categories cat : categories){
                 for(Ingredient ingIncat : ingredientsinCat){
                     if(cat.getId() == ingIncat.getCategoryID()){
