@@ -16,7 +16,7 @@
             android:layout_marginTop="10dp"
             android:layout_height="50dp"
             android:layout_width="50dp"
-            android:src="@drawable/bottle_threee"/>
+            android:src="@drawable/ic_non"/>
 
         <TextView
             android:id="@+id/ingredient_name"

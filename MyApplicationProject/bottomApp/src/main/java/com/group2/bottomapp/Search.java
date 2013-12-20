@@ -1,6 +1,7 @@
 package com.group2.bottomapp;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -41,9 +42,7 @@ public class Search extends Activity implements SearchView.OnQueryTextListener {
         registerForContextMenu(mListView);
 
         setupSearchView();
-
     }
-
 
     private void setupSearchView() {
         mSearchView.setIconifiedByDefault(false);
