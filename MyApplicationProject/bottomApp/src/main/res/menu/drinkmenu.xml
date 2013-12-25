@@ -9,8 +9,9 @@
         android:showAsAction="always" />
     <item android:id="@+id/starInMenu"
         android:orderInCategory="100"
-
         android:icon="@drawable/menustarwhite"
-        android:showAsAction="always"/>
+        android:showAsAction="always">
+        </item>
+
     
 </menu>

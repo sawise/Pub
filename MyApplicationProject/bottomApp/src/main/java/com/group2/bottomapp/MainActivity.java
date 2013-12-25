@@ -31,7 +31,7 @@ public class MainActivity extends FragmentActivity {
     final String[] fragments = {
             "com.group2.bottomapp.Welcome",
             //"com.group2.bottomapp.SectionedGridActivity",
-            "com.group2.bottomapp.DrinksCabinett",
+            "com.group2.bottomapp.DrinksCabinet",
             "com.group2.bottomapp.Drinks",
             "com.group2.bottomapp.Favorites",
             "com.group2.bottomapp.RandomDrink",

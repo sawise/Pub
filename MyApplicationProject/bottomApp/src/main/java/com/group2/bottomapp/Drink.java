@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 
 
@@ -35,6 +36,8 @@ public class Drink extends Fragment implements View.OnClickListener {
 
     private boolean favorite = false;
 
+
+    private int tries = 0;
 
     private TextView tvDrinkName;
     private TextView tvDrinkIngredients;
@@ -107,13 +110,10 @@ public class Drink extends Fragment implements View.OnClickListener {
 
 
     public void initDrink(int id){
-
         cocktail = APIManager.getDrinkWithID(id);
 
         if(cocktail != null){
-
             ivDrinkImage.setImageResource(cocktail.imageResourceId);
-
             tvDrinkName.setText(cocktail.getName());
             tvDrinkInstructions.setText(cocktail.getDescription());
             tvDrinkIngredients.setText(cocktail.getIngredientString("cl"));
@@ -127,7 +127,7 @@ public class Drink extends Fragment implements View.OnClickListener {
         inflater.inflate(R.menu.drinkmenu, menu);
         super.onCreateOptionsMenu(menu, inflater);
 
-        favMenu = (MenuItem) menu.findItem(R.id.starInMenu);
+        favMenu = menu.findItem(R.id.starInMenu);
 
         ArrayList<Cocktail> drinksInFavorite = APIManager.getCocktailByFavorite(HelperClass.User.userId);
         for(Cocktail fav : drinksInFavorite){
@@ -151,8 +151,10 @@ public class Drink extends Fragment implements View.OnClickListener {
                 return true;
             case R.id.starInMenu:
                 if(!favorite){
-                    favMenu.setIcon(getResources().getDrawable(R.drawable.menustaryellow));
                     APIManager.addFavoriteToAccount(id);
+                    favMenu.setIcon(getResources().getDrawable(R.drawable.menustaryellow));
+                    favMenu.setIcon(getResources().getDrawable(R.drawable.menustarnone));
+                    favMenu.setIcon(getResources().getDrawable(R.drawable.menustaryellow));
                     favorite = true;
                 } else {
                     favorite = false;
@@ -164,4 +166,6 @@ public class Drink extends Fragment implements View.OnClickListener {
         }
         return false;
     }
+
+
 }

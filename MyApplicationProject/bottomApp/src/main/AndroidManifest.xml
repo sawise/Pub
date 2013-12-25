@@ -63,7 +63,7 @@
             android:label="@string/app_name" />
 
         <activity
-            android:name="com.group2.bottomapp.DrinksCabinett"
+            android:name=".DrinksCabinet"
             android:label="@string/title_activity_drinks_cabinett" >
         </activity>
     </application>
