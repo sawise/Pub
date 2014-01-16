@@ -41,7 +41,7 @@ public class MainActivity extends FragmentActivity {
     private int currentPos;
     private int oldPos;
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +83,7 @@ public class MainActivity extends FragmentActivity {
 
         navList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int pos, long id) {
                 currentPos = pos;
