@@ -42,6 +42,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
     private ProgressDialog progress;
     private ArrayList<Categories> categories;
+    private ArrayList<Ingredient> ingredientsinCat;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,30 +64,34 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
         progress.setMessage("Please wait...");
         progress.show();
 
-        categories = APIManager.getCategories();
+        drinkGridView.setOnItemClickListener(this);
 
         String catStr = "";
-        adapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
-        drinkGridView.setAdapter(adapter);
 
-        ArrayList<Ingredient> ingredientsinCat = APIManager.getIngredientsByUser(HelperClass.User.userId);
+        //categories = APIManager.getCategories();
+        ingredientsinCat = APIManager.getIngredientsByUser(HelperClass.User.userId);
         if(!ingredientsinCat.isEmpty()) {
-            for(Categories cat : categories){
+            adapter = new CustomGridViewAdapter(this.getActivity(), R.layout.row_grid, gridArray);
+            //for(Categories cat : categories){
+
+            Log.i("cabinett no refresh", "yay!");
                 for(Ingredient ingIncat : ingredientsinCat){
-                    if(cat.getId() == ingIncat.getCategoryID()){
+                    //if(cat.getId() == ingIncat.getCategoryID()){
+                        Log.i("cabinett no refresh", ingIncat.getName());
                         Ingredient ingtoAdd = new Ingredient(ingIncat.getId(), ingIncat.getName(), ingIncat.getMeasurement());
                         ingtoAdd.setCategoryName(ingIncat.getCategoryName());
                         ingtoAdd.setCategoryID(ingIncat.getCategoryID());
                         gridArray.add(ingtoAdd);
-                    }
+                    //}
                 }
-            }
+            //}
+            drinkGridView.setAdapter(adapter);
             progress.dismiss();
         } else {
             startRefreshThread();
         }
 
-        drinkGridView.setOnItemClickListener(this);
+
         return rootView;
     }
 
@@ -184,21 +189,22 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
 
                             Log.i("retry...", "no =)");
 
-                            categories = APIManager.getCategories();
-                            adapter = new CustomGridViewAdapter(getActivity(), R.layout.row_grid, gridArray);
-                            if (!categories.isEmpty()) {
-                                gridArray.clear();
-                                ArrayList<Ingredient> ingredientsinCat = APIManager.getIngredientsByUser(HelperClass.User.userId);
-                                for(Categories cat : categories){
+                            //categories = APIManager.getCategories();
+                            ingredientsinCat = APIManager.getIngredientsByUser(HelperClass.User.userId);
+
+                            if (!ingredientsinCat.isEmpty()) {
+                                //gridArray.clear();
+                                adapter = new CustomGridViewAdapter(getActivity(), R.layout.row_grid, gridArray);
+                                //for(Categories cat : categories){
                                     for(Ingredient ingIncat : ingredientsinCat){
-                                        if(cat.getId() == ingIncat.getCategoryID()){
+                                        //if(cat.getId() == ingIncat.getCategoryID()){
                                             Ingredient ingtoAdd = new Ingredient(ingIncat.getId(), ingIncat.getName(), ingIncat.getMeasurement());
                                             ingtoAdd.setCategoryName(ingIncat.getCategoryName());
                                             ingtoAdd.setCategoryID(ingIncat.getCategoryID());
                                             gridArray.add(ingtoAdd);
-                                        }
+                                        //}
                                     }
-                                }
+                                //}
                                 drinkGridView.setAdapter(adapter);
                                 progress.dismiss();
                             } else {
@@ -211,7 +217,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
                             }
                         }
                     });
-                } while (categories.isEmpty() && !stopRetrying);
+                } while (ingredientsinCat.isEmpty() && !stopRetrying);
             }
         };
         new Thread(runnable).start();
