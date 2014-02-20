@@ -21,7 +21,7 @@ public class AvailableFavoriteDrinkListAdapter extends BaseAdapter {
 
     public AvailableFavoriteDrinkListAdapter(Context context, View.OnClickListener clicklistener, int userID){
         this.context = context;
-        this.cocktails = (ArrayList) APIManager.getCocktailByFavorite(userID);
+        this.cocktails = APIManager.getCocktailByFavorite(userID);
         this.clicklistener = clicklistener;
     }
 

@@ -76,11 +76,11 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             Log.i("cabinett no refresh", "yay!");
                 for(Ingredient ingIncat : ingredientsinCat){
                     //if(cat.getId() == ingIncat.getCategoryID()){
-                        Log.i("cabinett no refresh", ingIncat.getName());
+
                         Ingredient ingtoAdd = new Ingredient(ingIncat.getId(), ingIncat.getName(), ingIncat.getMeasurement());
                         ingtoAdd.setCategoryName(ingIncat.getCategoryName());
                         ingtoAdd.setCategoryID(ingIncat.getCategoryID());
-                        gridArray.add(ingtoAdd);
+                    adapter.add(ingtoAdd);
                     //}
                 }
             //}
@@ -178,7 +178,7 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
             public void run() {
                 do {
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(1000);
                     }
                     catch (InterruptedException e) {
                         e.printStackTrace();
@@ -186,28 +186,31 @@ public class DrinksCabinet extends Fragment implements View.OnClickListener, Gri
                     handler.post(new Runnable() {
                         public void run() {
 
-                            Log.i("retry...", "no =)");
+                            Log.i("retry...", "yees");
+                            Log.i("cabinett refresh", "boooooo :(");
 
                             //categories = APIManager.getCategories();
                             ingredientsinCat = APIManager.getIngredientsByUser(HelperClass.User.userId);
 
                             if (!ingredientsinCat.isEmpty()) {
                                 //gridArray.clear();
+                                Log.i("cabinett refresh", "FINALLY!!");
                                 adapter = new CustomGridViewAdapter(getActivity(), R.layout.row_grid, gridArray);
                                 //for(Categories cat : categories){
                                     for(Ingredient ingIncat : ingredientsinCat){
                                         //if(cat.getId() == ingIncat.getCategoryID()){
+                                        Log.i("cabinett refresh final", ingIncat.getName());
                                             Ingredient ingtoAdd = new Ingredient(ingIncat.getId(), ingIncat.getName(), ingIncat.getMeasurement());
                                             ingtoAdd.setCategoryName(ingIncat.getCategoryName());
                                             ingtoAdd.setCategoryID(ingIncat.getCategoryID());
-                                            gridArray.add(ingtoAdd);
+                                            adapter.add(ingtoAdd);
                                         //}
                                     }
                                 //}
                                 drinkGridView.setAdapter(adapter);
                                 progress.dismiss();
                             } else {
-                                Log.i("retry...", "yes o.O");
+                                Log.i("cabinett refresh", retries+"");
                                 retries++;
                                 if(retries < allowedRetries){
                                     stopRetrying = true;

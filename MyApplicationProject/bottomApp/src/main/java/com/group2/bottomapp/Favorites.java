@@ -47,7 +47,6 @@ public class Favorites extends Fragment implements View.OnClickListener, GridVie
         cabinet = (TextView)rootView.findViewById(R.id.txtFavorite);
     drinkList = (ListView)rootView.findViewById(R.id.favoriteDrinkListInside);
 
-    cabinet.setTextColor(getResources().getColor(R.color.ColorWhite));
 
     if(HelperClass.User.userName.endsWith("s")){
         cabinet.setText(HelperClass.User.userName + " " + "Favorites");

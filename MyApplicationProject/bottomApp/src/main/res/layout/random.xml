@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    android:background="@drawable/background"
+    android:gravity="center">
+
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
@@ -18,11 +16,7 @@
             android:freezesText="true"
             android:layout_weight="1"
             android:textColor="#000"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:gravity="center"
-            android:orientation="vertical">
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -40,23 +34,16 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:padding="25dp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center|bottom"
-            android:orientation="vertical">
+
 
             <Button
                 android:id="@+id/btnNewRandom"
                 android:layout_width="fill_parent"
                 android:layout_height="70dp"
-                android:layout_alignParentBottom="true"
                 android:text="No Thanks, I Want Another"
                 android:textColor="#fff"
+                android:layout_gravity="bottom"
                 android:background="@drawable/btn"
-                android:layout_marginTop="40dp"/>
+                android:layout_marginTop="1dp"/>
 
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>
