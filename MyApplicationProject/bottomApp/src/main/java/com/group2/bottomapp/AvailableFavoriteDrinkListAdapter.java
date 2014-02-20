@@ -1,7 +1,6 @@
 package com.group2.bottomapp;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +53,7 @@ public class AvailableFavoriteDrinkListAdapter extends BaseAdapter {
         ivDrinkImage.setImageResource(cocktails.get(i).imageResourceId);
 
         tvDrinkName.setText(cocktails.get(i).getName());
+        tvDrinkName.setTextColor(context.getResources().getColor(R.color.ColorBlack));
 
         view.setTag(cocktails.get(i).getId());
         view.setOnClickListener(clicklistener);

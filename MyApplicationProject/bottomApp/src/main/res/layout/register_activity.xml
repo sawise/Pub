@@ -18,12 +18,16 @@
             <!-- Full Name Label -->
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
+                android:textColor="#000"
+                android:textSize="20dp"
                 android:text="Name"
                 android:id="@+id/nameText"/>
             <EditText android:id="@+id/reg_name"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:paddingLeft="5dp"
+                android:textColorHint="#000"
+                android:background="@drawable/txt_bg"
                 android:layout_marginTop="5dp"
                 android:singleLine="true"
                 android:hint="2-11 chars"
@@ -31,12 +35,16 @@
             <!--  Email Label -->
             <TextView android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:id="@+id/emailText"
+                android:textSize="20dp"
                 android:text="Email"/>
             <EditText android:id="@+id/reg_email"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:paddingLeft="5dp"
+                android:textColorHint="#000"
+                android:background="@drawable/txt_bg"
                 android:layout_marginTop="5dp"
                 android:hint="example@example.com"
                 android:singleLine="true"
@@ -44,12 +52,16 @@
             <!-- Password Label -->
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:id="@+id/passText"
+                android:textSize="20dp"
                 android:text="Password"/>
             <EditText android:id="@+id/reg_password"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:paddingLeft="5dp"
+                android:textColorHint="#000"
+                android:background="@drawable/txt_bg"
                 android:password="true"
                 android:singleLine="true"
                 android:hint="5-15 chars"
@@ -58,7 +70,8 @@
             <Button android:id="@+id/btnRegister"
                 android:layout_width="fill_parent"
                 android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/btn"
                 android:textColor="#fff"
                 android:textSize="25dp"
                 android:text="Register New Account"/>
@@ -67,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Already got an Account?"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:gravity="center"
                 android:textSize="20dp"
                 android:layout_marginTop="40dp"/>
@@ -80,6 +93,7 @@
                 android:text="Login here"
                 android:gravity="center"
                 android:textSize="25dp"
+                android:background="@drawable/btn"
                 android:textColor="#fff"/>
 
         </LinearLayout>

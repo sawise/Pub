@@ -13,12 +13,11 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:text="Random Cocktail"
-            android:textSize="25dp"
+            android:textSize="40dp"
             android:gravity="center"
             android:freezesText="true"
             android:layout_weight="1"
-            android:textColor="#fff"
-            android:layout_marginTop="20dp"/>
+            android:textColor="#000"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="400dp"
@@ -31,8 +30,8 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Can't find cocktail"
                 android:id="@+id/tvDrinkName"
-                android:textColor="#FFFFFF"
-                android:layout_marginTop="60dp"/>
+                android:textColor="#000"
+                android:layout_marginTop="40dp"/>
 
             <ImageView
                 android:layout_width="200dp"
@@ -55,6 +54,7 @@
                 android:layout_alignParentBottom="true"
                 android:text="No Thanks, I Want Another"
                 android:textColor="#fff"
+                android:background="@drawable/btn"
                 android:layout_marginTop="40dp"/>
 
         </LinearLayout>

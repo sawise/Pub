@@ -29,7 +29,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/ivDrinkImage"
                 android:padding="25dp"
-                android:textColor="#fff"/>
+                android:textColor="#000"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -40,7 +40,7 @@
                 android:layout_below="@+id/tvDrinkName"
                 android:layout_centerHorizontal="true"
                 android:padding="10dp"
-                android:textColor="#fff"/>
+                android:textColor="#000"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:layout_below="@+id/tvDrinkIngredients"
                 android:layout_centerHorizontal="true"
                 android:padding="10dp"
-                android:textColor="#fff"/>
+                android:textColor="#000"/>
         </RelativeLayout>
 
         <LinearLayout
