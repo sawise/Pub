@@ -21,18 +21,22 @@
                 android:textSize="25dp"
                 android:text="Welcome to bottomApp"
                 android:gravity="top|center"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:layout_marginBottom="30dp"/>
 
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
+                android:textColor="#000"
+                android:textSize="20dp"
                 android:id="@+id/email"
                 android:text="Email"/>
 
             <EditText android:layout_width="fill_parent"
                 android:id="@+id/emailInput"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
+                android:paddingLeft="5dp"
+                android:textColorHint="#000"
+                android:background="@drawable/txt_bg"
                 android:layout_marginTop="5dp"
                 android:hint="enter your email"
                 android:layout_marginBottom="20dp"
@@ -40,23 +44,28 @@
 
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#fff"
+                android:textColor="#000"
+                android:textSize="20dp"
                 android:id="@+id/password"
                 android:text="Password"/>
             <EditText android:layout_width="fill_parent"
                 android:id="@+id/passwordInput"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dip"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
                 android:singleLine="true"
                 android:password="true"
                 android:hint="enter your password"
-                android:textColor="#fff"/>
+                android:paddingLeft="5dp"
+                android:textColorHint="#000"
+                android:background="@drawable/txt_bg"
+                android:textColor="#000"/>
             <!-- Login button -->
             <Button android:id="@+id/btnLogin"
                 android:layout_width="fill_parent"
                 android:layout_height="70dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="40dp"
                 android:text="Login"
+                android:background="@drawable/btn"
                 android:textColor="#fff"
                 android:textSize="25dp"/>
 
@@ -64,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="New User?"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:gravity="center"
                 android:textSize="20dp"
                 android:layout_marginTop="40dp"/>
@@ -77,12 +86,13 @@
                 android:text="Register here"
                 android:gravity="center"
                 android:textSize="25dp"
+                android:background="@drawable/btn"
                 android:textColor="#fff"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Or"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:gravity="center"
                 android:textSize="20dp"
                 android:id="@+id/of"/>
